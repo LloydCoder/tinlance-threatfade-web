@@ -1,3 +1,5 @@
+import type { Route } from "next";
+
 export const siteConfig = {
   name: "ThreatFade",
   legalName: "Tinlance Limited",
@@ -15,5 +17,5 @@ export const siteConfig = {
     { label: "Docs", href: "/docs" },
     { label: "Playground", href: "/playground" },
     { label: "Enterprise", href: "/enterprise" },
-  ],
+  ] satisfies ReadonlyArray<{ label: string; href: Route }>,
 } as const;
