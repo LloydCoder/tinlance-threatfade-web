@@ -15,17 +15,13 @@ export function SiteHeader() {
 
         <nav className="hidden items-center gap-7 lg:flex" aria-label="Primary navigation">
           {siteConfig.navigation.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className="text-sm text-white/58 transition hover:text-white"
-            >
+            <Link key={item.href} href={item.href} className="text-sm text-white/58 transition hover:text-white">
               {item.label}
             </Link>
           ))}
         </nav>
 
-        <Link
+        <a
           href={siteConfig.github}
           target="_blank"
           rel="noreferrer"
@@ -33,7 +29,7 @@ export function SiteHeader() {
         >
           GitHub
           <ArrowUpRight className="size-3.5 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-        </Link>
+        </a>
       </div>
     </header>
   );
