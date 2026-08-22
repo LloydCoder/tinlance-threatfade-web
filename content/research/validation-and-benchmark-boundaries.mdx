@@ -1,0 +1,48 @@
+---
+title: "Validation, benchmarks and the assurance boundary"
+description: "Why deterministic benchmarks, project validation and independent assurance must remain separate evidence classes."
+author: "ThreatFade Engineering"
+published: "2026-08-23"
+status: "validated"
+category: "Validation"
+tags:
+  - benchmarks
+  - validation
+  - assurance
+references:
+  - "ThreatFade engine README"
+---
+
+## Three different questions
+
+A research project should distinguish at least three questions:
+
+1. **Does the implementation behave as designed?**
+2. **Does it detect the evaluated scenarios under the documented conditions?**
+3. **How well does it generalize to independent, representative environments?**
+
+ThreatFade's repository evidence addresses the first two at different levels. It does not claim that passing repository tests proves the third.
+
+<ResearchStatus status="validated" />
+
+## Deterministic benchmarks
+
+The engine repository provides a benchmark command and explicitly separates deterministic benchmarking from real-PCAP validation. This makes benchmarks useful as reproducible engineering evidence without presenting them as universal detection accuracy.
+
+## Project validation
+
+The README records author-confirmed validation against Merlin QUIC C2, Cobalt Strike and IcedID and a documented 0% false-positive baseline across five normal traffic patterns and 100 test runs. These are project validation results under the documented evaluation conditions—not a universal false-positive guarantee.
+
+<ResearchStatus status="validated" />
+
+## Independent assurance
+
+The repository explicitly identifies independent labeled corpora, third-party penetration testing, purple-team exercises and customer-scale load testing as external assurance activities.
+
+<ResearchStatus status="planned" />
+
+That distinction is part of the product's credibility model: evidence should be published with its scope and limitations, not inflated into a broader claim.
+
+## References
+
+1. ThreatFade engine repository README — benchmarking, validation and assurance boundary.
