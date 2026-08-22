@@ -32,8 +32,10 @@ jobs:
           node-version: 22
           package-manager-cache: false
 
+      # The repository does not yet commit a package-lock.json, so npm ci is
+      # intentionally deferred until a lockfile is generated and reviewed.
       - name: Install dependencies
-        run: npm ci --no-audit --no-fund
+        run: npm install --no-audit --no-fund
 
       - name: Normalize formatting
         run: npm run format
