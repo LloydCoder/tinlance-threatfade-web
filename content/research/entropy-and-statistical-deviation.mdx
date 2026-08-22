@@ -1,0 +1,54 @@
+---
+title: "Entropy and statistical deviation in the detection pipeline"
+description: "How rolling Shannon entropy and statistical deviation participate in ThreatFade's evidence-first pipeline."
+author: "ThreatFade Engineering"
+published: "2026-08-23"
+status: "validated"
+category: "Detection science"
+tags:
+  - entropy
+  - statistics
+  - signal extraction
+references:
+  - "ThreatFade engine README"
+---
+
+## Signal extraction
+
+ThreatFade documents a hybrid encrypted/unencrypted signal extraction path followed by rolling Shannon entropy and statistical deviation. These features are used as evidence inputs to the detection pipeline.
+
+<ResearchStatus status="validated" />
+
+## Why entropy is not a verdict
+
+Entropy describes a property of an observed signal. A change in entropy can be meaningful, but the same numerical change can arise from many benign causes. ThreatFade therefore combines statistical deviation with detection rules and evidence rather than presenting entropy as a standalone malware classifier.
+
+```text
+observed signal
+      │
+      ▼
+feature extraction
+      │
+      ├── rolling entropy
+      └── statistical deviation
+              │
+              ▼
+        detection rules
+              │
+              ▼
+      confidence + evidence
+```
+
+<ResearchStatus status="synthetic" />
+
+The diagram above is a conceptual representation of the documented pipeline. It is not a benchmark result.
+
+## Evaluation boundary
+
+The repository includes deterministic benchmarking and robustness tests. Those tests are useful for regression and engineering validation, but they should not be confused with independent measurement on a representative labeled corpus.
+
+<ResearchStatus status="planned" />
+
+## References
+
+1. ThreatFade engine repository README — detection capabilities and pipeline.
