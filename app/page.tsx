@@ -30,11 +30,11 @@ export default function Home() {
               ThreatFade detects adversarial behavior that becomes intentionally less observable—using entropy analysis, statistical deviation, heuristic detection, confidence scoring and structured evidence.
             </p>
             <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-              <Link href={siteConfig.github} target="_blank" rel="noreferrer" className="group inline-flex items-center justify-center gap-2 rounded-md bg-[#b8ff5a] px-5 py-3 text-sm font-semibold text-[#071000] transition hover:bg-[#c8ff7d]">
+              <a href={siteConfig.github} target="_blank" rel="noreferrer" className="group inline-flex items-center justify-center gap-2 rounded-md bg-[#b8ff5a] px-5 py-3 text-sm font-semibold text-[#071000] transition hover:bg-[#c8ff7d]">
                 <Github className="size-4" />
                 View the engine
                 <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
-              </Link>
+              </a>
               <Link href="/playground" className="inline-flex items-center justify-center gap-2 rounded-md border border-white/12 px-5 py-3 text-sm font-semibold text-white transition hover:border-white/25 hover:bg-white/4">
                 Explore the signal
                 <Radar className="size-4 text-white/55" />
@@ -91,7 +91,7 @@ export default function Home() {
               <h2 className="mt-5 text-3xl font-semibold tracking-[-0.03em]">Inspect the implementation. Challenge the evidence.</h2>
               <p className="mt-4 text-sm leading-7 text-white/48 sm:text-base">ThreatFade is built to be examined: detection packs, benchmarks, security controls and interoperability are part of the public engineering surface.</p>
             </div>
-            <Link href={siteConfig.github} target="_blank" rel="noreferrer" className="mt-8 inline-flex shrink-0 items-center gap-2 rounded-md border border-white/12 px-5 py-3 text-sm font-semibold transition hover:border-[#b8ff5a]/40 hover:text-[#b8ff5a] lg:mt-0">Explore GitHub <ArrowRight className="size-4" /></Link>
+            <a href={siteConfig.github} target="_blank" rel="noreferrer" className="mt-8 inline-flex shrink-0 items-center gap-2 rounded-md border border-white/12 px-5 py-3 text-sm font-semibold transition hover:border-[#b8ff5a]/40 hover:text-[#b8ff5a] lg:mt-0">Explore GitHub <ArrowRight className="size-4" /></a>
           </div>
         </div>
       </section>
