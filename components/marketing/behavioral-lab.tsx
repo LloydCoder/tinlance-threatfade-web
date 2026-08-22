@@ -15,43 +15,5 @@ export function BehavioralLab() {
   const [scenario, setScenario] = useState<Scenario>("C2 quieting");
   const current = scenarios[scenario];
 
-  return (
-    <TfPanel raised className="overflow-hidden">
-      <div className="flex flex-col gap-4 border-b border-[var(--tf-line)] p-5 sm:flex-row sm:items-center sm:justify-between">
-        <div>
-          <TfLabel>Behavioral signal lab</TfLabel>
-          <p className="mt-2 text-sm text-[var(--tf-text-muted)]">Illustrative telemetry patterns grounded in supported ThreatFade scenarios. Not a live detection result.</p>
-        </div>
-        <TfBadge tone="signal">Research surface</TfBadge>
-      </div>
-      <div className="grid lg:grid-cols-[1fr_18rem]">
-        <div className="border-b border-[var(--tf-line)] p-4 sm:p-6 lg:border-b-0 lg:border-r">
-          <div className="mb-4 flex flex-wrap gap-2" role="tablist" aria-label="ThreatFade scenarios">
-            {(Object.keys(scenarios) as Scenario[]).map((name) => (
-              <button key={name} type="button" role="tab" aria-selected={scenario === name} onClick={() => setScenario(name)} className="rounded-md border px-3 py-2 text-xs font-medium transition data-[active=true]:border-[color-mix(in_srgb,var(--tf-signal)_45%,transparent)] data-[active=true]:bg-[var(--tf-signal-soft)] data-[active=true]:text-[var(--tf-signal)]" data-active={scenario === name}>
-                {name}
-              </button>
-            ))}
-          </div>
-          <svg viewBox="0 0 900 300" className="w-full" role="img" aria-label={`${scenario} illustrative behavioral signal visualization`}>
-            <g stroke="currentColor" opacity="0.08"><path d="M0 60H900M0 120H900M0 180H900M0 240H900" /><path d="M90 0V300M270 0V300M450 0V300M630 0V300M810 0V300" /></g>
-            <path d={current.path} fill="none" stroke="var(--tf-signal)" strokeWidth="4" strokeLinecap="round" />
-            <path d="M650 45V255" stroke="var(--tf-danger)" strokeDasharray="4 8" opacity="0.55" />
-            <circle cx="650" cy="145" r="7" fill="var(--tf-signal)" />
-            <text x="20" y="282" fill="var(--tf-text-subtle)" fontSize="12" fontFamily="monospace">baseline / observable activity</text>
-            <text x="665" y="282" fill="var(--tf-danger)" fontSize="12" fontFamily="monospace">behavioral change</text>
-          </svg>
-        </div>
-        <div className="p-5 sm:p-6">
-          <TfLabel>Signal interpretation</TfLabel>
-          <p className="mt-3 text-sm leading-6 text-[var(--tf-text-muted)]">{current.summary}</p>
-          <div className="mt-7 grid gap-5">
-            <TfMetric label="Observed change" value={current.deviation} />
-            <TfMetric label="Scenario family" value={current.mapping} />
-            <TfMetric label="Next step" value="Inspect evidence" detail="Detection → evidence → disposition" />
-          </div>
-        </div>
-      </div>
-    </TfPanel>
-  );
+  return <TfPanel raised className="overflow-hidden"><div className="flex flex-col gap-4 border-b border-[var(--tf-line)] p-5 sm:flex-row sm:items-center sm:justify-between"><div><TfLabel>Behavioral signal lab</TfLabel><p className="mt-2 text-sm text-[var(--tf-text-muted)]">Illustrative telemetry patterns grounded in supported ThreatFade scenarios. Not a live detection result.</p></div><TfBadge tone="signal">Research surface</TfBadge></div><div className="grid lg:grid-cols-[1fr_18rem]"><div className="border-b border-[var(--tf-line)] p-4 sm:p-6 lg:border-b-0 lg:border-r"><div className="mb-4 flex flex-wrap gap-2" role="group" aria-label="ThreatFade scenarios">{(Object.keys(scenarios) as Scenario[]).map((name) => <button key={name} type="button" aria-pressed={scenario === name} onClick={() => setScenario(name)} className="rounded-md border px-3 py-2 text-xs font-medium transition data-[active=true]:border-[color-mix(in_srgb,var(--tf-signal)_45%,transparent)] data-[active=true]:bg-[var(--tf-signal-soft)] data-[active=true]:text-[var(--tf-signal)]" data-active={scenario === name}>{name}</button>)}</div><svg viewBox="0 0 900 300" className="w-full" role="img" aria-label={`${scenario} illustrative behavioral signal visualization`}><g stroke="currentColor" opacity="0.08"><path d="M0 60H900M0 120H900M0 180H900M0 240H900" /><path d="M90 0V300M270 0V300M450 0V300M630 0V300M810 0V300" /></g><path d={current.path} fill="none" stroke="var(--tf-signal)" strokeWidth="4" strokeLinecap="round" /><path d="M650 45V255" stroke="var(--tf-danger)" strokeDasharray="4 8" opacity="0.55" /><circle cx="650" cy="145" r="7" fill="var(--tf-signal)" /><text x="20" y="282" fill="var(--tf-text-subtle)" fontSize="12" fontFamily="monospace">baseline / observable activity</text><text x="665" y="282" fill="var(--tf-danger)" fontSize="12" fontFamily="monospace">behavioral change</text></svg></div><div className="p-5 sm:p-6"><TfLabel>Signal interpretation</TfLabel><p className="mt-3 text-sm leading-6 text-[var(--tf-text-muted)]">{current.summary}</p><div className="mt-7 grid gap-5"><TfMetric label="Observed change" value={current.deviation} /><TfMetric label="Scenario family" value={current.mapping} /><TfMetric label="Next step" value="Inspect evidence" detail="Detection → evidence → disposition" /></div></div></div></TfPanel>;
 }
