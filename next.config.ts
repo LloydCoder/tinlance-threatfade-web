@@ -11,6 +11,7 @@ const nextConfig: NextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
   compress: true,
+  typedRoutes: true,
   images: {
     formats: ["image/avif", "image/webp"],
   },
