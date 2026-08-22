@@ -24,53 +24,53 @@ The engine API exposes health, readiness, version, detection, PCAP detection, sc
 
 ### IMPLEMENTED — publishable when accurately qualified
 
-| Capability | Evidence | Website treatment |
-|---|---|---|
-| Evidence-first detection/investigation | Engine README + detection pipeline | Core positioning |
-| Rolling Shannon entropy | Engine detection capabilities | Explain methodology |
-| Statistical/z-score anomaly detection | Engine detection capabilities/API response | Explain as one signal |
-| C2 quieting scenario | Engine scenario API | Demonstrate |
-| LOTL gradual-fade scenario | Engine scenario API | Demonstrate |
-| GNSS jamming/fade scenario | Engine scenario API | Demonstrate |
-| Optional ML anomaly layer | Engine API/README | Label optional/experimental where applicable |
-| Structured evidence/confidence | Engine API response + README | Core product behavior |
-| MITRE ATT&CK mapping | Engine README/API | Product capability |
-| PCAP/PCAPNG ingestion | Engine README/API | Product capability; retain safety boundary |
-| JSON/Sigma/STIX 2.1-compatible interoperability | Engine README | Product capability with exact wording |
-| SIEM/FusionOps interoperability | Engine README | Product capability; avoid implying SIEM replacement |
-| Tenant-scoped records | Engine architecture/API | Enterprise architecture |
-| OIDC/JWT + RBAC | Engine README/API | Security architecture |
-| Audit events | Engine README/API | Security/enterprise documentation |
-| PostgreSQL production persistence | Engine README | Deployment documentation |
-| Health/readiness/version endpoints | Engine API | Operational documentation |
-| OpenTelemetry instrumentation | Engine README | Observability documentation |
-| Security/supply-chain controls | Engine README/workflows | Security page, without implying certification |
-| Analyst console/dashboard | Engine README + dashboard directory | Product visualization |
-| Deterministic benchmark framework | Engine benchmarks + README | Research/validation |
-| Apache 2.0 open-core engine licensing | Engine README | Open-source page/footer |
+| Capability                                      | Evidence                                   | Website treatment                                   |
+| ----------------------------------------------- | ------------------------------------------ | --------------------------------------------------- |
+| Evidence-first detection/investigation          | Engine README + detection pipeline         | Core positioning                                    |
+| Rolling Shannon entropy                         | Engine detection capabilities              | Explain methodology                                 |
+| Statistical/z-score anomaly detection           | Engine detection capabilities/API response | Explain as one signal                               |
+| C2 quieting scenario                            | Engine scenario API                        | Demonstrate                                         |
+| LOTL gradual-fade scenario                      | Engine scenario API                        | Demonstrate                                         |
+| GNSS jamming/fade scenario                      | Engine scenario API                        | Demonstrate                                         |
+| Optional ML anomaly layer                       | Engine API/README                          | Label optional/experimental where applicable        |
+| Structured evidence/confidence                  | Engine API response + README               | Core product behavior                               |
+| MITRE ATT&CK mapping                            | Engine README/API                          | Product capability                                  |
+| PCAP/PCAPNG ingestion                           | Engine README/API                          | Product capability; retain safety boundary          |
+| JSON/Sigma/STIX 2.1-compatible interoperability | Engine README                              | Product capability with exact wording               |
+| SIEM/FusionOps interoperability                 | Engine README                              | Product capability; avoid implying SIEM replacement |
+| Tenant-scoped records                           | Engine architecture/API                    | Enterprise architecture                             |
+| OIDC/JWT + RBAC                                 | Engine README/API                          | Security architecture                               |
+| Audit events                                    | Engine README/API                          | Security/enterprise documentation                   |
+| PostgreSQL production persistence               | Engine README                              | Deployment documentation                            |
+| Health/readiness/version endpoints              | Engine API                                 | Operational documentation                           |
+| OpenTelemetry instrumentation                   | Engine README                              | Observability documentation                         |
+| Security/supply-chain controls                  | Engine README/workflows                    | Security page, without implying certification       |
+| Analyst console/dashboard                       | Engine README + dashboard directory        | Product visualization                               |
+| Deterministic benchmark framework               | Engine benchmarks + README                 | Research/validation                                 |
+| Apache 2.0 open-core engine licensing           | Engine README                              | Open-source page/footer                             |
 
 ### EXPERIMENTAL / QUALIFIED
 
-| Capability | Reason | Website treatment |
-|---|---|---|
-| ML anomaly detection | Optional layer and current implementation should not be represented as universally validated | Clearly label optional/experimental and tie claims to evidence |
-| Live network/process monitoring | Components exist, but operational scope must not be overstated | Describe as implemented components; avoid claiming broad production coverage |
-| AIS/ADS-B/GPS signal fusion | Components exist | Present as capability/components, not universal detection coverage |
-| QUIC/C2 validation | Repository documents project validation | Present exact validation evidence and conditions; no universal accuracy claim |
-| Cobalt Strike/IcedID validation | Repository records author-confirmed validation | Present as project validation, not independent assurance |
-| 0% false-positive baseline | Repository documents a specific baseline | Only publish with its exact scope: five normal traffic patterns / 100 test runs; never generalize |
+| Capability                      | Reason                                                                                       | Website treatment                                                                                 |
+| ------------------------------- | -------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- |
+| ML anomaly detection            | Optional layer and current implementation should not be represented as universally validated | Clearly label optional/experimental and tie claims to evidence                                    |
+| Live network/process monitoring | Components exist, but operational scope must not be overstated                               | Describe as implemented components; avoid claiming broad production coverage                      |
+| AIS/ADS-B/GPS signal fusion     | Components exist                                                                             | Present as capability/components, not universal detection coverage                                |
+| QUIC/C2 validation              | Repository documents project validation                                                      | Present exact validation evidence and conditions; no universal accuracy claim                     |
+| Cobalt Strike/IcedID validation | Repository records author-confirmed validation                                               | Present as project validation, not independent assurance                                          |
+| 0% false-positive baseline      | Repository documents a specific baseline                                                     | Only publish with its exact scope: five normal traffic patterns / 100 test runs; never generalize |
 
 ### PLANNED / FUTURE
 
-| Area | Rule |
-|---|---|
-| Independent labeled-corpus validation | Do not present as completed |
-| Third-party penetration testing | Do not present as completed |
-| Purple-team validation | Do not present as completed unless evidence is added |
-| Customer-scale load testing | Do not present as completed |
-| Contractual SLO/SLA guarantees | Do not present as guarantees |
-| Formal certifications | Do not claim until independently certified |
-| Broad data-residency commitments | Do not claim without deployment/legal evidence |
+| Area                                        | Rule                                                           |
+| ------------------------------------------- | -------------------------------------------------------------- |
+| Independent labeled-corpus validation       | Do not present as completed                                    |
+| Third-party penetration testing             | Do not present as completed                                    |
+| Purple-team validation                      | Do not present as completed unless evidence is added           |
+| Customer-scale load testing                 | Do not present as completed                                    |
+| Contractual SLO/SLA guarantees              | Do not present as guarantees                                   |
+| Formal certifications                       | Do not claim until independently certified                     |
+| Broad data-residency commitments            | Do not claim without deployment/legal evidence                 |
 | Arbitrary public PCAP playground processing | Requires separately reviewed isolation/resource-control design |
 
 ### NOT SUPPORTED / EXPLICIT EXCLUSIONS

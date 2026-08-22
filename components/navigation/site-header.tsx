@@ -15,7 +15,11 @@ export function SiteHeader() {
 
         <nav className="hidden items-center gap-7 lg:flex" aria-label="Primary navigation">
           {siteConfig.navigation.map((item) => (
-            <Link key={item.href} href={item.href} className="text-sm text-white/58 transition hover:text-white">
+            <Link
+              key={item.href}
+              href={item.href}
+              className="text-sm text-white/58 transition hover:text-white"
+            >
               {item.label}
             </Link>
           ))}

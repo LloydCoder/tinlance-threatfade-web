@@ -1,5 +1,34 @@
 import { PageShell } from "@/components/layout/page-shell";
 
 export default function ProductPage() {
-  return <PageShell eyebrow="Product" title="An evidence-first detection and investigation platform." description="ThreatFade models deliberate reductions in observable adversarial behavior, scores the deviation and preserves the evidence analysts need to investigate it."><div className="grid gap-5 md:grid-cols-3"><article className="rounded-xl border border-white/8 bg-[#090c10] p-7"><h2 className="font-semibold">Observe</h2><p className="mt-3 text-sm leading-7 text-white/45">Extract behavioral signals from supported network and signal inputs.</p></article><article className="rounded-xl border border-white/8 bg-[#090c10] p-7"><h2 className="font-semibold">Score</h2><p className="mt-3 text-sm leading-7 text-white/45">Combine entropy, statistical deviation, rules and optional ML into structured detection evidence.</p></article><article className="rounded-xl border border-white/8 bg-[#090c10] p-7"><h2 className="font-semibold">Investigate</h2><p className="mt-3 text-sm leading-7 text-white/45">Preserve confidence, context and ATT&amp;CK mappings for analyst disposition and operational handoff.</p></article></div></PageShell>;
+  return (
+    <PageShell
+      eyebrow="Product"
+      title="An evidence-first detection and investigation platform."
+      description="ThreatFade models deliberate reductions in observable adversarial behavior, scores the deviation and preserves the evidence analysts need to investigate it."
+    >
+      <div className="grid gap-5 md:grid-cols-3">
+        <article className="rounded-xl border border-white/8 bg-[#090c10] p-7">
+          <h2 className="font-semibold">Observe</h2>
+          <p className="mt-3 text-sm leading-7 text-white/45">
+            Extract behavioral signals from supported network and signal inputs.
+          </p>
+        </article>
+        <article className="rounded-xl border border-white/8 bg-[#090c10] p-7">
+          <h2 className="font-semibold">Score</h2>
+          <p className="mt-3 text-sm leading-7 text-white/45">
+            Combine entropy, statistical deviation, rules and optional ML into structured detection
+            evidence.
+          </p>
+        </article>
+        <article className="rounded-xl border border-white/8 bg-[#090c10] p-7">
+          <h2 className="font-semibold">Investigate</h2>
+          <p className="mt-3 text-sm leading-7 text-white/45">
+            Preserve confidence, context and ATT&amp;CK mappings for analyst disposition and
+            operational handoff.
+          </p>
+        </article>
+      </div>
+    </PageShell>
+  );
 }

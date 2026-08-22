@@ -1,5 +1,33 @@
 import { PageShell } from "@/components/layout/page-shell";
 
 export default function EnterprisePage() {
-  return <PageShell eyebrow="Enterprise" title="A specialized detection layer for existing security operations." description="ThreatFade is designed to feed existing SIEM/SOAR workflows rather than replace them. Enterprise evaluation should begin with the documented deployment boundary, evidence model and validation posture."><div className="grid gap-5 md:grid-cols-3"><article className="rounded-xl border border-white/8 bg-[#090c10] p-7"><h2 className="font-semibold">Identity</h2><p className="mt-3 text-sm leading-7 text-white/45">OIDC/JWT validation, tenant-scoped persistence and RBAC primitives.</p></article><article className="rounded-xl border border-white/8 bg-[#090c10] p-7"><h2 className="font-semibold">Operations</h2><p className="mt-3 text-sm leading-7 text-white/45">Health, readiness, telemetry, audit events and operational export paths.</p></article><article className="rounded-xl border border-white/8 bg-[#090c10] p-7"><h2 className="font-semibold">Assurance boundary</h2><p className="mt-3 text-sm leading-7 text-white/45">Clear separation between repository evidence and external certifications, testing, SLAs or customer-scale guarantees.</p></article></div></PageShell>;
+  return (
+    <PageShell
+      eyebrow="Enterprise"
+      title="A specialized detection layer for existing security operations."
+      description="ThreatFade is designed to feed existing SIEM/SOAR workflows rather than replace them. Enterprise evaluation should begin with the documented deployment boundary, evidence model and validation posture."
+    >
+      <div className="grid gap-5 md:grid-cols-3">
+        <article className="rounded-xl border border-white/8 bg-[#090c10] p-7">
+          <h2 className="font-semibold">Identity</h2>
+          <p className="mt-3 text-sm leading-7 text-white/45">
+            OIDC/JWT validation, tenant-scoped persistence and RBAC primitives.
+          </p>
+        </article>
+        <article className="rounded-xl border border-white/8 bg-[#090c10] p-7">
+          <h2 className="font-semibold">Operations</h2>
+          <p className="mt-3 text-sm leading-7 text-white/45">
+            Health, readiness, telemetry, audit events and operational export paths.
+          </p>
+        </article>
+        <article className="rounded-xl border border-white/8 bg-[#090c10] p-7">
+          <h2 className="font-semibold">Assurance boundary</h2>
+          <p className="mt-3 text-sm leading-7 text-white/45">
+            Clear separation between repository evidence and external certifications, testing, SLAs
+            or customer-scale guarantees.
+          </p>
+        </article>
+      </div>
+    </PageShell>
+  );
 }
