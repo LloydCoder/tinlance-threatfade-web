@@ -31,7 +31,7 @@ export function PageShell({
       <section className="mx-auto max-w-7xl px-5 py-16 lg:px-8 lg:py-24">{children}</section>
       <footer className="mx-auto flex max-w-7xl items-center justify-between border-t border-white/6 px-5 py-10 text-xs text-white/30 lg:px-8">
         <span className="font-mono">THREATFADE / TINLANCE LIMITED</span>
-        <Link href={siteConfig.github} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 hover:text-[#b8ff5a]">Source on GitHub <ArrowUpRight className="size-3" /></Link>
+        <a href={siteConfig.github} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 hover:text-[#b8ff5a]">Source on GitHub <ArrowUpRight className="size-3" /></a>
       </footer>
     </main>
   );
