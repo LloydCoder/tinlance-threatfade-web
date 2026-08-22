@@ -1,0 +1,19 @@
+export const siteConfig = {
+  name: "ThreatFade",
+  legalName: "Tinlance Limited",
+  description:
+    "An evidence-first detection and investigation platform for adversarial activity that becomes intentionally less observable.",
+  url: "https://threatfade.com",
+  github: "https://github.com/LloydCoder/tinlance-threatfade",
+  webRepository: "https://github.com/LloydCoder/tinlance-threatfade-web",
+  version: "0.4.0",
+  license: "Apache-2.0",
+  navigation: [
+    { label: "Product", href: "/product" },
+    { label: "Detection", href: "/detection" },
+    { label: "Research", href: "/research" },
+    { label: "Docs", href: "/docs" },
+    { label: "Playground", href: "/playground" },
+    { label: "Enterprise", href: "/enterprise" },
+  ],
+} as const;
