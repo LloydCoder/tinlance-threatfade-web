@@ -37,7 +37,7 @@ jobs:
           package-manager-cache: false
 
       - name: Install dependencies
-        run: npm install --no-audit --no-fund
+        run: npm install --ignore-scripts --no-audit --no-fund --prefer-offline --no-progress
 
       - name: Normalize formatting
         run: npm run format:write
