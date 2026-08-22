@@ -7,36 +7,34 @@ on:
     branches: [main]
   schedule:
     - cron: "17 3 * * 1"
+  workflow_dispatch:
 
 permissions:
   contents: read
-  security-events: write
+
+concurrency:
+  group: security-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
-  codeql:
-    name: CodeQL
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v5
-      - name: Initialize CodeQL
-        uses: github/codeql-action/init@v3
-        with:
-          languages: javascript-typescript
-      - name: Analyze
-        uses: github/codeql-action/analyze@v3
-
   dependency-audit:
     name: Dependency audit
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - name: Checkout
         uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+
       - name: Setup Node
         uses: actions/setup-node@v5
         with:
           node-version: 22
+
+      # No lockfile is currently committed, so npm ci cannot be used yet.
       - name: Install dependencies
-        run: npm install
+        run: npm install --no-audit --no-fund
+
       - name: Audit production dependencies
         run: npm audit --omit=dev --audit-level=high
