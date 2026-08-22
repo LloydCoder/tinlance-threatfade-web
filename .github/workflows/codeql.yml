@@ -7,25 +7,32 @@ on:
     branches: [main]
   schedule:
     - cron: "23 3 * * 1"
+  workflow_dispatch:
 
 permissions:
   contents: read
   security-events: write
   actions: read
 
+concurrency:
+  group: codeql-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   analyze:
     name: Analyze JavaScript/TypeScript
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 20
     steps:
       - name: Checkout
         uses: actions/checkout@v5
+        with:
+          persist-credentials: false
 
       - name: Initialize CodeQL
-        uses: github/codeql-action/init@v3
+        uses: github/codeql-action/init@v4
         with:
           languages: javascript-typescript
 
       - name: Analyze
-        uses: github/codeql-action/analyze@v3
+        uses: github/codeql-action/analyze@v4
