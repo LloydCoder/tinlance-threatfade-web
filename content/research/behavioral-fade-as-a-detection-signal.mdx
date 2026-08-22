@@ -1,0 +1,58 @@
+---
+title: "Behavioral fade as a detection signal"
+description: "The ThreatFade detection thesis: reduced observability can be modeled as a behavioral deviation rather than assumed benign."
+author: "ThreatFade Engineering"
+published: "2026-08-23"
+status: "validated"
+category: "Detection methodology"
+tags:
+  - behavioral fading
+  - C2
+  - anomaly detection
+references:
+  - "ThreatFade engine README"
+---
+
+## Research question
+
+Can a deliberate reduction in observable activity be treated as a detection signal rather than automatically interpreted as benign?
+
+ThreatFade is built around that hypothesis. The repository describes the system as an evidence-first detection and investigation platform that models changes in network or signal behavior, scores the deviation, and preserves structured evidence for analyst review.
+
+<ResearchStatus status="validated" />
+
+## Detection model
+
+The current documented pipeline is:
+
+```text
+Signal / PCAP
+  → signal extraction
+  → rolling entropy + statistical deviation
+  → detection rules
+  → optional ML anomaly layer
+  → confidence + structured evidence
+  → ATT&CK mapping
+  → JSON / SIEM / Sigma / STIX 2.1 / FusionOps
+```
+
+The important distinction is between **a behavioral deviation** and **a verdict**. ThreatFade's output is intended to prioritize investigation and preserve evidence. It is not presented as universal proof that a host or flow is malicious.
+
+## Evidence boundary
+
+The engine repository documents C2 quieting, gradual living-off-the-land reduction and GNSS interference as supported fade scenarios. It also documents structured confidence scoring, evidence, ATT&CK mapping and optional ML anomaly detection.
+
+<ResearchStatus status="experimental" />
+
+The exact effectiveness of any detector depends on traffic, baseline quality, deployment configuration and evaluation corpus. Repository validation should therefore be read as project evidence, not a universal accuracy claim.
+
+## What remains to be established
+
+Independent labeled-corpus evaluation, third-party validation, purple-team exercises and customer-scale load testing are explicitly outside the assurance that repository tests alone can establish.
+
+<ResearchStatus status="planned" />
+
+## References
+
+1. ThreatFade engine repository README — architecture, detection pipeline, capabilities and assurance boundary.
+2. ThreatFade validation and benchmark tooling in the source repository.
