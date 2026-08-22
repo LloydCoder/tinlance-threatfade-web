@@ -40,7 +40,7 @@ jobs:
         run: npm install --ignore-scripts --no-audit --no-fund --prefer-offline --no-progress
 
       - name: Normalize formatting
-        run: npm run format:write
+        run: npm run format
 
       - name: Commit formatting changes
         if: ${{ github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository) }}
