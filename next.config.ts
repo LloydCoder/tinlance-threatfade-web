@@ -31,16 +31,12 @@ const nextConfig: NextConfig = {
   poweredByHeader: false,
   compress: true,
   typedRoutes: true,
+  allowedDevOrigins: ["127.0.0.1"],
   images: {
     formats: ["image/avif", "image/webp"],
   },
   async headers() {
-    return [
-      {
-        source: "/(.*)",
-        headers: securityHeaders,
-      },
-    ];
+    return [{ source: "/(.*)", headers: securityHeaders }];
   },
 };
 
