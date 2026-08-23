@@ -16,5 +16,5 @@ jobs:
         with:
           node-version: 22
       - run: npm install --no-audit --no-fund
-      - run: npx prettier --write app/enterprise/page.tsx
-      - run: git diff --no-color -- app/enterprise/page.tsx
+      - run: npx prettier --write app/enterprise/page.tsx components/analytics/conversion-link.tsx docs/enterprise/conversion-events.md
+      - run: git diff --no-color -- app/enterprise/page.tsx components/analytics/conversion-link.tsx docs/enterprise/conversion-events.md
