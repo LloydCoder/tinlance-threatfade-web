@@ -1,0 +1,19 @@
+name: Format Preview
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  format-preview:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+      - run: npx prettier@3.6.2 --write app/enterprise/page.tsx
+      - run: cat app/enterprise/page.tsx
