@@ -3,9 +3,16 @@
 import { useState, type ReactNode } from "react";
 import { Check, Copy } from "lucide-react";
 
+function extractText(node: ReactNode): string {
+  if (typeof node === "string" || typeof node === "number") return String(node);
+  if (Array.isArray(node)) return node.map(extractText).join("");
+  if (node && typeof node === "object" && "props" in node) return extractText((node as { props?: { children?: ReactNode } }).props?.children);
+  return "";
+}
+
 export function DocsCode({ children, ...props }: { children: ReactNode } & React.HTMLAttributes<HTMLPreElement>) {
   const [copied, setCopied] = useState(false);
-  const text = typeof children === "string" ? children : "";
+  const text = extractText(children);
   async function copy() {
     if (!text || !navigator.clipboard) return;
     await navigator.clipboard.writeText(text);
