@@ -27,9 +27,21 @@ describe("ThreatFade API boundary", () => {
     await expect(threatFadeApi.health()).resolves.toMatchObject({ version: "0.4.0" });
   });
 
-  it("validates upstream response schemas", async () => {
+  it("validates upstream response schemas without retrying validation failures", async () => {
     process.env.THREATFADE_API_URL = "https://engine.example.test";
-    globalThis.fetch = async () => new Response(JSON.stringify({ status: "ok" }), { status: 200 });
+    process.env.THREATFADE_API_MAX_RETRIES = "2";
+    let calls = 0;
+    globalThis.fetch = async () => {
+      calls += 1;
+      return new Response(JSON.stringify({ status: "ok" }), { status: 200 });
+    };
     await expect(threatFadeApi.health()).rejects.toThrow();
+    expect(calls).toBe(1);
+  });
+
+  it("rejects oversized upstream responses", async () => {
+    process.env.THREATFADE_API_URL = "https://engine.example.test";
+    globalThis.fetch = async () => new Response("x".repeat(1_048_577), { status: 200 });
+    await expect(threatFadeApi.health()).rejects.toThrow("exceeded the allowed size");
   });
 });
