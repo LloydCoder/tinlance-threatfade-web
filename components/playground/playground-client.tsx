@@ -52,7 +52,6 @@ export function PlaygroundClient() {
         .join(" ") || "",
     [data],
   );
-  const stages = data?.stages ?? [];
   return (
     <div className="space-y-8">
       <TfPanel raised className="p-5 sm:p-7">
@@ -148,30 +147,32 @@ export function PlaygroundClient() {
         <TfPanel className="p-5 sm:p-7">
           <TfLabel>Pipeline</TfLabel>
           <div className="mt-5 space-y-2">
-            {stages.map((stage, i) => (
-              <div key={stage.id} className="flex gap-3">
-                <div className="flex flex-col items-center">
-                  <div
-                    className={`rounded-full border p-1 ${stage.state === "not-executed" ? "border-[var(--tf-line)]" : "border-[var(--tf-signal)] text-[var(--tf-signal)]"}`}
-                  >
-                    {stage.state === "not-executed" ? (
-                      <CircleDot className="size-3" />
-                    ) : (
-                      <Check className="size-3" />
-                    )}
+            {(data?.stages ?? []).map(
+              (stage, i) => (
+                <div key={stage.id} className="flex gap-3">
+                  <div className="flex flex-col items-center">
+                    <div
+                      className={`rounded-full border p-1 ${stage.state === "not-executed" ? "border-[var(--tf-line)]" : "border-[var(--tf-signal)] text-[var(--tf-signal)]"}`}
+                    >
+                      {stage.state === "not-executed" ? (
+                        <CircleDot className="size-3" />
+                      ) : (
+                        <Check className="size-3" />
+                      )}
+                    </div>
+                    {i < (data?.stages.length ?? 0) - 1 ? (
+                      <div className="h-full min-h-4 w-px bg-[var(--tf-line)]" />
+                    ) : null}
                   </div>
-                  {i < stages.length - 1 ? (
-                    <div className="h-full min-h-4 w-px bg-[var(--tf-line)]" />
-                  ) : null}
+                  <div className="pb-3">
+                    <p className="text-sm font-medium">{stage.label}</p>
+                    <p className="mt-1 text-xs leading-5 text-[var(--tf-text-subtle)]">
+                      {stageText[stage.id]}
+                    </p>
+                  </div>
                 </div>
-                <div className="pb-3">
-                  <p className="text-sm font-medium">{stage.label}</p>
-                  <p className="mt-1 text-xs leading-5 text-[var(--tf-text-subtle)]">
-                    {stageText[stage.id]}
-                  </p>
-                </div>
-              </div>
-            ))}
+              ),
+            )}
           </div>
         </TfPanel>
       </div>
