@@ -26,9 +26,9 @@ export function DetectionPipeline() {
 export function AudienceCards() {
   const audiences = [
     { title: "Developers", label: "Run / inspect / contribute", body: "Start with the open-source engine, understand the detection surface and contribute against real implementation.", href: siteConfig.github, external: true, icon: Github },
-    { title: "Researchers", label: "Methodology / evidence", body: "Follow the detection methodology, deterministic validation and research boundary without confusing project evidence with independent assurance.", href: "/research", icon: BookOpen },
-    { title: "SOC teams", label: "Detect / investigate / handoff", body: "Evaluate evidence-backed detections, analyst workflow, ATT&CK context and operational interoperability.", href: "/detection", icon: Layers3 },
-    { title: "Enterprise", label: "Architecture / security", body: "Review identity, tenancy, audit, deployment boundaries and the evidence-versus-assurance distinction.", href: "/security", icon: ShieldCheck },
+    { title: "Researchers", label: "Methodology / evidence", body: "Follow the detection methodology, deterministic validation and research boundary without confusing project evidence with independent assurance.", href: "/research", external: false, icon: BookOpen },
+    { title: "SOC teams", label: "Detect / investigate / handoff", body: "Evaluate evidence-backed detections, analyst workflow, ATT&CK context and operational interoperability.", href: "/detection", external: false, icon: Layers3 },
+    { title: "Enterprise", label: "Architecture / security", body: "Review identity, tenancy, audit, deployment boundaries and the evidence-versus-assurance distinction.", href: "/security", external: false, icon: ShieldCheck },
   ] as const;
 
   return <div className="grid gap-4 md:grid-cols-2">
