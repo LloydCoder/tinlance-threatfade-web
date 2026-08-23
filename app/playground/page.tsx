@@ -17,7 +17,7 @@ export default function PlaygroundPage() {
             See behavioral fading before you run the engine.
           </h1>
           <p className="mt-6 max-w-3xl text-base leading-8 text-[var(--tf-text-muted)] sm:text-lg">
-            Explore the signal shapes used by ThreatFade's documented test generator and see how the
+            Explore the signal shapes used by ThreatFade&apos;s documented test generator and see how the
             evidence-first pipeline is structured. This is a curated visualization, not a live
             detection service.
           </p>
