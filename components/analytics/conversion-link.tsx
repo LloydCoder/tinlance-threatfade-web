@@ -1,6 +1,6 @@
 "use client";
 
-import type { MouseEvent, ReactNode } from "react";
+import type { ReactNode } from "react";
 
 export type ConversionEvent =
   | "run_playground"
@@ -25,7 +25,7 @@ export function ConversionLink({
   target?: string;
   rel?: string;
 }) {
-  function handleClick(_event: MouseEvent<HTMLAnchorElement>) {
+  function handleClick() {
     const detail = {
       name: event,
       source: "enterprise",
