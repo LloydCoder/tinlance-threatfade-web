@@ -42,7 +42,9 @@ export default function EnterprisePage() {
     <PageShell
       eyebrow="Enterprise evaluation"
       title="Evaluate the detection layer. Keep your existing security stack."
-      description="ThreatFade sits between observed signals and the operational systems that investigate them. Enterprise evaluation starts with architecture, evidence and deployment boundaries—not a feature checklist."
+      description={
+        "ThreatFade sits between observed signals and the operational systems that investigate them. Enterprise evaluation starts with architecture, evidence and deployment boundaries—not a feature checklist."
+      }
     >
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         {audiences.map(([title, body]) => (
@@ -61,7 +63,9 @@ export default function EnterprisePage() {
             Prioritize → Inspect → Pivot → Disposition → Handoff
           </h2>
           <p className="mt-4 text-sm leading-7 text-[var(--tf-text-muted)]">
-            ThreatFade produces structured detection evidence and context for analyst workflows. It can persist tenant-scoped records and expose documented interoperable outputs.
+            ThreatFade produces structured detection evidence and context for
+            analyst workflows. It can persist tenant-scoped records and expose
+            documented interoperable outputs.
           </p>
         </TfPanel>
         <TfPanel className="p-6 sm:p-8">
