@@ -1,5 +1,31 @@
 import type { Metadata } from "next";
 import { PlaygroundClient } from "@/components/playground/playground-client";
 import { TfLabel } from "@/components/ui/tf-primitives";
-export const metadata: Metadata = { title: "Playground", description: "Explore curated ThreatFade behavioral signal patterns in a safe, isolated laboratory demonstration.", alternates: { canonical: "/playground" } };
-export default function PlaygroundPage() { return <main className="min-h-screen bg-[var(--tf-canvas)] text-[var(--tf-text)]"><div className="mx-auto max-w-7xl px-5 py-14 lg:px-8 lg:py-20"><header className="max-w-4xl"><TfLabel>ThreatFade laboratory</TfLabel><h1 className="mt-4 text-4xl font-semibold tracking-[-0.05em] sm:text-6xl">See behavioral fading before you run the engine.</h1><p className="mt-6 max-w-3xl text-base leading-8 text-[var(--tf-text-muted)] sm:text-lg">Explore the signal shapes used by ThreatFade's documented test generator and see how the evidence-first pipeline is structured. This is a curated visualization, not a live detection service.</p></header><div className="mt-12"><PlaygroundClient /></div></div></main>; }
+export const metadata: Metadata = {
+  title: "Playground",
+  description:
+    "Explore curated ThreatFade behavioral signal patterns in a safe, isolated laboratory demonstration.",
+  alternates: { canonical: "/playground" },
+};
+export default function PlaygroundPage() {
+  return (
+    <main className="min-h-screen bg-[var(--tf-canvas)] text-[var(--tf-text)]">
+      <div className="mx-auto max-w-7xl px-5 py-14 lg:px-8 lg:py-20">
+        <header className="max-w-4xl">
+          <TfLabel>ThreatFade laboratory</TfLabel>
+          <h1 className="mt-4 text-4xl font-semibold tracking-[-0.05em] sm:text-6xl">
+            See behavioral fading before you run the engine.
+          </h1>
+          <p className="mt-6 max-w-3xl text-base leading-8 text-[var(--tf-text-muted)] sm:text-lg">
+            Explore the signal shapes used by ThreatFade's documented test generator and see how the
+            evidence-first pipeline is structured. This is a curated visualization, not a live
+            detection service.
+          </p>
+        </header>
+        <div className="mt-12">
+          <PlaygroundClient />
+        </div>
+      </div>
+    </main>
+  );
+}

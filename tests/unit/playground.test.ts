@@ -5,7 +5,9 @@ describe("playground security boundary", () => {
   it("accepts only known scenario identifiers", () => {
     expect(playgroundRequestSchema.safeParse({ scenario: "c2_quieting" }).success).toBe(true);
     expect(playgroundRequestSchema.safeParse({ scenario: "../../etc/passwd" }).success).toBe(false);
-    expect(playgroundRequestSchema.safeParse({ scenario: "c2_quieting", command: "rm -rf /" }).success).toBe(false);
+    expect(
+      playgroundRequestSchema.safeParse({ scenario: "c2_quieting", command: "rm -rf /" }).success,
+    ).toBe(false);
   });
   it("returns deterministic curated data without detection verdicts", () => {
     const result = getPlaygroundDataset("c2_quieting");

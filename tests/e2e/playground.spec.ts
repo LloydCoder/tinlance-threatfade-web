@@ -11,7 +11,9 @@ test.describe("playground", () => {
   });
 
   test("rejects hostile playground input", async ({ request }) => {
-    const response = await request.post("/api/playground", { data: { scenario: "../../etc/passwd", command: "id" } });
+    const response = await request.post("/api/playground", {
+      data: { scenario: "../../etc/passwd", command: "id" },
+    });
     expect(response.status()).toBe(400);
   });
 });
