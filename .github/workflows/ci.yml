@@ -27,36 +27,26 @@ jobs:
         with:
           persist-credentials: false
           fetch-depth: 0
-
       - name: Setup Node
         uses: actions/setup-node@v5
         with:
           node-version: 22
           package-manager-cache: false
-
       - name: Install dependencies
         run: npm install --no-audit --no-fund
-
       - name: Format check
         run: npm run format:check
-
       - name: Lint
         run: npm run lint
-
       - name: Typecheck
         run: npm run typecheck
-
       - name: Unit tests
         run: npm test
-
       - name: Dependency audit
         run: npm audit --audit-level=high
-
       - name: Production build
         run: npm run build
-
       - name: Install Playwright browser
         run: npx playwright install --with-deps chromium
-
       - name: End-to-end tests
         run: npm run test:e2e
