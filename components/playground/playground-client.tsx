@@ -60,8 +60,8 @@ export function PlaygroundClient() {
           <div>
             <h2 className="text-2xl font-semibold">Choose a behavioral pattern</h2>
             <p className="mt-2 max-w-2xl text-sm leading-7 text-[var(--tf-text-muted)]">
-              Deterministic web visualizations derived from the engine&apos;s documented signal-generator
-              shapes. They are not live detections.
+              Deterministic web visualizations derived from the engine&apos;s documented
+              signal-generator shapes. They are not live detections.
             </p>
           </div>
           <TfBadge tone="warning">production engine: isolated</TfBadge>
