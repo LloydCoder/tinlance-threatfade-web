@@ -16,9 +16,5 @@ jobs:
         with:
           node-version: 22
       - run: npm install --no-audit --no-fund
-      - run: npx prettier --write app/enterprise/page.tsx docs/analytics/conversion-events.md
-      - name: Print formatted files
-        run: |
-          cat app/enterprise/page.tsx
-          printf '\n---DOC---\n'
-          cat docs/analytics/conversion-events.md
+      - run: npx prettier --write app/enterprise/page.tsx
+      - run: git diff --no-color -- app/enterprise/page.tsx
