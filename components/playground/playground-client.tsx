@@ -60,8 +60,8 @@ export function PlaygroundClient() {
           <div>
             <h2 className="text-2xl font-semibold">Choose a behavioral pattern</h2>
             <p className="mt-2 max-w-2xl text-sm leading-7 text-[var(--tf-text-muted)]">
-              Deterministic web visualizations derived from the engine&apos;s documented signal-generator
-              shapes. They are not live detections.
+              Deterministic web visualizations derived from the engine&apos;s documented
+              signal-generator shapes. They are not live detections.
             </p>
           </div>
           <TfBadge tone="warning">production engine: isolated</TfBadge>
@@ -148,7 +148,7 @@ export function PlaygroundClient() {
           <TfLabel>Pipeline</TfLabel>
           <div className="mt-5 space-y-2">
             {(data?.stages ?? []).map(
-              (stage, i) => (
+              (stage: { id: string; label: string; state: string }, i: number) => (
                 <div key={stage.id} className="flex gap-3">
                   <div className="flex flex-col items-center">
                     <div
@@ -160,7 +160,7 @@ export function PlaygroundClient() {
                         <Check className="size-3" />
                       )}
                     </div>
-                    {i < (data?.stages.length ?? 0) - 1 ? (
+                    {i < data!.stages.length - 1 ? (
                       <div className="h-full min-h-4 w-px bg-[var(--tf-line)]" />
                     ) : null}
                   </div>
