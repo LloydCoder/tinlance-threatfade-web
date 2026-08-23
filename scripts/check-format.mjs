@@ -20,11 +20,19 @@ function changedFiles() {
   return runGit(["diff", "--name-only", "--diff-filter=ACMR", base, "HEAD"])
     .split("\n")
     .filter(Boolean)
-    .filter((file) => !file.startsWith("node_modules/") && !file.startsWith(".next/"));
+    .filter(
+      (file) => !file.startsWith("node_modules/") && !file.startsWith(".next/"),
+    );
 }
 
 const files = changedFiles();
-const command = files.length ? ["--check", "--ignore-unknown", ...files] : ["--check", "--ignore-unknown", "."];
+const command = files.length
+  ? ["--check", "--ignore-unknown", ...files]
+  : ["--check", "--ignore-unknown", "."];
 
-console.log(files.length ? `Checking ${files.length} changed file(s) with Prettier...` : "No GitHub event baseline found; checking the full repository with Prettier...");
+console.log(
+  files.length
+    ? `Checking ${files.length} changed file(s) with Prettier...`
+    : "No GitHub event baseline found; checking the full repository with Prettier...",
+);
 execFileSync("npx", ["prettier", ...command], { stdio: "inherit" });
