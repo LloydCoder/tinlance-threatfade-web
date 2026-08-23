@@ -26,14 +26,31 @@ export function ConversionLink({
   rel?: string;
 }) {
   function handleClick(_event: MouseEvent<HTMLAnchorElement>) {
-    const detail = { name: event, source: "enterprise", timestamp: Date.now() };
-    window.dispatchEvent(new CustomEvent("threatfade:conversion", { detail }));
-    const dataLayer = (window as Window & { dataLayer?: Array<Record<string, unknown>> }).dataLayer;
+    const detail = {
+      name: event,
+      source: "enterprise",
+      timestamp: Date.now(),
+    };
+    window.dispatchEvent(
+      new CustomEvent("threatfade:conversion", { detail }),
+    );
+    const dataLayer = (
+      window as Window & {
+        dataLayer?: Array<Record<string, unknown>>;
+      }
+    ).dataLayer;
     dataLayer?.push({ event: "threatfade_conversion", ...detail });
   }
 
   return (
-    <a href={href} className={className} target={target} rel={rel} onClick={handleClick} data-tf-event={event}>
+    <a
+      href={href}
+      className={className}
+      target={target}
+      rel={rel}
+      onClick={handleClick}
+      data-tf-event={event}
+    >
       {children}
     </a>
   );
