@@ -91,17 +91,32 @@ export default function EnterprisePage() {
         </TfPanel>
       </section>
       <section className="mt-8 grid gap-4 md:grid-cols-3">
-        <Link href="/how-it-works" className="tf-panel p-6 transition hover:-translate-y-0.5 hover:border-[var(--tf-signal)]">
+        <Link
+          href="/how-it-works"
+          className="tf-panel p-6 transition hover:-translate-y-0.5 hover:border-[var(--tf-signal)]"
+        >
           <h2 className="font-semibold">Architecture</h2>
-          <p className="mt-2 text-sm leading-6 text-[var(--tf-text-muted)]">Understand the control and detection planes.</p>
+          <p className="mt-2 text-sm leading-6 text-[var(--tf-text-muted)]">
+            Understand the control and detection planes.
+          </p>
         </Link>
-        <Link href="/security" className="tf-panel p-6 transition hover:-translate-y-0.5 hover:border-[var(--tf-signal)]">
+        <Link
+          href="/security"
+          className="tf-panel p-6 transition hover:-translate-y-0.5 hover:border-[var(--tf-signal)]"
+        >
           <h2 className="font-semibold">Security</h2>
-          <p className="mt-2 text-sm leading-6 text-[var(--tf-text-muted)]">Review implemented controls and explicit assurance limits.</p>
+          <p className="mt-2 text-sm leading-6 text-[var(--tf-text-muted)]">
+            Review implemented controls and explicit assurance limits.
+          </p>
         </Link>
-        <Link href="/integrations" className="tf-panel p-6 transition hover:-translate-y-0.5 hover:border-[var(--tf-signal)]">
+        <Link
+          href="/integrations"
+          className="tf-panel p-6 transition hover:-translate-y-0.5 hover:border-[var(--tf-signal)]"
+        >
           <h2 className="font-semibold">Interoperability</h2>
-          <p className="mt-2 text-sm leading-6 text-[var(--tf-text-muted)]">See documented export and integration paths.</p>
+          <p className="mt-2 text-sm leading-6 text-[var(--tf-text-muted)]">
+            See documented export and integration paths.
+          </p>
         </Link>
       </section>
       <div className="mt-10 flex flex-wrap gap-3">
