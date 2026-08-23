@@ -1,0 +1,64 @@
+---
+title: "Installation"
+description: "Install the ThreatFade engine, API and reference dashboard for local evaluation."
+category: "Foundation"
+version: "v0.4.0"
+status: "implemented"
+updated: "2026-08-23"
+---
+
+# Installation
+
+The reference engine is Python-based and exposes the control/data-plane boundary through the API. The repository also contains the analyst dashboard and production deployment assets.
+
+## Local installation
+
+Create an isolated Python environment and install the repository requirements:
+
+```bash
+git clone https://github.com/LloydCoder/tinlance-threatfade.git
+cd tinlance-threatfade
+python -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+```
+
+Start the API:
+
+```bash
+python api.py
+```
+
+Then open:
+
+```text
+http://localhost:8080/dashboard/
+```
+
+## Reference health checks
+
+```bash
+curl http://localhost:8080/health
+curl http://localhost:8080/ready
+curl http://localhost:8080/version
+```
+
+## Development persistence
+
+The repository documents SQLite as the development persistence option and PostgreSQL as the production persistence path through SQLAlchemy.
+
+## Container deployment
+
+The engine repository provides a Dockerfile and Compose assets. For production, externalize secrets, configure TLS at the edge, use persistent storage and apply the documented identity boundary.
+
+## Verify the installation
+
+```bash
+python -m compileall -q .
+pytest -q
+python benchmarks/benchmark.py
+python -c "from core.detection_pack import detection_pack, validate_pack; validate_pack(detection_pack()); print('detection pack: OK')"
+python scripts/enterprise_smoke.py
+```
+
+These checks validate the repository implementation; they do not establish independent detection accuracy.
