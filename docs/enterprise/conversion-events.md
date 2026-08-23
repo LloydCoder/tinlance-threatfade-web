@@ -3,7 +3,7 @@
 The website exposes a small, privacy-respecting conversion taxonomy for enterprise evaluation journeys.
 
 | Event | Meaning |
-|---|---|
+| --- | --- |
 | `run_playground` | Visitor starts the curated playground journey. |
 | `view_github` | Visitor chooses the open-source engine repository. |
 | `read_docs` | Visitor enters technical documentation. |
