@@ -15,5 +15,8 @@ jobs:
       - uses: actions/setup-node@v5
         with:
           node-version: 22
-      - run: npx prettier@3.6.2 --write app/enterprise/page.tsx
-      - run: cat app/enterprise/page.tsx
+      - run: npm install --no-audit --no-fund
+      - run: npx prettier --version
+      - run: npx prettier --check app/enterprise/page.tsx
+      - run: npx prettier@3.6.2 --check app/enterprise/page.tsx
+      - run: npx prettier@3.9.6 --check app/enterprise/page.tsx
