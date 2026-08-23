@@ -20,8 +20,9 @@ The client:
 - disables redirects to prevent redirect-based SSRF bypasses;
 - uses `credentials: omit`;
 - applies bounded request timeouts;
-- retries only transient HTTP statuses and only a small configured number of times;
-- never retries arbitrary application errors;
+- limits successful upstream JSON responses to 1 MiB;
+- retries only transient HTTP statuses and transport timeouts;
+- never retries schema-validation or bounded-response failures;
 - validates every JSON response against typed Zod schemas;
 - exposes sanitized application errors rather than raw upstream bodies.
 
