@@ -1,9 +1,12 @@
 name: Format Preview
+
 on:
-  push:
-    branches: [feat/phase7-enterprise-conversion]
+  pull_request:
+    branches: [main]
+
 permissions:
   contents: read
+
 jobs:
   format-preview:
     runs-on: ubuntu-latest
