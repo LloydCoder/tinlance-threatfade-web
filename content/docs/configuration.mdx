@@ -1,0 +1,59 @@
+---
+title: "Configuration"
+description: "Configure ThreatFade's identity boundary, tenancy, persistence and allowed origins."
+category: "Operations"
+version: "v0.4.0"
+status: "implemented"
+updated: "2026-08-23"
+---
+
+# Configuration
+
+ThreatFade separates development convenience from the production security boundary. Local development is intentionally permissive; production authentication is fail-closed and requires the configured identity boundary.
+
+## Production OIDC
+
+The engine documents these settings:
+
+```text
+THREATFADE_OIDC_ISSUER
+THREATFADE_OIDC_AUDIENCE
+THREATFADE_OIDC_JWKS_URL   # optional; issuer discovery is used when omitted
+```
+
+Production tokens must contain `sub`, `exp`, `iat` and a tenant claim using the repository's documented tenant naming convention.
+
+<Callout tone="security" title="Identity boundary">
+  Register exact redirect URIs, enforce TLS, protect tokens and use PKCE where applicable. Do not
+  treat a local-development configuration as a production identity configuration.
+</Callout>
+
+## Allowed origins
+
+A production deployment should explicitly restrict browser origins. The repository's reference deployment uses `THREATFADE_ALLOWED_ORIGINS` for this boundary.
+
+```bash
+export THREATFADE_ALLOWED_ORIGINS='https://console.example.com'
+```
+
+## Tenancy and roles
+
+The documented RBAC roles are:
+
+- `viewer`
+- `analyst`
+- `api_only`
+- `admin`
+- `tenant_admin`
+
+Detection records and audit events are tenant-scoped. Tenant-admin and platform-admin responsibilities are separated.
+
+## Persistence
+
+- SQLite is documented for development.
+- PostgreSQL is the production persistence path through SQLAlchemy.
+- Production deployments should use durable storage and a secret-management system.
+
+## Operational targets
+
+The readiness endpoint exposes configured SLO targets. Targets are targets, not measured guarantees. Production teams should establish evidence for availability, latency, throughput, error rate, alert volume and resource utilization before publishing measured SLOs.

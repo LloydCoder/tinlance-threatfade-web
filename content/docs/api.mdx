@@ -1,0 +1,49 @@
+---
+title: "API"
+description: "Reference the documented ThreatFade service boundary and operational endpoints."
+category: "Developer"
+version: "v0.4.0"
+status: "implemented"
+updated: "2026-08-23"
+---
+
+# API
+
+ThreatFade exposes a FastAPI control/data-plane boundary. The repository documents operational endpoints for health, readiness and version inspection.
+
+## Health
+
+```bash
+curl http://localhost:8080/health
+```
+
+Use health to determine whether the service is responding.
+
+## Readiness
+
+```bash
+curl http://localhost:8080/ready
+```
+
+Readiness exposes operational readiness information, including configured SLO targets. Treat targets as configuration, not as measured guarantees.
+
+## Version
+
+```bash
+curl http://localhost:8080/version
+```
+
+Use this endpoint to identify the running application version.
+
+## Authentication boundary
+
+Production authentication uses OIDC/JWT validation with issuer, audience, JWKS and time-claim validation. The repository documents `sub`, `exp`, `iat` and a tenant claim as required token context.
+
+## Request safety
+
+The engine documents request IDs, rate limiting, restrictive CORS, finite-number validation and bounded PCAP/request inputs. Integrations should preserve these boundaries rather than placing the service directly on an untrusted network.
+
+<Callout tone="security" title="Do not infer undocumented endpoints">
+  This page intentionally documents only service contracts verified from the engine repository. If
+  an endpoint is not represented here, consult the source repository before building against it.
+</Callout>

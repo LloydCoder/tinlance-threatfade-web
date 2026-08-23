@@ -1,0 +1,64 @@
+---
+title: "Reference"
+description: "Keep the ThreatFade pipeline, repository map, detection vocabulary and operational checks close at hand."
+category: "Reference"
+version: "v0.4.0"
+status: "reference"
+updated: "2026-08-23"
+---
+
+# Reference
+
+## Pipeline
+
+```text
+Signal / PCAP
+  → signal extraction
+  → rolling Shannon entropy
+  → statistical deviation
+  → detection rules
+  → optional ML anomaly layer
+  → confidence + structured evidence
+  → ATT&CK mapping
+  → JSON / SIEM / Sigma / STIX 2.1 / FusionOps
+```
+
+## Core concepts
+
+| Concept        | Meaning                                                                                                |
+| -------------- | ------------------------------------------------------------------------------------------------------ |
+| Fade           | A deliberate reduction in observable activity that can warrant investigation.                          |
+| Evidence       | Structured context preserved with a detection for analyst review.                                      |
+| Confidence     | A score used to prioritize or contextualize a detection; not a universal probability of maliciousness. |
+| ATT&CK mapping | Technique/tactic context attached to relevant detections.                                              |
+| Detection pack | Versioned collection of detection rules and mappings.                                                  |
+
+## Repository map
+
+```text
+agents/             signal-generation and endpoint components
+api.py              FastAPI control/data-plane boundary
+benchmarks/         reproducible validation
+core/               detection, security, storage, evidence and observability
+dashboard/          analyst console
+docs/               enterprise, threat-model and architecture documentation
+integrations/       operational integrations
+mitre/              ATT&CK mapping
+reports/            generated validation/interoperability outputs
+scripts/            operational tooling
+tests/              unit/integration/security coverage
+```
+
+## Verification commands
+
+```bash
+python -m compileall -q .
+pytest -q
+python benchmarks/benchmark.py
+python -c "from core.detection_pack import detection_pack, validate_pack; validate_pack(detection_pack()); print('detection pack: OK')"
+python scripts/enterprise_smoke.py
+```
+
+## Validation boundary
+
+The deterministic benchmark is separate from real-PCAP validation. The repository records author-confirmed validation against Merlin QUIC C2, Cobalt Strike and IcedID and a documented 0% false-positive baseline across five normal traffic patterns and 100 test runs. These are project validation results under the documented conditions, not universal accuracy guarantees.

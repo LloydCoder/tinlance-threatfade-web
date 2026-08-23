@@ -1,0 +1,57 @@
+---
+title: "Deployment"
+description: "Deploy ThreatFade with a hardened production boundary and durable persistence."
+category: "Operations"
+version: "v0.4.0"
+status: "implemented"
+updated: "2026-08-23"
+---
+
+# Deployment
+
+The engine repository includes Docker and Compose assets and Kubernetes security context/health-probe assets. Production deployment should preserve the documented identity, persistence and network boundaries.
+
+## Reference Compose configuration
+
+```bash
+export POSTGRES_PASSWORD='use-a-secret-manager'
+export THREATFADE_OIDC_ISSUER='https://idp.example.com/realms/security'
+export THREATFADE_OIDC_AUDIENCE='threatfade-api'
+export THREATFADE_ALLOWED_ORIGINS='https://console.example.com'
+docker compose up --build
+```
+
+## Production boundary
+
+A typical deployment separates:
+
+```text
+Enterprise IdP
+    │ OIDC / JWT
+    ▼
+ThreatFade control plane
+    │
+    ├── Auth / RBAC
+    ├── Tenant policy
+    └── Audit
+    │
+    ▼
+Detection data plane
+    │
+    ├── PCAP / live signals / ML
+    ├── Detection + evidence
+    └── Durable persistence
+```
+
+## Kubernetes
+
+For enterprise Kubernetes deployments, use the hardened container and Kubernetes assets, externalize secrets, configure TLS at the edge, use persistent storage and connect application telemetry to the organization's observability backend.
+
+## Reliability evidence
+
+Production teams should measure API availability, p50/p95/p99 latency, throughput, error rate, alert volume, resource utilization and backup/restore performance. Repository tests do not constitute customer-scale performance guarantees.
+
+<Callout tone="security" title="Secrets">
+  Do not place production credentials in Compose files, documentation, source control or
+  browser-exposed configuration. Use the organization's secret-management boundary.
+</Callout>

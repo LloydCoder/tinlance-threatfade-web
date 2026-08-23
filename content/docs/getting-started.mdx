@@ -1,0 +1,68 @@
+---
+title: "Getting started"
+description: "Understand ThreatFade's evidence-first workflow and run the reference implementation locally."
+category: "Foundation"
+version: "v0.4.0"
+status: "implemented"
+updated: "2026-08-23"
+---
+
+# Getting started
+
+ThreatFade is an evidence-first detection and investigation platform for situations where adversarial activity becomes less observable on purpose. The current engine documents C2 quieting, gradual living-off-the-land activity reduction and GNSS interference as supported fade scenarios.
+
+<Callout title="Documentation scope">
+  This documentation tracks the v0.4.0 engine repository. Repository validation is not represented
+  as independent assurance or a universal detection guarantee.
+</Callout>
+
+## The operational loop
+
+ThreatFade is organized around:
+
+```text
+Prioritize → Inspect → Pivot → Disposition → Handoff
+```
+
+The dashboard provides a priority queue, evidence-backed detection records, confidence context, investigation workflow and analyst disposition actions.
+
+## Detection pipeline
+
+```text
+Signal / PCAP
+  → signal extraction
+  → rolling entropy + statistical deviation
+  → detection rules
+  → optional ML anomaly layer
+  → confidence + structured evidence
+  → ATT&CK mapping
+  → interoperable output
+```
+
+## Quick start
+
+```bash
+git clone https://github.com/LloydCoder/tinlance-threatfade.git
+cd tinlance-threatfade
+python -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+python api.py
+```
+
+Open the reference dashboard at `http://localhost:8080/dashboard/`.
+
+## Verify the service
+
+```bash
+curl http://localhost:8080/health
+curl http://localhost:8080/ready
+curl http://localhost:8080/version
+```
+
+## What to read next
+
+- [Installation](/docs/installation) for local prerequisites and runtime setup.
+- [Configuration](/docs/configuration) for identity, tenancy and persistence boundaries.
+- [Detection packs](/docs/detection-packs) for rule lifecycle and ATT&CK mappings.
+- [Security](/docs/security) before production deployment.

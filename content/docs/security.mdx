@@ -1,0 +1,69 @@
+---
+title: "Security"
+description: "Understand ThreatFade's implemented security controls and explicit assurance boundary."
+category: "Security"
+version: "v0.4.0"
+status: "implemented"
+updated: "2026-08-23"
+---
+
+# Security
+
+ThreatFade's repository includes application, container, Kubernetes and supply-chain controls. This page describes the implementation boundary without converting repository controls into certification claims.
+
+## Identity and tenancy
+
+- OIDC/JWT validation with issuer, audience, JWKS and time-claim validation.
+- RBAC roles: `viewer`, `analyst`, `api_only`, `admin`, `tenant_admin`.
+- Tenant-scoped detection persistence.
+- Cross-tenant access denied by default.
+- Tenant-admin/platform-admin separation.
+- Production fail-closed authentication.
+- Append-oriented audit events with request and principal context.
+
+## Input and network controls
+
+The repository documents:
+
+- Bounded request and PCAP inputs.
+- Rate limiting.
+- Request IDs.
+- Restrictive CORS.
+- Finite-number validation.
+- Safe temporary PCAP handling.
+- Security headers.
+
+## Container and supply chain
+
+The repository includes:
+
+- Non-root container execution.
+- Dropped Linux capabilities.
+- `no-new-privileges`.
+- Kubernetes security context and health probes.
+- Dependabot.
+- CodeQL.
+- Gitleaks.
+- `pip-audit`.
+- SBOM generation.
+- Build provenance/attestation.
+- Keyless Sigstore signing for release images.
+
+## Assurance boundary
+
+The engine explicitly does **not** claim that source code alone proves:
+
+- SOC 2 / ISO 27001 certification.
+- Independent penetration testing.
+- Independent detection validation.
+- Contractual SLAs.
+- Customer-scale performance guarantees.
+- Data-residency commitments.
+- Organization-level incident-response obligations.
+
+Those require organizational controls, evidence, contracts and/or independent assessment.
+
+<Callout tone="security" title="Security reporting">
+  Use the repository's security policy and disclosure process for reporting vulnerabilities. Do not
+  publish sensitive exploit details in ordinary documentation issues.
+</Callout>

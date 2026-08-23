@@ -1,0 +1,53 @@
+---
+title: "Integrations"
+description: "Connect ThreatFade evidence to existing security operations and interoperability workflows."
+category: "Operations"
+version: "v0.4.0"
+status: "implemented"
+updated: "2026-08-23"
+---
+
+# Integrations
+
+ThreatFade is designed as a specialized detection and evidence layer, not as a replacement for an enterprise SIEM or SOAR.
+
+## Supported output paths
+
+The engine repository documents:
+
+- JSON
+- Splunk HEC
+- CEF
+- CSV
+- Sigma-compatible output
+- STIX 2.1-compatible bundles
+- MITRE ATT&CK mapping
+- FusionOps integration
+
+## Operational model
+
+```text
+ThreatFade detection
+       │
+       ├── JSON
+       ├── SIEM / Splunk HEC
+       ├── CEF / CSV
+       ├── Sigma-compatible
+       ├── STIX 2.1-compatible
+       └── FusionOps
+```
+
+The integration objective is to preserve evidence and context as detections move into existing operational workflows.
+
+## ATT&CK context
+
+Detections can carry MITRE ATT&CK context before operational handoff. ATT&CK mapping is evidence context, not a claim that every mapped technique is independently confirmed in every detection.
+
+## FusionOps
+
+The engine documents FusionOps as an operational integration path. Use the repository's integration implementation as the source of truth for deployment-specific configuration.
+
+<Callout title="Compatibility boundary">
+  "Compatible" output formats do not mean that every downstream SIEM/SOAR deployment will accept
+  every field without local mapping. Validate the target connector and schema in your environment.
+</Callout>
