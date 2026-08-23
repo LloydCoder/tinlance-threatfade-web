@@ -13,7 +13,7 @@
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
     "format": "prettier --write .",
-    "format:check": "node scripts/check-format.mjs",
+    "format:check": "bash scripts/check-format.sh",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:e2e": "playwright test",
