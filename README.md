@@ -47,6 +47,8 @@ Next.js web platform
   ThreatFade engine / API
 ```
 
+The engine integration is server-side and typed. `lib/api/client.ts` owns engine URLs, timeouts, retries, response-size limits, redirect behavior and schema validation. Browser components must not call engine endpoints directly or receive engine credentials.
+
 The public playground is treated as an untrusted-input boundary. Curated demonstrations come first; arbitrary PCAP processing requires a separately reviewed isolation and resource-control design.
 
 ## Development
@@ -67,6 +69,18 @@ npm test
 npm run build
 npm run test:e2e
 ```
+
+## Engine integration configuration
+
+The Phase 8 integration uses server-only configuration:
+
+```text
+THREATFADE_API_URL
+THREATFADE_API_TIMEOUT_MS
+THREATFADE_API_MAX_RETRIES
+```
+
+Production engine URLs must use HTTPS. Do not expose engine credentials through `NEXT_PUBLIC_*` variables. See [`docs/engine-api-integration.md`](./docs/engine-api-integration.md) for the synchronization and security boundary.
 
 ## Content policy
 
