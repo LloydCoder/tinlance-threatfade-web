@@ -2,9 +2,10 @@ name: CI
 
 on:
   push:
-    branches: [main]
+    branches: ["**"]
   pull_request:
     branches: [main]
+  merge_group:
   workflow_dispatch:
 
 permissions:
@@ -25,15 +26,14 @@ jobs:
         uses: actions/checkout@v5
         with:
           persist-credentials: false
+          fetch-depth: 0
 
       - name: Setup Node
         uses: actions/setup-node@v5
         with:
           node-version: 22
+          package-manager-cache: false
 
-      # The repository currently has no package-lock.json, so npm ci is not
-      # available yet. Keep installation deterministic at the package.json
-      # level until the lockfile is committed.
       - name: Install dependencies
         run: npm install --no-audit --no-fund
 
