@@ -1,3 +1,4 @@
+import { ZodError } from "zod";
 import { engineConfigSchema, scenarioSchema, type ThreatFadeScenario } from "@/lib/validation/engine";
 import {
   threatFadeDetectionSchema,
@@ -9,6 +10,7 @@ import {
 } from "@/lib/api/models";
 
 const RETRYABLE = new Set([408, 425, 429, 500, 502, 503, 504]);
+const MAX_RESPONSE_BYTES = 1_048_576;
 
 export class ThreatFadeApiError extends Error {
   constructor(public readonly status: number, message: string, public readonly requestId?: string) {
@@ -26,13 +28,29 @@ function config() {
 }
 
 function endpoint(baseUrl: string, pathname: string) {
-  // Path is code-owned; never concatenate user-controlled URLs into the target.
   return new URL(pathname, `${baseUrl.replace(/\/$/, "")}/`).toString();
+}
+
+async function readJson(response: Response): Promise<unknown> {
+  const length = response.headers.get("content-length");
+  if (length && Number(length) > MAX_RESPONSE_BYTES) {
+    throw new ThreatFadeApiError(502, "ThreatFade API response exceeded the allowed size");
+  }
+  const buffer = await response.arrayBuffer();
+  if (buffer.byteLength > MAX_RESPONSE_BYTES) {
+    throw new ThreatFadeApiError(502, "ThreatFade API response exceeded the allowed size");
+  }
+  try {
+    return JSON.parse(new TextDecoder().decode(buffer));
+  } catch {
+    throw new ThreatFadeApiError(502, "ThreatFade API returned an invalid response");
+  }
 }
 
 async function request<T>(pathname: string, schema: { parse: (value: unknown) => T }, init?: RequestInit): Promise<T> {
   const cfg = config();
   let attempt = 0;
+
   while (true) {
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), cfg.timeoutMs);
@@ -43,10 +61,7 @@ async function request<T>(pathname: string, schema: { parse: (value: unknown) =>
         redirect: "error",
         cache: "no-store",
         credentials: "omit",
-        headers: {
-          Accept: "application/json",
-          ...(init?.headers ?? {}),
-        },
+        headers: { Accept: "application/json", ...(init?.headers ?? {}) },
       });
       const requestId = response.headers.get("X-Request-ID") ?? undefined;
       if (!response.ok) {
@@ -57,9 +72,18 @@ async function request<T>(pathname: string, schema: { parse: (value: unknown) =>
         }
         throw new ThreatFadeApiError(response.status, `ThreatFade API request failed (${response.status})`, requestId);
       }
-      return schema.parse(await response.json());
+      return schema.parse(await readJson(response));
     } catch (error) {
-      if (error instanceof ThreatFadeApiError) throw error;
+      // Validation and bounded-response failures are deterministic; never retry them.
+      if (error instanceof ThreatFadeApiError || error instanceof ZodError) throw error;
+      if (error instanceof Error && error.name === "AbortError") {
+        if (attempt < cfg.maxRetries) {
+          attempt += 1;
+          await new Promise((resolve) => setTimeout(resolve, 150 * 2 ** attempt));
+          continue;
+        }
+        throw new ThreatFadeApiError(504, "ThreatFade API request timed out");
+      }
       if (attempt < cfg.maxRetries) {
         attempt += 1;
         await new Promise((resolve) => setTimeout(resolve, 150 * 2 ** attempt));
