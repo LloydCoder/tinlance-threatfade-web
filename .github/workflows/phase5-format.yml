@@ -9,7 +9,6 @@ permissions:
 
 jobs:
   format:
-    if: github.actor == 'LloydCoder' && !startsWith(github.event.head_commit.message, 'style(phase5): format')
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -27,7 +26,7 @@ jobs:
       - name: Install dependencies
         run: npm install --no-audit --no-fund
 
-      - name: Format changed documentation files
+      - name: Format documentation platform
         run: npx prettier --write app/docs config/docs.ts content/docs components/docs lib/docs.ts tests/unit/docs*.test.ts app/sitemap.ts docs/PHASE-5-DOCUMENTATION.md
 
       - name: Commit formatting
