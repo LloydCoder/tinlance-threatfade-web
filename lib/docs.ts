@@ -31,6 +31,7 @@ export async function getDocSlugs() {
 export function validateDocFrontmatter(frontmatter: Partial<DocFrontmatter>, slug: string) {
   const required = ["title", "description", "category", "version", "status", "updated"] as const;
   const missing = required.filter((key) => !frontmatter[key]);
-  if (missing.length) throw new Error(`Invalid docs frontmatter for ${slug}: missing ${missing.join(", ")}`);
+  if (missing.length)
+    throw new Error(`Invalid docs frontmatter for ${slug}: missing ${missing.join(", ")}`);
   if (!docsBySlug.has(slug)) throw new Error(`Unknown documentation slug: ${slug}`);
 }

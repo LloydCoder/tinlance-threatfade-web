@@ -23,11 +23,11 @@ This lifecycle separates research work from operational deployment.
 
 The repository documents these core rule identifiers:
 
-| ID | Scenario |
-| --- | --- |
-| `TF-C2-001` | C2 quieting |
+| ID            | Scenario                         |
+| ------------- | -------------------------------- |
+| `TF-C2-001`   | C2 quieting                      |
 | `TF-LOTL-001` | gradual living-off-the-land fade |
-| `TF-GNSS-001` | GNSS interference |
+| `TF-GNSS-001` | GNSS interference                |
 
 ## Detection pipeline
 
@@ -41,7 +41,10 @@ Validate the detection pack locally:
 python -c "from core.detection_pack import detection_pack, validate_pack; validate_pack(detection_pack()); print('detection pack: OK')"
 ```
 
-<Callout title="Evidence boundary">A valid detection pack proves that the repository's rule structure satisfies its validation contract. It does not prove universal detection effectiveness across arbitrary environments.</Callout>
+<Callout title="Evidence boundary">
+  A valid detection pack proves that the repository's rule structure satisfies its validation
+  contract. It does not prove universal detection effectiveness across arbitrary environments.
+</Callout>
 
 ## Adding research
 

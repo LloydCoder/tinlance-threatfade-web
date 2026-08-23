@@ -7,7 +7,10 @@ import { docsSections, docsVersion } from "@/config/docs";
 describe("documentation content", () => {
   it("has valid frontmatter for every published page", () => {
     for (const section of docsSections) {
-      const source = readFileSync(join(process.cwd(), "content", "docs", `${section.slug}.mdx`), "utf8");
+      const source = readFileSync(
+        join(process.cwd(), "content", "docs", `${section.slug}.mdx`),
+        "utf8",
+      );
       const { data, content } = matter(source);
       expect(data.title).toBeTruthy();
       expect(data.description).toBeTruthy();

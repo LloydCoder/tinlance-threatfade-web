@@ -23,7 +23,10 @@ THREATFADE_OIDC_JWKS_URL   # optional; issuer discovery is used when omitted
 
 Production tokens must contain `sub`, `exp`, `iat` and a tenant claim using the repository's documented tenant naming convention.
 
-<Callout tone="security" title="Identity boundary">Register exact redirect URIs, enforce TLS, protect tokens and use PKCE where applicable. Do not treat a local-development configuration as a production identity configuration.</Callout>
+<Callout tone="security" title="Identity boundary">
+  Register exact redirect URIs, enforce TLS, protect tokens and use PKCE where applicable. Do not
+  treat a local-development configuration as a production identity configuration.
+</Callout>
 
 ## Allowed origins
 
