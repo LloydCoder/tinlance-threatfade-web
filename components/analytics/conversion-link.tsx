@@ -7,6 +7,7 @@ export type ConversionEvent =
   | "view_github"
   | "read_docs"
   | "explore_research"
+  | "behavioral_fade"
   | "request_evaluation"
   | "contact_threatfade";
 
@@ -31,9 +32,7 @@ export function ConversionLink({
       source: "enterprise",
       timestamp: Date.now(),
     };
-    window.dispatchEvent(
-      new CustomEvent("threatfade:conversion", { detail }),
-    );
+    window.dispatchEvent(new CustomEvent("threatfade:conversion", { detail }));
     const dataLayer = (
       window as Window & {
         dataLayer?: Array<Record<string, unknown>>;
