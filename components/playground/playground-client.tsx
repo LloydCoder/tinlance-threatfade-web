@@ -2,6 +2,7 @@
 import { useMemo, useState } from "react";
 import { AlertTriangle, Check, CircleDot, ShieldCheck } from "lucide-react";
 import type { PlaygroundScenario } from "@/lib/playground";
+import { getPlaygroundDataset } from "@/lib/playground";
 import { TfBadge, TfLabel, TfPanel } from "@/components/ui/tf-primitives";
 const scenarios = [
   ["c2_quieting", "C2 quieting"],
@@ -23,7 +24,7 @@ const stageText: Record<string, string> = {
 };
 export function PlaygroundClient() {
   const [scenario, setScenario] = useState<PlaygroundScenario>("c2_quieting");
-  const [data, setData] = useState<any>(null);
+  const [data, setData] = useState<ReturnType<typeof getPlaygroundDataset> | null>(null);
   const [error, setError] = useState<string | null>(null);
   async function choose(next: PlaygroundScenario) {
     setScenario(next);
@@ -59,7 +60,7 @@ export function PlaygroundClient() {
           <div>
             <h2 className="text-2xl font-semibold">Choose a behavioral pattern</h2>
             <p className="mt-2 max-w-2xl text-sm leading-7 text-[var(--tf-text-muted)]">
-              Deterministic web visualizations derived from the engine's documented signal-generator
+              Deterministic web visualizations derived from the engine&apos;s documented signal-generator
               shapes. They are not live detections.
             </p>
           </div>
