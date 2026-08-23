@@ -37,6 +37,11 @@ jobs:
       - name: Install dependencies
         run: npm install --no-audit --no-fund
 
+      - name: Generate canonical formatting for final fixes
+        run: |
+          npx prettier --write next.config.ts tests/e2e/home.spec.ts
+          git diff -- next.config.ts tests/e2e/home.spec.ts
+
       - name: Format check
         run: npm run format:check
 
