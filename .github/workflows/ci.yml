@@ -52,15 +52,17 @@ jobs:
         run: npm run test:e2e
 
   phase6_format_repair:
-    if: github.event_name == 'push' && github.ref == 'refs/heads/feat/phase6-playground' && github.actor == 'LloydCoder'
+    if: (github.event_name == 'push' && github.ref == 'refs/heads/feat/phase6-playground' || github.event_name == 'pull_request' && github.event.pull_request.head.ref == 'feat/phase6-playground') && github.actor == 'LloydCoder'
     permissions:
       contents: write
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - name: Checkout
+      - name: Checkout source branch
         uses: actions/checkout@v5
         with:
+          ref: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.ref || github.ref_name }}
+          persist-credentials: true
           fetch-depth: 0
       - name: Setup Node
         uses: actions/setup-node@v5
