@@ -7,7 +7,6 @@ export type ConversionEvent =
   | "view_github"
   | "read_docs"
   | "explore_research"
-  | "behavioral_fade"
   | "request_evaluation"
   | "contact_threatfade";
 
