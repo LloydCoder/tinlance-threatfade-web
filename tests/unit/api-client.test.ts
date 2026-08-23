@@ -22,7 +22,22 @@ describe("ThreatFade API boundary", () => {
       expect(String(input)).toBe("https://engine.example.test/health");
       expect(init?.redirect).toBe("error");
       expect(init?.credentials).toBe("omit");
-      return new Response(JSON.stringify({ status: "ok", tool: "ThreatFade", version: "0.4.0", company: "Tinlance Limited", timestamp: new Date().toISOString() }), { status: 200, headers: { "Content-Type": "application/json", "X-Request-ID": "req-test" } });
+      return new Response(
+        JSON.stringify({
+          status: "ok",
+          tool: "ThreatFade",
+          version: "0.4.0",
+          company: "Tinlance Limited",
+          timestamp: new Date().toISOString(),
+        }),
+        {
+          status: 200,
+          headers: {
+            "Content-Type": "application/json",
+            "X-Request-ID": "req-test",
+          },
+        },
+      );
     };
     await expect(threatFadeApi.health()).resolves.toMatchObject({ version: "0.4.0" });
   });
