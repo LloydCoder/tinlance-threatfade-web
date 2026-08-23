@@ -1,0 +1,48 @@
+---
+title: "Detection packs"
+description: "Understand ThreatFade's detection-as-code lifecycle, stable IDs and ATT&CK mappings."
+category: "Detection"
+version: "v0.4.0"
+status: "implemented"
+updated: "2026-08-23"
+---
+
+# Detection packs
+
+ThreatFade treats detection rules as versioned engineering artifacts. The repository documents stable IDs, semantic versions, descriptions and ATT&CK mappings.
+
+## Lifecycle
+
+```text
+Research → Backtest → Canary → Production → Deprecated
+```
+
+This lifecycle separates research work from operational deployment.
+
+## Core rules
+
+The repository documents these core rule identifiers:
+
+| ID | Scenario |
+| --- | --- |
+| `TF-C2-001` | C2 quieting |
+| `TF-LOTL-001` | gradual living-off-the-land fade |
+| `TF-GNSS-001` | GNSS interference |
+
+## Detection pipeline
+
+Rules consume extracted signal features and statistical deviation. Outputs can include confidence, structured evidence and ATT&CK context.
+
+## Validation
+
+Validate the detection pack locally:
+
+```bash
+python -c "from core.detection_pack import detection_pack, validate_pack; validate_pack(detection_pack()); print('detection pack: OK')"
+```
+
+<Callout title="Evidence boundary">A valid detection pack proves that the repository's rule structure satisfies its validation contract. It does not prove universal detection effectiveness across arbitrary environments.</Callout>
+
+## Adding research
+
+New rules should remain evidence-linked. Do not promote a hypothesis to production merely because a synthetic scenario is visually compelling; backtesting and documented validation are part of the intended lifecycle.
