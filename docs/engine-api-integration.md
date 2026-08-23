@@ -4,9 +4,9 @@ The web repository treats `LloydCoder/tinlance-threatfade` as the source of trut
 
 ## Verified engine baseline
 
-The current engine README identifies ThreatFade as **v0.4.0 — enterprise engineering baseline**. It exposes `/health`, `/ready` and `/version`, plus authenticated detection endpoints including `/detect`, `/detect/pcap`, `/detect/scenario` and `/detections`.
+The current engine baseline used for this integration is **v0.4.0**. The engine documents `/health`, `/ready` and `/version`, plus authenticated detection operations including `/detect`, `/detect/pcap`, `/detect/scenario` and `/detections`.
 
-The documented detection response contains detection state, confidence, score, entropy, drop ratio, z-outlier, fade start, matched-rule count, ATT&CK identifier and structured evidence, with optional ML fields.
+The documented detection model includes detection state, confidence, score, entropy, drop ratio, z-outlier, fade start, matched-rule count, ATT&CK identifier and structured evidence, with optional ML fields.
 
 ## Web integration boundary
 
@@ -26,25 +26,25 @@ The client:
 - validates every JSON response against typed Zod schemas;
 - exposes sanitized application errors rather than raw upstream bodies.
 
-This follows the defensive principle of using an allowlist/code-owned destination where the application only needs to contact a known service, and avoiding automatic redirects in SSRF-sensitive HTTP clients. See the OWASP SSRF Prevention Cheat Sheet.
+This follows the defensive principle of using an allowlist/code-owned destination where the application only needs to contact a known service, and avoiding automatic redirects in SSRF-sensitive HTTP clients.
 
 ## Authentication boundary
 
-The engine requires production identity and authorization for detection operations. The website does **not** store or expose engine credentials in browser code. Authentication for a future authenticated integration must terminate at a server-side boundary and use the engine's documented OIDC/JWT/API-key controls.
+Production detection operations require the engine's documented identity and authorization controls. The website does **not** store or expose engine credentials in browser code. Any future authenticated integration must terminate at a server-side boundary and use the engine's documented OIDC/JWT/API-key controls.
 
-The current client intentionally exposes only safe read operations and a typed scenario call. It does not proxy arbitrary paths, arbitrary URLs, PCAP uploads, tenant IDs, export paths or raw authentication headers.
+The current client intentionally avoids arbitrary proxying: it does not accept arbitrary paths, arbitrary URLs, tenant identifiers, export paths, raw authentication headers, or unrestricted PCAP uploads.
 
 ## CORS
 
-The website does not depend on browser-to-engine cross-origin credentials. This is deliberate. If a future browser integration is required, the engine's CORS policy must use an explicit allowlist of origins and methods/headers rather than reflecting arbitrary origins. Credentialed CORS must not use `*`.
+The website does not depend on browser-to-engine credentialed CORS. If a future browser integration is required, the engine CORS policy must explicitly allow the required origins, methods and headers. Credentialed CORS must never use a wildcard origin.
 
 ## Secrets
 
-`THREATFADE_API_URL`, `THREATFADE_API_TIMEOUT_MS` and `THREATFADE_API_MAX_RETRIES` are server configuration. Engine credentials must never be prefixed with `NEXT_PUBLIC_` and must never be embedded in client components.
+`THREATFADE_API_URL`, `THREATFADE_API_TIMEOUT_MS` and `THREATFADE_API_MAX_RETRIES` are server configuration. Engine credentials must never be prefixed with `NEXT_PUBLIC_` or embedded in client components.
 
 ## Failure handling
 
-The integration distinguishes upstream HTTP failures from unavailable/timeout failures while avoiding leakage of upstream response bodies. `X-Request-ID` is preserved as diagnostic context when the upstream supplies one.
+The integration distinguishes upstream HTTP failures from unavailable/timeout failures without returning upstream response bodies to users. `X-Request-ID` is retained as diagnostic context when supplied by the upstream.
 
 ## Synchronization rule
 
