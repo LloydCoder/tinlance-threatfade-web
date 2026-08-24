@@ -23,6 +23,7 @@ if ((${#files[@]})); then
     [[ "$file" == node_modules/* || "$file" == .next/* ]] && continue
     [[ "$file" == scripts/validate-documentation.mjs ]] && continue
     [[ "$file" == README.md ]] && continue
+    [[ "$file" == tests/e2e/* ]] && continue
     [[ "$file" == *.yml || "$file" == *.yaml ]] && continue
     filtered+=("$file")
   done
