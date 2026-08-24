@@ -35,13 +35,6 @@ if ((${#files[@]})); then
   files=("${filtered[@]}")
 fi
 
-if [[ -f tests/e2e/accessibility.spec.ts ]]; then
-  npx prettier --write tests/e2e/accessibility.spec.ts
-  echo "--- PHASE11_FORMAT_PROBE ---"
-  cat tests/e2e/accessibility.spec.ts
-  echo "--- END PHASE11_FORMAT_PROBE ---"
-fi
-
 if ((${#files[@]})); then
   echo "Checking ${#files[@]} changed file(s) with Prettier..."
   npx prettier --check --ignore-unknown "${files[@]}"
