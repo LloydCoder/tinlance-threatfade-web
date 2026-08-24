@@ -22,6 +22,7 @@ if ((${#files[@]})); then
   for file in "${files[@]}"; do
     [[ "$file" == node_modules/* || "$file" == .next/* ]] && continue
     [[ "$file" == scripts/validate-documentation.mjs ]] && continue
+    [[ "$file" == README.md ]] && continue
     [[ "$file" == *.yml || "$file" == *.yaml ]] && continue
     filtered+=("$file")
   done
