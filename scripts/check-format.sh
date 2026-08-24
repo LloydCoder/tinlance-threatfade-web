@@ -12,14 +12,18 @@ if [[ -n "$event_path" && -f "$event_path" ]]; then
     process.stdout.write(base ?? "");
   ' "$event_path")"
 
-  if [[ "$base_sha" =~ ^[0-9a-fA-F]{40}$ ]] && git cat-file -e "$base_sha^{commit}" 2>/dev/null; then
-    mapfile -t files < <(git diff --name-only --diff-filter=ACMR "$base_sha" HEAD)
+  if [[ "$base_sha" =~ ^[0-9a-fA-F]{40}$ ]]; then
+    if ! git cat-file -e "$base_sha^{commit}" 2>/dev/null; then
+      git fetch --no-tags --depth=1 origin "$base_sha" >/dev/null 2>&1 || true
+    fi
+    if git cat-file -e "$base_sha^{commit}" 2>/dev/null; then
+      mapfile -t files < <(git diff --name-only --diff-filter=ACMR "$base_sha" HEAD)
+    fi
   fi
 fi
 
-# PR merge refs can be shallow and omit the event baseline object. In that case,
-# compare against the first parent of the synthetic merge commit instead of
-# falling back to formatting the entire historical repository.
+# PR merge refs can be shallow and omit the event baseline object. If it is
+# still unavailable, compare against the first parent when that parent exists.
 if ((${#files[@]} == 0)) && git rev-parse --verify HEAD^ >/dev/null 2>&1; then
   mapfile -t files < <(git diff --name-only --diff-filter=ACMR HEAD^ HEAD)
 fi
