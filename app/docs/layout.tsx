@@ -5,11 +5,14 @@ import { SiteHeader } from "@/components/navigation/site-header";
 
 export const metadata: Metadata = {
   title: "Documentation",
-  description: "ThreatFade developer documentation for installation, configuration, detection packs, API, integrations, deployment and security.",
+  description:
+    "ThreatFade developer documentation for installation, configuration, detection packs, API, integrations, deployment and security.",
   alternates: { canonical: "/docs" },
 };
 
-export default function DocsLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+export default function DocsLayout({
+  children,
+}: Readonly<{ children: React.ReactNode }>) {
   return (
     <main className="min-h-screen bg-[var(--tf-canvas)] text-[var(--tf-text)]">
       <SiteHeader />
