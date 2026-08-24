@@ -39,6 +39,15 @@ export const seoTopics = {
       "/docs/detection-packs",
     ],
   },
+  "multi-domain-correlation": {
+    title: "Multi-domain fade correlation",
+    description:
+      "How ThreatFade correlates independent network, GNSS and future physical-signal observations without claiming causality.",
+    status: "implemented — not production validated",
+    summary:
+      "ThreatFade's reusable temporal correlation layer combines canonical observations, explicit time windows, clock-skew tolerance, sensor confidence and uncertainty into evidence-backed observed correlations. The first concrete pack correlates GNSS disruption with network fade/C2 behavior.",
+    links: ["/correlation", "/detection", "/research", "/docs/reference"],
+  },
 } as const;
 
 export type SeoTopicSlug = keyof typeof seoTopics;
