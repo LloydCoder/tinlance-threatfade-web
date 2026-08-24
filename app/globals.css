@@ -47,9 +47,14 @@
   --tf-motion-signal: 7s;
 }
 
-* { box-sizing: border-box; }
+* {
+  box-sizing: border-box;
+}
 
-html { scroll-behavior: smooth; background: var(--tf-canvas); }
+html {
+  scroll-behavior: smooth;
+  background: var(--tf-canvas);
+}
 
 body {
   margin: 0;
@@ -65,9 +70,24 @@ body {
   color: var(--tf-text);
 }
 
-:focus-visible { outline: 2px solid var(--tf-focus); outline-offset: 3px; }
-button, a, input, textarea, select { -webkit-tap-highlight-color: transparent; }
-button:disabled, [aria-disabled="true"] { cursor: not-allowed; opacity: 0.55; }
+:focus-visible {
+  outline: 2px solid var(--tf-focus);
+  outline-offset: 3px;
+}
+
+button,
+a,
+input,
+textarea,
+select {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button:disabled,
+[aria-disabled="true"] {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
 
 .grid-noise {
   background-image:
@@ -98,15 +118,36 @@ button:disabled, [aria-disabled="true"] { cursor: not-allowed; opacity: 0.55; }
   text-transform: uppercase;
 }
 
-.tf-signal-line { stroke-dasharray: 5 8; animation: tf-signal-drift var(--tf-motion-signal) linear infinite; }
-.tf-signal-pulse { animation: tf-signal-pulse 2.8s ease-in-out infinite; }
+.tf-signal-line {
+  stroke-dasharray: 5 8;
+  animation: tf-signal-drift var(--tf-motion-signal) linear infinite;
+}
+.tf-signal-pulse {
+  animation: tf-signal-pulse 2.8s ease-in-out infinite;
+}
 
-@keyframes tf-signal-drift { to { stroke-dashoffset: -104; } }
-@keyframes tf-signal-pulse { 0%, 100% { opacity: .35; } 50% { opacity: 1; } }
+@keyframes tf-signal-drift {
+  to {
+    stroke-dashoffset: -104;
+  }
+}
+@keyframes tf-signal-pulse {
+  0%,
+  100% {
+    opacity: 0.35;
+  }
+  50% {
+    opacity: 1;
+  }
+}
 
 @media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
-  *, *::before, *::after {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
@@ -115,5 +156,7 @@ button:disabled, [aria-disabled="true"] { cursor: not-allowed; opacity: 0.55; }
 }
 
 @media (forced-colors: active) {
-  :focus-visible { outline: 2px solid CanvasText; }
+  :focus-visible {
+    outline: 2px solid CanvasText;
+  }
 }
