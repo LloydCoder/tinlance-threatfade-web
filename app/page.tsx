@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, Github, ShieldCheck } from "lucide-react";
+import { ArrowRight, GithubIcon, ShieldCheck } from "lucide-react";
 import { BehavioralLab } from "@/components/marketing/behavioral-lab";
 import { AudienceCards, DetectionPipeline, TrustBoundary } from "@/components/marketing/core-experience";
 import { SiteHeader } from "@/components/navigation/site-header";
@@ -17,7 +17,7 @@ export default function Home() {
           <h1 className="max-w-4xl text-balance text-5xl font-semibold tracking-[-0.045em] sm:text-6xl lg:text-7xl">Detect when attackers <span className="text-[var(--tf-signal)]">go quiet.</span></h1>
           <p className="mt-7 max-w-2xl text-pretty text-lg leading-8 text-[var(--tf-text-muted)] sm:text-xl">ThreatFade is an evidence-first detection and investigation platform for adversarial activity that becomes intentionally less observable.</p>
           <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-            <a href={siteConfig.github} target="_blank" rel="noreferrer" className="group inline-flex items-center justify-center gap-2 rounded-md bg-[var(--tf-signal)] px-5 py-3 text-sm font-semibold text-[var(--tf-signal-text)] transition hover:brightness-105"><Github className="size-4" /> View on GitHub <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" /></a>
+            <a href={siteConfig.github} target="_blank" rel="noreferrer" className="group inline-flex items-center justify-center gap-2 rounded-md bg-[var(--tf-signal)] px-5 py-3 text-sm font-semibold text-[var(--tf-signal-text)] transition hover:brightness-105"><GithubIcon className="size-4" /> View on GitHub <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" /></a>
             <Link href="/detection" className="inline-flex items-center justify-center gap-2 rounded-md border border-[var(--tf-line-strong)] px-5 py-3 text-sm font-semibold transition hover:border-[var(--tf-signal)] hover:text-[var(--tf-signal)]">Understand detection</Link>
           </div>
           <div className="mt-10 flex flex-wrap gap-x-7 gap-y-2 font-mono text-[10px] uppercase tracking-[0.16em] text-[var(--tf-text-subtle)]"><span>Apache 2.0</span><span>Open source</span><span>Python / FastAPI</span><span>Evidence + ATT&CK</span></div>
