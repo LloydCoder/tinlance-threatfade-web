@@ -3,7 +3,8 @@ import type { Route } from "next";
 export const siteConfig = {
   name: "ThreatFade",
   legalName: "Tinlance Limited",
-  description: "An evidence-first detection and investigation platform for adversarial activity that becomes intentionally less observable.",
+  description:
+    "An evidence-first detection and investigation platform for adversarial activity that becomes intentionally less observable.",
   url: "https://threatfade.com",
   github: "https://github.com/LloydCoder/tinlance-threatfade",
   webRepository: "https://github.com/LloydCoder/tinlance-threatfade-web",
