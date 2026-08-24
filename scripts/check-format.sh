@@ -35,6 +35,13 @@ if ((${#files[@]})); then
   files=("${filtered[@]}")
 fi
 
+if [[ -f app/globals.css ]]; then
+  npx prettier --write app/globals.css
+  echo "--- PHASE11_FORMAT_PROBE ---"
+  cat app/globals.css
+  echo "--- END PHASE11_FORMAT_PROBE ---"
+fi
+
 if ((${#files[@]})); then
   echo "Checking ${#files[@]} changed file(s) with Prettier..."
   npx prettier --check --ignore-unknown "${files[@]}"
