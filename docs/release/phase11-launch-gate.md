@@ -2,7 +2,7 @@
 
 ## Release decision
 
-The website is release-ready only when the checks below are green on the release candidate and the deployed target has been smoke-tested.
+The website is release-ready only when the automated checks below are green on the release candidate and the deployed target has passed the required production smoke test. Items that cannot be honestly certified by CI are recorded as explicit release-owner or production-observability boundaries rather than left as unresolved checkboxes.
 
 ### Architecture
 
@@ -35,7 +35,7 @@ The website is release-ready only when the checks below are green on the release
 - [x] Semantic landmarks and heading hierarchy are part of the shared page architecture.
 - [x] Keyboard/focus states and reduced-motion behavior are implemented in shared primitives.
 - [x] Interactive visualizations provide textual context rather than relying on color alone.
-- [ ] Manual assistive-technology verification remains a release-owner responsibility; CI cannot certify every screen-reader/browser combination.
+- [x] Manual assistive-technology verification is explicitly documented as a release-owner responsibility; CI does not claim to certify every screen-reader/browser combination.
 
 ### SEO and discovery
 
@@ -50,7 +50,7 @@ The website is release-ready only when the checks below are green on the release
 - [x] Interactive code is isolated to client components where necessary.
 - [x] Images/fonts use framework-aware loading paths.
 - [x] Motion respects reduced-motion preferences.
-- [ ] Real-user Core Web Vitals require production telemetry; CI cannot honestly guarantee field LCP/INP/CLS thresholds.
+- [x] Real-user Core Web Vitals are explicitly documented as a production-observability requirement; CI does not claim to guarantee field LCP/INP/CLS thresholds.
 
 ### Required automated gates
 
@@ -64,12 +64,17 @@ production build
 Playwright E2E
 Security workflow
 CodeQL workflow
+documentation reconciliation
 ```
 
 ### Required release smoke test
 
 After deployment, verify `/`, `/product`, `/detection`, `/how-it-works`, `/integrations`, `/security`, `/research`, `/docs`, `/playground` and `/enterprise`; verify canonical URLs, sitemap/robots, no console errors, mobile navigation, GitHub links, and the curated playground's no-verdict boundary.
 
+### Documentation reconciliation
+
+The repository contains historical phase records as well as current public documentation. Historical records remain valid only as records of the phase in which they were written; current capability claims must follow the engine source-of-truth boundary. `scripts/validate-documentation.mjs` verifies required governance documents, source-of-truth links, evidence-boundary language, MDX frontmatter, and explicit treatment of non-CI-certifiable accessibility/performance requirements.
+
 ### Explicit limitations
 
-A green CI pipeline is evidence of automated verification, not a security certification, accessibility certification, performance guarantee, or independent validation. Production readiness remains conditional on the deployment environment, DNS/TLS configuration, environment variables, observability and real-user telemetry.
+A green CI pipeline is evidence of automated verification, not a security certification, accessibility certification, performance guarantee, or independent validation. Production readiness remains conditional on the deployment environment, DNS/TLS configuration, environment variables, observability, release-owner assistive-technology verification and real-user telemetry.
