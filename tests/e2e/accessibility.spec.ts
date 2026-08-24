@@ -27,7 +27,9 @@ test.describe("WCAG 2.2 AA smoke audit", () => {
       );
       expect(
         serious,
-        serious.map((violation) => `${violation.id}: ${violation.help}`).join("\n"),
+        serious
+          .map((violation) => `${violation.id}: ${violation.help}`)
+          .join("\n"),
       ).toEqual([]);
     });
   }
