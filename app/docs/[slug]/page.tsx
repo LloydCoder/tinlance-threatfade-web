@@ -4,7 +4,7 @@ import { compileMDX } from "next-mdx-remote/rsc";
 import { docsMdxComponents } from "@/components/docs/mdx-components";
 import { DocsBreadcrumbs } from "@/components/docs/docs-breadcrumbs";
 import { DocsPagination } from "@/components/docs/docs-pagination";
-import { docsVersion, getDocNavigation } from "@/config/docs";
+import { getDocNavigation } from "@/config/docs";
 import { getDoc, getDocSlugs } from "@/lib/docs";
 import { siteConfig } from "@/config/site";
 import { TfBadge, TfLabel } from "@/components/ui/tf-primitives";
@@ -35,7 +35,7 @@ export default async function DocPage({ params }: { params: Promise<{ slug: stri
   const { content } = await compileMDX({ source: doc.source, options: { parseFrontmatter: true, blockJS: true, blockDangerousJS: true }, components: docsMdxComponents });
   const navigation = getDocNavigation(slug);
   const url = `${siteConfig.url}/docs/${slug}`;
-  const structuredData = articleJsonLd({ title: doc.frontmatter.title, description: doc.frontmatter.description, url, published: doc.frontmatter.published ?? doc.frontmatter.updated, updated: doc.frontmatter.updated, author: siteConfig.legalName, type: "TechArticle" });
+  const structuredData = articleJsonLd({ title: doc.frontmatter.title, description: doc.frontmatter.description, url, published: doc.frontmatter.updated, updated: doc.frontmatter.updated, author: siteConfig.legalName, type: "TechArticle" });
   const breadcrumbs = breadcrumbJsonLd([{ name: "Docs", url: `${siteConfig.url}/docs` }, { name: doc.frontmatter.title, url }]);
 
   return (
