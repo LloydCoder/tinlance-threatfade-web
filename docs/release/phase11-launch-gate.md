@@ -35,7 +35,7 @@ The website is release-ready only when the automated checks below are green on t
 - [x] Semantic landmarks and heading hierarchy are part of the shared page architecture.
 - [x] Keyboard/focus states and reduced-motion behavior are implemented in shared primitives.
 - [x] Interactive visualizations provide textual context rather than relying on color alone.
-- [x] Manual assistive-technology verification is explicitly documented as a release-owner responsibility; CI does not claim to certify every screen-reader/browser combination.
+- [x] manual assistive-technology verification is explicitly documented as a release-owner responsibility; CI does not claim to certify every screen-reader/browser combination.
 
 ### SEO and discovery
 
@@ -50,7 +50,7 @@ The website is release-ready only when the automated checks below are green on t
 - [x] Interactive code is isolated to client components where necessary.
 - [x] Images/fonts use framework-aware loading paths.
 - [x] Motion respects reduced-motion preferences.
-- [x] Real-user Core Web Vitals are explicitly documented as a production-observability requirement; CI does not claim to guarantee field LCP/INP/CLS thresholds.
+- [x] real-user Core Web Vitals are explicitly documented as a production-observability requirement; CI does not claim to guarantee field LCP/INP/CLS thresholds.
 
 ### Required automated gates
 

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, BookOpen, Github, Layers3, ShieldCheck } from "lucide-react";
+import { ArrowRight, BookOpen, GitBranch, Layers3, ShieldCheck } from "lucide-react";
 import { TfBadge, TfLabel, TfPanel } from "@/components/ui/tf-primitives";
 import { siteConfig } from "@/config/site";
 
@@ -59,7 +59,7 @@ export function AudienceCards() {
       body: "Start with the open-source engine, understand the detection surface and contribute against real implementation.",
       href: siteConfig.github,
       external: true,
-      icon: Github,
+      icon: GitBranch,
     },
     {
       title: "Researchers",

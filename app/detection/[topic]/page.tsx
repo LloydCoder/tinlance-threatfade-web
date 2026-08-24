@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { PageShell } from "@/components/layout/page-shell";
-import { TfBadge, TfLabel, TfPanel } from "@/components/ui/tf-primitives";
+import { TfBadge, TfLabel } from "@/components/ui/tf-primitives";
 import { seoTopics, type SeoTopicSlug } from "@/config/seo-topics";
 import { siteConfig } from "@/config/site";
 import { breadcrumbJsonLd, entityIds, jsonLdScript } from "@/lib/seo/json-ld";
