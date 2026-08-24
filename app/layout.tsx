@@ -1,7 +1,12 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { siteConfig } from "@/config/site";
-import { jsonLdScript, organizationJsonLd, softwareApplicationJsonLd, websiteJsonLd } from "@/lib/seo/json-ld";
+import {
+  jsonLdScript,
+  organizationJsonLd,
+  softwareApplicationJsonLd,
+  websiteJsonLd,
+} from "@/lib/seo/json-ld";
 import "./globals.css";
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
@@ -40,7 +45,13 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
       <body>
-        {jsonLd.map((item) => <script key={item["@type"]} type="application/ld+json" dangerouslySetInnerHTML={jsonLdScript(item)} />)}
+        {jsonLd.map((item) => (
+          <script
+            key={item["@type"]}
+            type="application/ld+json"
+            dangerouslySetInnerHTML={jsonLdScript(item)}
+          />
+        ))}
         {children}
       </body>
     </html>
