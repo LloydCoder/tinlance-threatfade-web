@@ -12,11 +12,10 @@ export function organizationJsonLd() {
     "@context": "https://schema.org",
     "@type": "Organization",
     "@id": entityIds.organization,
-    name: siteConfig.name,
-    alternateName: siteConfig.legalName,
+    name: siteConfig.legalName,
+    alternateName: siteConfig.name,
     url: siteConfig.url,
     sameAs: [siteConfig.github],
-    parentOrganization: { "@id": entityIds.organization },
   };
 }
 
@@ -80,7 +79,7 @@ export function articleJsonLd(input: {
     url: input.url,
     datePublished: input.published,
     ...(input.updated ? { dateModified: input.updated } : {}),
-    author: { "@type": "Organization", "@id": entityIds.organization, name: input.author ?? siteConfig.name },
+    author: { "@type": "Organization", "@id": entityIds.organization, name: input.author ?? siteConfig.legalName },
     publisher: { "@id": entityIds.organization },
     isPartOf: { "@id": entityIds.website },
     about: { "@id": entityIds.product },
