@@ -5,6 +5,8 @@ import { getResearchArticle, researchArticles } from "@/content/research";
 import { getResearchSource } from "@/lib/research";
 import { PageShell } from "@/components/layout/page-shell";
 import { ResearchCallout, ResearchCode, ResearchMeta, ResearchStatus, ResearchToc } from "@/components/research/research-components";
+import { articleJsonLd, breadcrumbJsonLd, jsonLdScript } from "@/lib/seo/json-ld";
+import { siteConfig } from "@/config/site";
 
 export const dynamicParams = false;
 
@@ -16,7 +18,12 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const article = getResearchArticle(slug);
   if (!article) return {};
-  return { title: article.title, description: article.description, alternates: { canonical: `/research/${article.slug}` }, openGraph: { type: "article", title: article.title, description: article.description, publishedTime: article.published, modifiedTime: article.updated, authors: [article.author], tags: article.tags } };
+  return {
+    title: article.title,
+    description: article.description,
+    alternates: { canonical: `/research/${article.slug}` },
+    openGraph: { type: "article", title: article.title, description: article.description, url: `${siteConfig.url}/research/${article.slug}`, publishedTime: article.published, modifiedTime: article.updated, authors: [article.author], tags: article.tags },
+  };
 }
 
 export default async function ResearchArticlePage({ params }: { params: Promise<{ slug: string }> }) {
@@ -25,10 +32,13 @@ export default async function ResearchArticlePage({ params }: { params: Promise<
   if (!article) notFound();
   const source = await getResearchSource(slug);
   const { content } = await compileMDX({ source: source.content, components: { ResearchStatus, ResearchCallout, ResearchCode } });
-  const jsonLd = { "@context": "https://schema.org", "@type": "TechArticle", headline: article.title, description: article.description, datePublished: article.published, ...(article.updated ? { dateModified: article.updated } : {}), author: { "@type": "Organization", name: article.author }, keywords: article.tags.join(", ") };
+  const url = `${siteConfig.url}/research/${article.slug}`;
+  const structuredData = articleJsonLd({ title: article.title, description: article.description, url, published: article.published, updated: article.updated, author: article.author, type: "TechArticle" });
+  const breadcrumbs = breadcrumbJsonLd([{ name: "Research", url: `${siteConfig.url}/research` }, { name: article.title, url }]);
 
   return <PageShell eyebrow={article.category} title={article.title} description={article.description}>
-    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+    <script type="application/ld+json" dangerouslySetInnerHTML={jsonLdScript(structuredData)} />
+    <script type="application/ld+json" dangerouslySetInnerHTML={jsonLdScript(breadcrumbs)} />
     <ResearchMeta author={article.author} published={article.published} updated={article.updated} readingTime={article.readingTime} />
     <div className="mt-8 grid gap-10 lg:grid-cols-[minmax(0,1fr)_18rem]">
       <article className="prose prose-invert max-w-none prose-headings:scroll-mt-24 prose-headings:font-semibold prose-p:text-[var(--tf-text-muted)] prose-p:leading-8 prose-a:text-[var(--tf-signal)] prose-code:text-[var(--tf-signal)] prose-pre:bg-transparent">
