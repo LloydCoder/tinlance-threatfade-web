@@ -5,8 +5,7 @@ const observations = [
   { domain: "NETWORK", label: "C2 fade", offset: 39, width: 18 },
 ];
 
-const timelineClass =
-  "relative h-10 rounded-md border border-[var(--tf-line)] bg-[var(--tf-bg)]";
+const timelineClass = "relative h-10 rounded-md border border-[var(--tf-line)] bg-[var(--tf-bg)]";
 const eventClass =
   "absolute top-1/2 h-6 -translate-y-1/2 rounded-md border border-[var(--tf-signal)] bg-[var(--tf-signal-soft)] px-3 py-1 text-[10px] font-mono text-[var(--tf-signal)]";
 
@@ -16,12 +15,9 @@ export function CorrelationEvidenceView() {
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div>
           <TfLabel>Correlation evidence view</TfLabel>
-          <h2 className="mt-2 text-xl font-semibold tracking-[-0.03em]">
-            Temporal corroboration
-          </h2>
+          <h2 className="mt-2 text-xl font-semibold tracking-[-0.03em]">Temporal corroboration</h2>
           <p className="mt-2 max-w-2xl text-sm leading-7 text-[var(--tf-text-muted)]">
-            Independent domains can overlap inside an explicit correlation window.
-            This view shows association, not causality.
+            Independent domains can overlap inside an explicit correlation window. This view shows association, not causality.
           </p>
         </div>
         <TfBadge tone="info">Observed correlation</TfBadge>
@@ -40,18 +36,10 @@ export function CorrelationEvidenceView() {
         </div>
         <div className="space-y-5">
           {observations.map((item) => (
-            <div
-              key={item.domain}
-              className="grid grid-cols-[5.5rem_1fr] items-center gap-4"
-            >
-              <div className="font-mono text-[10px] tracking-[0.12em] text-[var(--tf-text-muted)]">
-                {item.domain}
-              </div>
+            <div key={item.domain} className="grid grid-cols-[5.5rem_1fr] items-center gap-4">
+              <div className="font-mono text-[10px] tracking-[0.12em] text-[var(--tf-text-muted)]">{item.domain}</div>
               <div className={timelineClass}>
-                <div
-                  className={eventClass}
-                  style={{ left: `${item.offset}%`, width: `${item.width}%` }}
-                >
+                <div className={eventClass} style={{ left: `${item.offset}%`, width: `${item.width}%` }}>
                   {item.label}
                 </div>
               </div>
@@ -61,8 +49,7 @@ export function CorrelationEvidenceView() {
       </div>
 
       <p className="mt-5 text-xs leading-6 text-[var(--tf-text-subtle)]">
-        Illustration only. Production records retain source IDs, digests,
-        uncertainty, timing, duplicate and ordering provenance.
+        Illustration only. Production records retain source IDs, digests, uncertainty, timing, duplicate and ordering provenance.
       </p>
     </TfPanel>
   );
