@@ -14,18 +14,16 @@ const publicRoutes = [
   "/integrations",
 ];
 
-test.describe("WCAG 2.2 AA smoke audit", () => {
+test("primary public routes have no serious or critical accessibility violations", async ({ page }) => {
   for (const route of publicRoutes) {
-    test(`${route} has no automated serious accessibility violations`, async ({ page }) => {
-      await page.goto(route, { waitUntil: "domcontentloaded" });
-      const results = await new AxeBuilder({ page }).analyze();
-      const serious = results.violations.filter((violation) =>
-        ["critical", "serious"].includes(violation.impact ?? ""),
-      );
-      expect(
-        serious,
-        serious.map((violation) => `${violation.id}: ${violation.help}`).join("\n"),
-      ).toEqual([]);
-    });
+    await page.goto(route, { waitUntil: "domcontentloaded" });
+    const results = await new AxeBuilder({ page }).analyze();
+    const serious = results.violations.filter((violation) =>
+      ["critical", "serious"].includes(violation.impact ?? ""),
+    );
+    expect(
+      serious,
+      `${route}: ${serious.map((violation) => `${violation.id}: ${violation.help}`).join("\n")}`,
+    ).toEqual([]);
   }
 });
