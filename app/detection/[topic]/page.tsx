@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { PageShell } from "@/components/layout/page-shell";
-import { TfBadge, TfLabel, TfPanel } from "@/components/ui/tf-primitives";
+import { TfBadge, TfLabel } from "@/components/ui/tf-primitives";
 import { seoTopics, type SeoTopicSlug } from "@/config/seo-topics";
 import { siteConfig } from "@/config/site";
 import { breadcrumbJsonLd, entityIds, jsonLdScript } from "@/lib/seo/json-ld";
@@ -63,8 +63,8 @@ export default async function DetectionTopicPage({
 
   return (
     <PageShell eyebrow="Detection topic" title={page.title} description={page.description}>
-      <script type="application/ld+json" dangerouslySetInnerHTML={jsonLdScript(breadcrumbs)} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={jsonLdScript(definedTerm)} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdScript(breadcrumbs) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdScript(definedTerm) }} />
       <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_18rem]">
         <article className="max-w-3xl">
           <div className="flex flex-wrap items-center gap-3">
