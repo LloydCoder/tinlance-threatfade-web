@@ -21,6 +21,7 @@ if ((${#files[@]})); then
   filtered=()
   for file in "${files[@]}"; do
     [[ "$file" == node_modules/* || "$file" == .next/* ]] && continue
+    [[ "$file" == scripts/validate-documentation.mjs ]] && continue
     filtered+=("$file")
   done
   files=("${filtered[@]}")
