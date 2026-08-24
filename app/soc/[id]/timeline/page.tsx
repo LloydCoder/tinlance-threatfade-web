@@ -3,9 +3,18 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
+type TimelineItem = {
+  timestamp: string;
+  kind: "evidence" | "case_event";
+  evidence_type?: string;
+  hash?: string;
+  event_type?: string;
+  payload?: Record<string, unknown>;
+};
+
 export default function TimelinePage({ params }: { params: Promise<{ id: string }> }) {
   const [id, setId] = useState("");
-  const [items, setItems] = useState<any[]>([]);
+  const [items, setItems] = useState<TimelineItem[]>([]);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -17,7 +26,7 @@ export default function TimelinePage({ params }: { params: Promise<{ id: string 
     fetch(`/api/analyst/detections/${id}/timeline`, { cache: "no-store" })
       .then(async (r) => {
         if (!r.ok) throw new Error(`Timeline unavailable (${r.status})`);
-        return r.json();
+        return r.json() as Promise<{ items: TimelineItem[] }>;
       })
       .then((x) => setItems(x.items ?? []))
       .catch((e) => setError(e instanceof Error ? e.message : "Timeline unavailable"));
