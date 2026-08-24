@@ -2,7 +2,7 @@
 
 ## Scope
 
-This phase audits the public ThreatFade web application against OWASP ASVS 5.0 principles, secure HTTP headers, WCAG 2.2 AA, and Core Web Vitals. ASVS treats input validation, web frontend security, API security, file handling, configuration, and secure coding as explicit verification areas. citeturn0search6turn0search5
+This phase audits the public ThreatFade web application against OWASP ASVS 5.0 principles, secure HTTP headers, WCAG 2.2 AA, and Core Web Vitals.
 
 ## Threat model
 
@@ -31,9 +31,9 @@ The public site is primarily a content and demonstration surface. The interactiv
 
 ## Headers
 
-Production responses use CSP, `frame-ancestors`, `X-Content-Type-Options`, strict referrer policy, HSTS, clickjacking protection, and a restrictive Permissions Policy. CSP is intentionally explicit about resource classes; OWASP identifies CSP and secure response headers as important browser-side controls. citeturn0search4turn0search11
+Production responses use CSP, `frame-ancestors`, `X-Content-Type-Options`, strict referrer policy, HSTS, clickjacking protection, and a restrictive Permissions Policy. CSP is explicit about resource classes and does not authorize third-party scripts by default.
 
-The current CSP permits only the resources required by the application. Development-only `unsafe-eval` is never present in production. Inline styles are retained only where required by the framework/font pipeline; no third-party script is authorized by default.
+The current CSP permits only the resources required by the application. Development-only `unsafe-eval` is never present in production.
 
 ## Accessibility
 
@@ -51,7 +51,7 @@ Core Web Vitals targets:
 
 Server Components remain the default. Client Components are limited to interaction-heavy visualization/navigation. Fonts use Next.js font optimization. Images use the framework image pipeline where applicable. Animations respect `prefers-reduced-motion`.
 
-Field performance should be measured after deployment because lab tests cannot represent every user's network/device. web.dev recommends measuring Web Vitals in the field as well as optimizing lab performance. citeturn0search3
+Field performance must be measured after deployment because lab tests cannot represent every user's network/device.
 
 ## Supply chain
 
