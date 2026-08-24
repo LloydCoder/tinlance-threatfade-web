@@ -75,7 +75,9 @@ export function PlaygroundClient() {
               onClick={() => void choose(id)}
               className={`rounded-lg border p-4 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--tf-signal)] ${scenario === id ? "border-[var(--tf-signal)] bg-[var(--tf-signal-soft)]" : "border-[var(--tf-line)] bg-[var(--tf-panel)]"}`}
             >
-              <span className="font-mono text-[10px] uppercase text-[var(--tf-text-subtle)]">
+              <span
+                className={`font-mono text-[10px] uppercase ${scenario === id ? "text-[var(--tf-signal)]" : "text-[var(--tf-text-subtle)]"}`}
+              >
                 {id}
               </span>
               <span className="mt-2 block text-sm font-semibold">{label}</span>
