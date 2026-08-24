@@ -1,28 +1,14 @@
 import { TfBadge, TfLabel, TfMetric, TfPanel } from "@/components/ui/tf-primitives";
 
 const observations = [
-  {
-    domain: "GNSS",
-    label: "signal disruption",
-    offset: 32,
-    width: 16,
-    tone: "warning" as const,
-  },
-  {
-    domain: "NETWORK",
-    label: "C2 fade",
-    offset: 39,
-    width: 18,
-    tone: "signal" as const,
-  },
+  { domain: "GNSS", label: "signal disruption", offset: 32, width: 16 },
+  { domain: "NETWORK", label: "C2 fade", offset: 39, width: 18 },
 ];
 
-const eventClasses = {
-  warning:
-    "border-[color-mix(in_srgb,var(--tf-warning)_30%,transparent)] bg-[color-mix(in_srgb,var(--tf-warning)_8%,transparent)] text-[var(--tf-warning)]",
-  signal:
-    "border-[color-mix(in_srgb,var(--tf-signal)_30%,transparent)] bg-[var(--tf-signal-soft)] text-[var(--tf-signal)]",
-};
+const timelineClass =
+  "relative h-10 rounded-md border border-[var(--tf-line)] bg-[var(--tf-bg)]";
+const eventClass =
+  "absolute top-1/2 h-6 -translate-y-1/2 rounded-md border border-[var(--tf-signal)] bg-[var(--tf-signal-soft)] px-3 py-1 text-[10px] font-mono text-[var(--tf-signal)]";
 
 export function CorrelationEvidenceView() {
   return (
@@ -34,25 +20,17 @@ export function CorrelationEvidenceView() {
             Temporal corroboration
           </h2>
           <p className="mt-2 max-w-2xl text-sm leading-7 text-[var(--tf-text-muted)]">
-            The view shows how independent signal domains can overlap inside an explicit correlation window.
-            It describes observed temporal association; it does not infer causality.
+            Independent domains can overlap inside an explicit correlation window.
+            This view shows association, not causality.
           </p>
         </div>
-        <TfBadge tone="info">Observed correlation only</TfBadge>
+        <TfBadge tone="info">Observed correlation</TfBadge>
       </div>
 
       <div className="mt-8 grid gap-4 sm:grid-cols-3">
-        <TfMetric label="Window" value="30s" detail="policy maximum" />
-        <TfMetric
-          label="Clock tolerance"
-          value="5s"
-          detail="explicit policy bound"
-        />
-        <TfMetric
-          label="Attribution"
-          value="Non-causal"
-          detail="causal attribution not established"
-        />
+        <TfMetric label="Window" value="30s" detail="policy" />
+        <TfMetric label="Clock tolerance" value="5s" detail="policy" />
+        <TfMetric label="Attribution" value="Non-causal" detail="not established" />
       </div>
 
       <div className="mt-8 rounded-xl border border-[var(--tf-line)] bg-[var(--tf-panel)] p-5">
@@ -69,13 +47,10 @@ export function CorrelationEvidenceView() {
               <div className="font-mono text-[10px] tracking-[0.12em] text-[var(--tf-text-muted)]">
                 {item.domain}
               </div>
-              <div className="relative h-10 rounded-md border border-[var(--tf-line)] bg-[var(--tf-bg)]">
+              <div className={timelineClass}>
                 <div
-                  className={`absolute top-1/2 h-6 -translate-y-1/2 rounded-md border px-3 py-1 text-[10px] font-mono ${eventClasses[item.tone]}`}
-                  style={{
-                    left: `${item.offset}%`,
-                    width: `${item.width}%`,
-                  }}
+                  className={eventClass}
+                  style={{ left: `${item.offset}%`, width: `${item.width}%` }}
                 >
                   {item.label}
                 </div>
@@ -86,8 +61,8 @@ export function CorrelationEvidenceView() {
       </div>
 
       <p className="mt-5 text-xs leading-6 text-[var(--tf-text-subtle)]">
-        Illustration only. Production correlation records carry source event IDs, event digests, sensor
-        confidence, uncertainty, temporal delta, duplicate/out-of-order indicators and evidence hashes.
+        Illustration only. Production records retain source IDs, digests,
+        uncertainty, timing, duplicate and ordering provenance.
       </p>
     </TfPanel>
   );
