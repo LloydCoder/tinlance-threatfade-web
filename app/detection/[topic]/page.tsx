@@ -63,8 +63,8 @@ export default async function DetectionTopicPage({
 
   return (
     <PageShell eyebrow="Detection topic" title={page.title} description={page.description}>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdScript(breadcrumbs) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdScript(definedTerm) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={jsonLdScript(breadcrumbs)} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={jsonLdScript(definedTerm)} />
       <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_18rem]">
         <article className="max-w-3xl">
           <div className="flex flex-wrap items-center gap-3">
