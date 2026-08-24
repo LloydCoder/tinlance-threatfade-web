@@ -10,6 +10,7 @@ This repository contains the public web platform. The detection engine and core 
 
 - **Engine:** https://github.com/LloydCoder/tinlance-threatfade
 - **Website:** https://threatfade.com
+- **Web source:** https://github.com/LloydCoder/tinlance-threatfade-web
 
 The website must never invent capabilities or assurance claims. The engine repository is the source of truth for implemented detection behavior, integrations, validation evidence and security controls.
 
