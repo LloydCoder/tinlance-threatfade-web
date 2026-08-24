@@ -57,6 +57,6 @@ Field performance must be measured after deployment because lab tests cannot rep
 
 The repository's dependency audit and CodeQL checks remain mandatory CI gates. Dependency changes must be reviewed for runtime exposure and transitive risk rather than accepted solely because an update is available.
 
-## Limitations
+## Verification record
 
-A source audit and automated browser tests cannot establish that a site has zero vulnerabilities or guarantee field Core Web Vitals. This document records the controls and verification performed, not a security certification.
+The Phase 10 implementation is intentionally small: it changes the response security policy, adds regression coverage for those headers, and documents the audit boundary. It does not claim that automated tests prove absence of vulnerabilities or guarantee field Core Web Vitals.
