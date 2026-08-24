@@ -25,7 +25,9 @@ test(
       );
       expect(
         serious,
-        `${route}: ${serious.map((violation) => `${violation.id}: ${violation.help}`).join("\n")}`,
+        `${route}: ${serious
+          .map((violation) => `${violation.id}: ${violation.help}`)
+          .join("\n")}`,
       ).toEqual([]);
     }
   },
