@@ -79,7 +79,11 @@ export function articleJsonLd(input: {
     url: input.url,
     datePublished: input.published,
     ...(input.updated ? { dateModified: input.updated } : {}),
-    author: { "@type": "Organization", "@id": entityIds.organization, name: input.author ?? siteConfig.legalName },
+    author: {
+      "@type": "Organization",
+      "@id": entityIds.organization,
+      name: input.author ?? siteConfig.legalName,
+    },
     publisher: { "@id": entityIds.organization },
     isPartOf: { "@id": entityIds.website },
     about: { "@id": entityIds.product },
