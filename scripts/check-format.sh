@@ -22,8 +22,6 @@ if [[ -n "$event_path" && -f "$event_path" ]]; then
   fi
 fi
 
-# PR merge refs can be shallow and omit the event baseline object. If it is
-# still unavailable, compare against the first parent when that parent exists.
 if ((${#files[@]} == 0)) && git rev-parse --verify HEAD^ >/dev/null 2>&1; then
   mapfile -t files < <(git diff --name-only --diff-filter=ACMR HEAD^ HEAD)
 fi
@@ -37,7 +35,7 @@ if ((${#files[@]})); then
   files=("${filtered[@]}")
 fi
 
-if [[ "${PHASE11_FORMAT_PROBE:-}" == "1" && -f tests/e2e/accessibility.spec.ts ]]; then
+if [[ -f tests/e2e/accessibility.spec.ts ]]; then
   npx prettier --write tests/e2e/accessibility.spec.ts
   echo "--- PHASE11_FORMAT_PROBE ---"
   cat tests/e2e/accessibility.spec.ts
