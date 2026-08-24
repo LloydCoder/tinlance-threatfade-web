@@ -16,5 +16,41 @@ jobs:
         with:
           node-version: 22
       - run: npm install --no-audit --no-fund
-      - run: npx prettier --write app/enterprise/page.tsx components/analytics/conversion-link.tsx docs/enterprise/conversion-events.md
-      - run: git diff --no-color -- app/enterprise/page.tsx components/analytics/conversion-link.tsx docs/enterprise/conversion-events.md
+      - run: >-
+          npx prettier --write
+          app/enterprise/page.tsx
+          components/analytics/conversion-link.tsx
+          docs/enterprise/conversion-events.md
+          app/detection/[topic]/page.tsx
+          app/detection/layout.tsx
+          app/docs/[slug]/page.tsx
+          app/docs/layout.tsx
+          app/enterprise/layout.tsx
+          app/how-it-works/layout.tsx
+          app/integrations/layout.tsx
+          app/layout.tsx
+          app/playground/layout.tsx
+          app/product/layout.tsx
+          app/research/[slug]/page.tsx
+          app/security/layout.tsx
+          config/seo-topics.ts
+          lib/seo/json-ld.ts
+      - run: >-
+          git diff --no-color --
+          app/enterprise/page.tsx
+          components/analytics/conversion-link.tsx
+          docs/enterprise/conversion-events.md
+          app/detection/[topic]/page.tsx
+          app/detection/layout.tsx
+          app/docs/[slug]/page.tsx
+          app/docs/layout.tsx
+          app/enterprise/layout.tsx
+          app/how-it-works/layout.tsx
+          app/integrations/layout.tsx
+          app/layout.tsx
+          app/playground/layout.tsx
+          app/product/layout.tsx
+          app/research/[slug]/page.tsx
+          app/security/layout.tsx
+          config/seo-topics.ts
+          lib/seo/json-ld.ts
