@@ -17,6 +17,13 @@ const observations = [
   },
 ];
 
+const eventClasses = {
+  warning:
+    "border-[color-mix(in_srgb,var(--tf-warning)_30%,transparent)] bg-[color-mix(in_srgb,var(--tf-warning)_8%,transparent)] text-[var(--tf-warning)]",
+  signal:
+    "border-[color-mix(in_srgb,var(--tf-signal)_30%,transparent)] bg-[var(--tf-signal-soft)] text-[var(--tf-signal)]",
+};
+
 export function CorrelationEvidenceView() {
   return (
     <TfPanel className="overflow-hidden p-6">
@@ -64,12 +71,11 @@ export function CorrelationEvidenceView() {
               </div>
               <div className="relative h-10 rounded-md border border-[var(--tf-line)] bg-[var(--tf-bg)]">
                 <div
-                  className={`absolute top-1/2 h-6 -translate-y-1/2 rounded-md border px-3 py-1 text-[10px] font-mono ${
-                    item.tone === "warning"
-                      ? "border-[color-mix(in_srgb,var(--tf-warning)_30%,transparent)] bg-[color-mix(in_srgb,var(--tf-warning)_8%,transparent)] text-[var(--tf-warning)]"
-                      : "border-[color-mix(in_srgb,var(--tf-signal)_30%,transparent)] bg-[var(--tf-signal-soft)] text-[var(--tf-signal)]"
-                  }`}
-                  style={{ left: `${item.offset}%`, width: `${item.width}%` }}
+                  className={`absolute top-1/2 h-6 -translate-y-1/2 rounded-md border px-3 py-1 text-[10px] font-mono ${eventClasses[item.tone]}`}
+                  style={{
+                    left: `${item.offset}%`,
+                    width: `${item.width}%`,
+                  }}
                 >
                   {item.label}
                 </div>
