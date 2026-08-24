@@ -14,7 +14,7 @@ The browser does not call privileged engine endpoints directly. `/api/analyst/*`
 
 An explicit `THREATFADE_SOC_SERVICE_MODE=true` is supported only for single-tenant deployments that place the web application behind an upstream SSO/network boundary. It is disabled by default. A machine/service token is never presented as a substitute for user authorization in a normal multi-user deployment.
 
-Mutating proxy requests reject a cross-origin `Origin` header. Route paths are allowlisted to exact analyst operations, numeric detection IDs are validated, request/response bodies are bounded and upstream redirects are disabled. This follows the server-side, object-level authorization model required by OWASP ASVS 5.0 V8.3/V8.4. citeturn2search0turn2search4
+Mutating proxy requests reject a cross-origin `Origin` header. Route paths are allowlisted to exact analyst operations, numeric detection IDs are validated, request/response bodies are bounded and upstream redirects are disabled. This follows the server-side, object-level authorization model required by OWASP ASVS 5.0 V8.3/V8.4.
 
 ## Validation boundary
 
