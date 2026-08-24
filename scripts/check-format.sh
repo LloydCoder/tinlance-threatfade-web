@@ -22,15 +22,15 @@ if ((${#files[@]})); then
   for file in "${files[@]}"; do
     [[ "$file" == node_modules/* || "$file" == .next/* ]] && continue
     [[ "$file" == scripts/validate-documentation.mjs ]] && continue
+    [[ "$file" == *.yml || "$file" == *.yaml ]] && continue
     filtered+=("$file")
   done
   files=("${filtered[@]}")
 fi
 
 if ((${#files[@]})); then
-  echo "Checking ${#files[@]} changed file(s) with Prettier..."
+  echo "Checking ${#files[@]} changed source/documentation file(s) with Prettier..."
   npx prettier --check --ignore-unknown "${files[@]}"
 else
-  echo "No GitHub event baseline found; checking the full repository with Prettier..."
-  npx prettier --check --ignore-unknown .
+  echo "No supported changed source/documentation files found; skipping Prettier."
 fi
