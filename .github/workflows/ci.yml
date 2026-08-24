@@ -38,6 +38,8 @@ jobs:
         run: npm install --no-audit --no-fund
       - name: Format check
         run: npm run format:check
+      - name: Documentation reconciliation
+        run: npm run docs:check
       - name: Lint
         run: npm run lint
       - name: Typecheck
