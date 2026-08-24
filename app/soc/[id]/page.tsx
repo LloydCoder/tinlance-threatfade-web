@@ -97,7 +97,9 @@ export default function InvestigationPage({ params }: { params: Promise<{ id: st
           </button>
           <button
             disabled={busy}
-            onClick={() => void mutate(`detections/${id}/workflow`, "PATCH", { status: "contained" })}
+            onClick={() =>
+              void mutate(`detections/${id}/workflow`, "PATCH", { status: "contained" })
+            }
             className="rounded-lg border px-4 py-2 text-sm"
           >
             Mark contained
@@ -121,7 +123,10 @@ export default function InvestigationPage({ params }: { params: Promise<{ id: st
             <div className="mt-5 space-y-3">
               {data.evidence.length ? (
                 data.evidence.map((e: any) => (
-                  <div key={e.id} className="rounded-lg border border-[var(--tf-border)] p-4 text-sm">
+                  <div
+                    key={e.id}
+                    className="rounded-lg border border-[var(--tf-border)] p-4 text-sm"
+                  >
                     <div className="flex justify-between gap-4">
                       <span className="font-medium">{e.type}</span>
                       <span>{e.media_type}</span>

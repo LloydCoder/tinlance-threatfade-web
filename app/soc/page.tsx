@@ -55,7 +55,9 @@ export default function SocPage() {
   const filtered = useMemo(
     () =>
       items.filter((item) =>
-        `${item.subject} ${item.source} ${item.mitre_ttp}`.toLowerCase().includes(query.toLowerCase()),
+        `${item.subject} ${item.source} ${item.mitre_ttp}`
+          .toLowerCase()
+          .includes(query.toLowerCase()),
       ),
     [items, query],
   );
@@ -73,7 +75,10 @@ export default function SocPage() {
             preserve the audit trail.
           </p>
         </div>
-        <Link href="/correlation" className="rounded-lg border border-[var(--tf-border)] px-4 py-2 text-sm">
+        <Link
+          href="/correlation"
+          className="rounded-lg border border-[var(--tf-border)] px-4 py-2 text-sm"
+        >
           Correlation view
         </Link>
       </div>

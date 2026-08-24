@@ -96,17 +96,11 @@ async function forward(request: NextRequest, path: string[]) {
   return output;
 }
 
-export async function GET(
-  request: NextRequest,
-  context: { params: Promise<{ path: string[] }> },
-) {
+export async function GET(request: NextRequest, context: { params: Promise<{ path: string[] }> }) {
   return forward(request, (await context.params).path);
 }
 
-export async function POST(
-  request: NextRequest,
-  context: { params: Promise<{ path: string[] }> },
-) {
+export async function POST(request: NextRequest, context: { params: Promise<{ path: string[] }> }) {
   return forward(request, (await context.params).path);
 }
 
