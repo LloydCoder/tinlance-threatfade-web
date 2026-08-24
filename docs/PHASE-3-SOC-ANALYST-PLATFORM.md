@@ -10,9 +10,11 @@ The UI deliberately separates detection score/confidence from evidence. Evidence
 
 ## Security boundary
 
-The browser does not call privileged engine endpoints directly. `/api/analyst/*` is a server-side allowlisted proxy. Engine credentials and the configured tenant are server-side environment values. The engine remains authoritative for OIDC authentication, RBAC, tenant isolation and object-level authorization.
+The browser does not call privileged engine endpoints directly. `/api/analyst/*` is a server-side, path-allowlisted proxy. In the normal multi-user model it forwards the originating consumer bearer token to the ThreatFade engine, so the engine makes the final authentication, RBAC and tenant decision for the actual subject. The proxy never accepts a browser-supplied tenant header.
 
-Mutating proxy requests reject a cross-origin `Origin` header. Request and response bodies are bounded and upstream redirects are disabled.
+An explicit `THREATFADE_SOC_SERVICE_MODE=true` is supported only for single-tenant deployments that place the web application behind an upstream SSO/network boundary. It is disabled by default. A machine/service token is never presented as a substitute for user authorization in a normal multi-user deployment.
+
+Mutating proxy requests reject a cross-origin `Origin` header. Route paths are allowlisted to exact analyst operations, numeric detection IDs are validated, request/response bodies are bounded and upstream redirects are disabled. This follows the server-side, object-level authorization model required by OWASP ASVS 5.0 V8.3/V8.4. citeturn2search0turn2search4
 
 ## Validation boundary
 
