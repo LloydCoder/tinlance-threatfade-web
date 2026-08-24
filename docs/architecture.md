@@ -4,6 +4,9 @@
 
 ThreatFade Web is intentionally separate from the ThreatFade engine repository. The website is responsible for public product communication, research, documentation, demonstrations and enterprise evaluation. The engine repository remains the source of truth for implemented detection behavior.
 
+- Engine source of truth: https://github.com/LloydCoder/tinlance-threatfade
+- Web platform: https://github.com/LloydCoder/tinlance-threatfade-web
+
 ```text
 Visitor
   │
