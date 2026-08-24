@@ -27,6 +27,7 @@ const readme = exists("README.md") ? read("README.md") : "";
 const architecture = exists("docs/architecture.md") ? read("docs/architecture.md") : "";
 const phase5 = exists("docs/PHASE-5-DOCUMENTATION.md") ? read("docs/PHASE-5-DOCUMENTATION.md") : "";
 const gate = exists("docs/release/phase11-launch-gate.md") ? read("docs/release/phase11-launch-gate.md") : "";
+const gateText = gate.toLowerCase();
 
 const engineUrl = "https://github.com/LloydCoder/tinlance-threatfade";
 const webUrl = "https://github.com/LloydCoder/tinlance-threatfade-web";
@@ -63,8 +64,6 @@ if (!fs.existsSync(mdxRoot)) {
   }
 }
 
-// Historical phase notes may describe earlier implementation stages. They are valid
-// only when clearly framed as historical records rather than current capability claims.
 const phaseDir = path.join(root, "docs", "phases");
 if (fs.existsSync(phaseDir)) {
   for (const name of fs.readdirSync(phaseDir).filter((file) => file.endsWith(".md"))) {
@@ -73,10 +72,10 @@ if (fs.existsSync(phaseDir)) {
   }
 }
 
-if (!gate.includes("manual assistive-technology verification")) {
+if (!gateText.includes("manual assistive-technology verification")) {
   errors.push("Phase 11 gate must explicitly document the manual accessibility boundary.");
 }
-if (!gate.includes("real-user Core Web Vitals")) {
+if (!gateText.includes("real-user core web vitals")) {
   errors.push("Phase 11 gate must explicitly document the field-performance boundary.");
 }
 if (gate.includes("[ ] Manual assistive-technology verification")) {
