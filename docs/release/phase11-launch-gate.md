@@ -1,5 +1,7 @@
 # Phase 11 — Final production launch gate
 
+This document is the final release-owner checklist for the ThreatFade web platform.
+
 ## Release decision
 
 The website is release-ready only when the checks below are green on the release candidate and the deployed target has been smoke-tested.
@@ -35,6 +37,7 @@ The website is release-ready only when the checks below are green on the release
 - [x] Semantic landmarks and heading hierarchy are part of the shared page architecture.
 - [x] Keyboard/focus states and reduced-motion behavior are implemented in shared primitives.
 - [x] Interactive visualizations provide textual context rather than relying on color alone.
+- [x] Automated serious/critical accessibility violations are checked with axe-core across the primary public routes.
 - [ ] Manual assistive-technology verification remains a release-owner responsibility; CI cannot certify every screen-reader/browser combination.
 
 ### SEO and discovery
@@ -61,7 +64,7 @@ typecheck
 unit tests
 npm audit --audit-level=high
 production build
-Playwright E2E
+Playwright E2E + axe accessibility smoke tests
 Security workflow
 CodeQL workflow
 ```
