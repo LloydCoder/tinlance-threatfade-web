@@ -2,11 +2,12 @@ import { expect, test } from "@playwright/test";
 
 test.describe("playground", () => {
   test("renders the safe curated boundary", async ({ page }) => {
-    await page.goto("/playground");
+    await page.goto("/playground", { waitUntil: "domcontentloaded" });
     await expect(page.getByRole("heading", { name: /See behavioral fading/i })).toBeVisible();
     await expect(page.getByText("production engine: isolated")).toBeVisible();
 
-    await page.getByRole("button", { name: /LOTL gradual fade/i }).click();
+    const scenario = page.getByRole("button", { name: /LOTL gradual fade/i });
+    await scenario.click();
     await expect(page.getByText("source-pattern visualization")).toBeVisible();
     await expect(page.getByText("no detection verdict")).toBeVisible();
   });
