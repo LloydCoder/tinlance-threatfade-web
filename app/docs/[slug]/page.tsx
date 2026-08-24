@@ -4,10 +4,11 @@ import { compileMDX } from "next-mdx-remote/rsc";
 import { docsMdxComponents } from "@/components/docs/mdx-components";
 import { DocsBreadcrumbs } from "@/components/docs/docs-breadcrumbs";
 import { DocsPagination } from "@/components/docs/docs-pagination";
-import { docsVersion, getDocNavigation } from "@/config/docs";
+import { getDocNavigation } from "@/config/docs";
 import { getDoc, getDocSlugs } from "@/lib/docs";
 import { siteConfig } from "@/config/site";
 import { TfBadge, TfLabel } from "@/components/ui/tf-primitives";
+import { articleJsonLd, breadcrumbJsonLd, jsonLdScript } from "@/lib/seo/json-ld";
 
 export const dynamicParams = false;
 
@@ -31,6 +32,7 @@ export async function generateMetadata({
       type: "article",
       title: doc.frontmatter.title,
       description: doc.frontmatter.description,
+      url: `${siteConfig.url}/docs/${slug}`,
     },
   };
 }
@@ -45,15 +47,21 @@ export default async function DocPage({ params }: { params: Promise<{ slug: stri
     components: docsMdxComponents,
   });
   const navigation = getDocNavigation(slug);
-  const structuredData = {
-    "@context": "https://schema.org",
-    "@type": "TechArticle",
-    headline: doc.frontmatter.title,
+  const url = `${siteConfig.url}/docs/${slug}`;
+  const structuredData = articleJsonLd({
+    title: doc.frontmatter.title,
     description: doc.frontmatter.description,
-    dateModified: doc.frontmatter.updated,
-    version: docsVersion,
-    url: `${siteConfig.url}/docs/${slug}`,
-  };
+    url,
+    published: doc.frontmatter.updated,
+    updated: doc.frontmatter.updated,
+    author: siteConfig.legalName,
+    type: "TechArticle",
+  });
+  const breadcrumbs = breadcrumbJsonLd([
+    { name: "Docs", url: `${siteConfig.url}/docs` },
+    { name: doc.frontmatter.title, url },
+  ]);
+
   return (
     <article className="min-w-0">
       <DocsBreadcrumbs slug={slug} />
@@ -80,10 +88,8 @@ export default async function DocPage({ params }: { params: Promise<{ slug: stri
       </header>
       <div className="prose-threatfade max-w-3xl pt-8">{content}</div>
       <DocsPagination {...navigation} />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
-      />
+      <script type="application/ld+json" dangerouslySetInnerHTML={jsonLdScript(structuredData)} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={jsonLdScript(breadcrumbs)} />
     </article>
   );
 }

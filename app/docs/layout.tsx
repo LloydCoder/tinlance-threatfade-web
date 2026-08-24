@@ -1,6 +1,14 @@
+import type { Metadata } from "next";
 import { DocsMobileNav } from "@/components/docs/docs-mobile-nav";
 import { DocsSidebar } from "@/components/docs/docs-sidebar";
 import { SiteHeader } from "@/components/navigation/site-header";
+
+export const metadata: Metadata = {
+  title: "Documentation",
+  description:
+    "ThreatFade developer documentation for installation, configuration, detection packs, API, integrations, deployment and security.",
+  alternates: { canonical: "/docs" },
+};
 
 export default function DocsLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
