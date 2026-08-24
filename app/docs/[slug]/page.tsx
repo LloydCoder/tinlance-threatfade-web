@@ -8,11 +8,7 @@ import { getDocNavigation } from "@/config/docs";
 import { getDoc, getDocSlugs } from "@/lib/docs";
 import { siteConfig } from "@/config/site";
 import { TfBadge, TfLabel } from "@/components/ui/tf-primitives";
-import {
-  articleJsonLd,
-  breadcrumbJsonLd,
-  jsonLdScript,
-} from "@/lib/seo/json-ld";
+import { articleJsonLd, breadcrumbJsonLd, jsonLdScript } from "@/lib/seo/json-ld";
 
 export const dynamicParams = false;
 
@@ -41,11 +37,7 @@ export async function generateMetadata({
   };
 }
 
-export default async function DocPage({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}) {
+export default async function DocPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const doc = await getDoc(slug);
   if (!doc) notFound();
@@ -96,14 +88,8 @@ export default async function DocPage({
       </header>
       <div className="prose-threatfade max-w-3xl pt-8">{content}</div>
       <DocsPagination {...navigation} />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={jsonLdScript(structuredData)}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={jsonLdScript(breadcrumbs)}
-      />
+      <script type="application/ld+json" dangerouslySetInnerHTML={jsonLdScript(structuredData)} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={jsonLdScript(breadcrumbs)} />
     </article>
   );
 }

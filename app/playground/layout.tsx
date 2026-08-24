@@ -7,8 +7,6 @@ export const metadata: Metadata = {
   alternates: { canonical: "/playground" },
 };
 
-export default function PlaygroundLayout({
-  children,
-}: Readonly<{ children: React.ReactNode }>) {
+export default function PlaygroundLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return children;
 }

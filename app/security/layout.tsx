@@ -7,8 +7,6 @@ export const metadata: Metadata = {
   alternates: { canonical: "/security" },
 };
 
-export default function SecurityLayout({
-  children,
-}: Readonly<{ children: React.ReactNode }>) {
+export default function SecurityLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return children;
 }

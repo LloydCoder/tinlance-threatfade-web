@@ -10,9 +10,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/docs" },
 };
 
-export default function DocsLayout({
-  children,
-}: Readonly<{ children: React.ReactNode }>) {
+export default function DocsLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <main className="min-h-screen bg-[var(--tf-canvas)] text-[var(--tf-text)]">
       <SiteHeader />

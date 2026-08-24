@@ -7,8 +7,6 @@ export const metadata: Metadata = {
   alternates: { canonical: "/enterprise" },
 };
 
-export default function EnterpriseLayout({
-  children,
-}: Readonly<{ children: React.ReactNode }>) {
+export default function EnterpriseLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return children;
 }

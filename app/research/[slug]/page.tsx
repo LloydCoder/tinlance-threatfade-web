@@ -11,11 +11,7 @@ import {
   ResearchStatus,
   ResearchToc,
 } from "@/components/research/research-components";
-import {
-  articleJsonLd,
-  breadcrumbJsonLd,
-  jsonLdScript,
-} from "@/lib/seo/json-ld";
+import { articleJsonLd, breadcrumbJsonLd, jsonLdScript } from "@/lib/seo/json-ld";
 import { siteConfig } from "@/config/site";
 
 export const dynamicParams = false;
@@ -78,19 +74,9 @@ export default async function ResearchArticlePage({
   ]);
 
   return (
-    <PageShell
-      eyebrow={article.category}
-      title={article.title}
-      description={article.description}
-    >
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={jsonLdScript(structuredData)}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={jsonLdScript(breadcrumbs)}
-      />
+    <PageShell eyebrow={article.category} title={article.title} description={article.description}>
+      <script type="application/ld+json" dangerouslySetInnerHTML={jsonLdScript(structuredData)} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={jsonLdScript(breadcrumbs)} />
       <ResearchMeta
         author={article.author}
         published={article.published}

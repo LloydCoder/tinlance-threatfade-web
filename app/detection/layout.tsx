@@ -7,8 +7,6 @@ export const metadata: Metadata = {
   alternates: { canonical: "/detection" },
 };
 
-export default function DetectionLayout({
-  children,
-}: Readonly<{ children: React.ReactNode }>) {
+export default function DetectionLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return children;
 }

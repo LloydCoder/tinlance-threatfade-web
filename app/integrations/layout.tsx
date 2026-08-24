@@ -7,8 +7,6 @@ export const metadata: Metadata = {
   alternates: { canonical: "/integrations" },
 };
 
-export default function IntegrationsLayout({
-  children,
-}: Readonly<{ children: React.ReactNode }>) {
+export default function IntegrationsLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return children;
 }

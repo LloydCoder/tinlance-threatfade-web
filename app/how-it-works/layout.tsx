@@ -7,8 +7,6 @@ export const metadata: Metadata = {
   alternates: { canonical: "/how-it-works" },
 };
 
-export default function HowItWorksLayout({
-  children,
-}: Readonly<{ children: React.ReactNode }>) {
+export default function HowItWorksLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return children;
 }

@@ -62,19 +62,9 @@ export default async function DetectionTopicPage({
   };
 
   return (
-    <PageShell
-      eyebrow="Detection topic"
-      title={page.title}
-      description={page.description}
-    >
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={jsonLdScript(breadcrumbs)}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={jsonLdScript(definedTerm)}
-      />
+    <PageShell eyebrow="Detection topic" title={page.title} description={page.description}>
+      <script type="application/ld+json" dangerouslySetInnerHTML={jsonLdScript(breadcrumbs)} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={jsonLdScript(definedTerm)} />
       <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_18rem]">
         <article className="max-w-3xl">
           <div className="flex flex-wrap items-center gap-3">
@@ -84,24 +74,19 @@ export default async function DetectionTopicPage({
           <h2 className="mt-6 text-2xl font-semibold tracking-[-0.03em]">
             What ThreatFade documents
           </h2>
-          <p className="mt-4 text-base leading-8 text-[var(--tf-text-muted)]">
-            {page.summary}
-          </p>
+          <p className="mt-4 text-base leading-8 text-[var(--tf-text-muted)]">{page.summary}</p>
           <div className="mt-8 tf-panel p-6">
             <h2 className="text-base font-semibold">Evidence boundary</h2>
             <p className="mt-3 text-sm leading-7 text-[var(--tf-text-muted)]">
-              Project validation is presented with its scope. Repository tests and
-              author-confirmed scenarios do not establish universal accuracy,
-              independent assurance, customer-scale performance or certification.
+              Project validation is presented with its scope. Repository tests and author-confirmed
+              scenarios do not establish universal accuracy, independent assurance, customer-scale
+              performance or certification.
             </p>
           </div>
         </article>
         <aside className="tf-panel h-fit p-5">
           <TfLabel>Continue</TfLabel>
-          <nav
-            aria-label="Related ThreatFade resources"
-            className="mt-4 space-y-3 text-sm"
-          >
+          <nav aria-label="Related ThreatFade resources" className="mt-4 space-y-3 text-sm">
             {page.links.map((href) => (
               <Link
                 key={href}

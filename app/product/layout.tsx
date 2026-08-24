@@ -7,8 +7,6 @@ export const metadata: Metadata = {
   alternates: { canonical: "/product" },
 };
 
-export default function ProductLayout({
-  children,
-}: Readonly<{ children: React.ReactNode }>) {
+export default function ProductLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return children;
 }
