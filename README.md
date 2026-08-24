@@ -39,16 +39,16 @@ Next.js web platform
    ├── Research
    ├── Documentation
    ├── Playground
-   └── Enterprise
+   └── SOC / Enterprise
           │
           ▼
-     Explicit API boundary
+   Server-side analyst API proxy
           │
           ▼
   ThreatFade engine / API
 ```
 
-The engine integration is server-side and typed. `lib/api/client.ts` owns engine URLs, timeouts, retries, response-size limits, redirect behavior and schema validation. Browser components must not call engine endpoints directly or receive engine credentials.
+The engine integration is server-side and typed. `lib/api/client.ts` owns public engine URLs, timeouts, retries, response-size limits, redirect behavior and schema validation. The SOC workflow uses an additional server-only `/api/analyst/*` proxy. Its engine bearer token and configured tenant are never exposed to browsers. Mutating proxy requests are same-origin constrained when an Origin header is supplied and both request/response sizes are bounded.
 
 The public playground is treated as an untrusted-input boundary. Curated demonstrations come first; arbitrary PCAP processing requires a separately reviewed isolation and resource-control design.
 
@@ -73,7 +73,7 @@ npm run test:e2e
 
 ## Engine integration configuration
 
-The Phase 8 integration uses server-only configuration:
+Public engine integration uses server-only configuration:
 
 ```text
 THREATFADE_API_URL
@@ -81,7 +81,14 @@ THREATFADE_API_TIMEOUT_MS
 THREATFADE_API_MAX_RETRIES
 ```
 
-Production engine URLs must use HTTPS. Do not expose engine credentials through `NEXT_PUBLIC_*` variables. See [`docs/engine-api-integration.md`](./docs/engine-api-integration.md) for the synchronization and security boundary.
+Authenticated SOC deployments additionally require server-only:
+
+```text
+THREATFADE_API_TOKEN
+THREATFADE_API_TENANT
+```
+
+Production engine URLs must use HTTPS. Never expose engine credentials through `NEXT_PUBLIC_*` variables. See [`docs/engine-api-integration.md`](./docs/engine-api-integration.md) and [`docs/PHASE-3-SOC-ANALYST-PLATFORM.md`](./docs/PHASE-3-SOC-ANALYST-PLATFORM.md) for the synchronization and security boundary.
 
 ## Content policy
 
