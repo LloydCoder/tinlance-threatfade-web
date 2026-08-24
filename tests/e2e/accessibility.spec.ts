@@ -23,12 +23,7 @@ test(
       const serious = results.violations.filter((violation) =>
         ["critical", "serious"].includes(violation.impact ?? ""),
       );
-      expect(
-        serious,
-        `${route}: ${serious
-          .map((violation) => `${violation.id}: ${violation.help}`)
-          .join("\n")}`,
-      ).toEqual([]);
+      expect(serious, route).toEqual([]);
     }
   },
 );
