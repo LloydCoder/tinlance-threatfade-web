@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, GithubIcon, ShieldCheck } from "lucide-react";
+import { ArrowRight, GitBranch, ShieldCheck } from "lucide-react";
 import { BehavioralLab } from "@/components/marketing/behavioral-lab";
 import { AudienceCards, DetectionPipeline, TrustBoundary } from "@/components/marketing/core-experience";
 import { SiteHeader } from "@/components/navigation/site-header";
@@ -34,7 +34,7 @@ export default function Home() {
                 rel="noreferrer"
                 className="group inline-flex items-center justify-center gap-2 rounded-md bg-[var(--tf-signal)] px-5 py-3 text-sm font-semibold text-[var(--tf-signal-text)] transition hover:brightness-105"
               >
-                <GithubIcon className="size-4" />
+                <GitBranch className="size-4" />
                 View on GitHub
                 <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
               </a>
