@@ -29,7 +29,10 @@ async function refreshAccessToken(refreshToken: string) {
 }
 
 export const authOptions: NextAuthOptions = {
-  providers: [ThreatFadeOIDC], secret: required("NEXTAUTH_SECRET"), session: { strategy: "jwt", maxAge: 8 * 60 * 60, updateAge: 15 * 60 }, useSecureCookies: process.env.NODE_ENV === "production"},
+  providers: [ThreatFadeOIDC],
+  secret: required("NEXTAUTH_SECRET"),
+  session: { strategy: "jwt", maxAge: 8 * 60 * 60, updateAge: 15 * 60 },
+  useSecureCookies: process.env.NODE_ENV === "production",
   pages: { signIn: "/login", error: "/login" },
   cookies: { sessionToken: { name: `${process.env.NODE_ENV === "production" ? "__Secure-" : ""}threatfade.session-token`, options: { httpOnly: true, sameSite: "lax", path: "/", secure: process.env.NODE_ENV === "production" } } },
   callbacks: {
