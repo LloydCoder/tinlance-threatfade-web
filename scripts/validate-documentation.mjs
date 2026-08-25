@@ -11,6 +11,7 @@ const requiredFiles = [
   "docs/PHASE-5-DOCUMENTATION.md",
   "docs/security/phase10-hardening.md",
   "docs/release/phase11-launch-gate.md",
+  "docs/release/phase12-soc-productization.md",
 ];
 
 const errors = [];
@@ -27,6 +28,9 @@ const readme = exists("README.md") ? read("README.md") : "";
 const architecture = exists("docs/architecture.md") ? read("docs/architecture.md") : "";
 const phase5 = exists("docs/PHASE-5-DOCUMENTATION.md") ? read("docs/PHASE-5-DOCUMENTATION.md") : "";
 const gate = exists("docs/release/phase11-launch-gate.md") ? read("docs/release/phase11-launch-gate.md") : "";
+const phase12 = exists("docs/release/phase12-soc-productization.md")
+  ? read("docs/release/phase12-soc-productization.md")
+  : "";
 
 const engineUrl = "https://github.com/LloydCoder/tinlance-threatfade";
 const webUrl = "https://github.com/LloydCoder/tinlance-threatfade-web";
@@ -35,6 +39,7 @@ for (const [name, content] of [
   ["README.md", readme],
   ["docs/architecture.md", architecture],
   ["docs/PHASE-5-DOCUMENTATION.md", phase5],
+  ["docs/release/phase12-soc-productization.md", phase12],
 ]) {
   if (!content.includes(engineUrl)) errors.push(`${name} must identify the engine repository as a source of truth.`);
   if (!content.includes(webUrl)) errors.push(`${name} must identify the web repository boundary.`);
@@ -47,6 +52,15 @@ if (!architecture.includes("engine repository remains the source of truth")) {
 }
 if (!phase5.includes("current ThreatFade engine repository")) {
   errors.push("docs/PHASE-5-DOCUMENTATION.md must constrain public docs to the current engine repository.");
+}
+if (!phase12.includes("/enterprise/analyst/inbox")) {
+  errors.push("Phase 12 documentation must identify the canonical analyst inbox endpoint.");
+}
+if (!phase12.includes("real identity provider")) {
+  errors.push("Phase 12 documentation must preserve the real identity-provider release boundary.");
+}
+if (!phase12.includes("engine repository") || !phase12.includes("source of truth")) {
+  errors.push("Phase 12 documentation must preserve the engine capability source-of-truth rule.");
 }
 
 const mdxRoot = path.join(root, "content", "docs");
