@@ -4,9 +4,9 @@ import NextAuth from "next-auth";
 
 const oidcConfigured = Boolean(
   process.env.THREATFADE_OIDC_ISSUER &&
-    process.env.THREATFADE_OIDC_CLIENT_ID &&
-    process.env.THREATFADE_OIDC_CLIENT_SECRET &&
-    process.env.THREATFADE_OIDC_TOKEN_URL,
+  process.env.THREATFADE_OIDC_CLIENT_ID &&
+  process.env.THREATFADE_OIDC_CLIENT_SECRET &&
+  process.env.THREATFADE_OIDC_TOKEN_URL,
 );
 
 type AuthRouteContext = {
