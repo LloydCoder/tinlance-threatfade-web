@@ -66,3 +66,5 @@ The workspace uses semantic headings, tables, labels, keyboard-operable controls
 Phase 12 establishes the repository implementation and test boundary. It does **not** claim that a production identity provider is configured, that a customer-scale deployment has been validated, or that external FusionOps connectivity has been exercised in a live customer environment.
 
 Independent penetration testing, independent detection validation, purple-team validation and customer-scale performance evidence remain external assurance activities.
+
+The public deployment remains a marketing/research surface until a real authenticated identity provider is configured for the SOC workspace.
