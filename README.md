@@ -48,7 +48,7 @@ Next.js web platform
   ThreatFade engine / API
 ```
 
-The engine integration is server-side and typed. `lib/api/client.ts` owns public engine URLs, timeouts, retries, response-size limits, redirect behavior and schema validation. The SOC workflow uses an additional server-only `/api/analyst/*` proxy. In normal multi-user mode it forwards the originating consumer bearer token so the engine makes the authorization decision for the actual subject; it never accepts a browser-supplied tenant header. An explicit `THREATFADE_SOC_SERVICE_MODE=true` exists only for single-tenant deployments protected by an upstream SSO/network boundary and is disabled by default.
+The engine integration is server-side and typed. `lib/api/client.ts` owns public engine URLs, timeouts, retries, response-size limits, redirect behavior and schema validation. The SOC workflow uses an additional server-only `/api/analyst/*` proxy. The proxy requires a real consumer bearer token and forwards it so the engine makes the authorization decision for the actual subject; it never accepts a browser-supplied tenant header as an authorization decision.
 
 The public playground is treated as an untrusted-input boundary. Curated demonstrations come first; arbitrary PCAP processing requires a separately reviewed isolation and resource-control design.
 
@@ -81,15 +81,7 @@ THREATFADE_API_TIMEOUT_MS
 THREATFADE_API_MAX_RETRIES
 ```
 
-Authenticated SOC deployments normally forward a consumer bearer token through the authenticated request path. For an explicitly protected single-tenant service-mode deployment, the server-only configuration is:
-
-```text
-THREATFADE_API_URL
-THREATFADE_API_TOKEN
-THREATFADE_SOC_SERVICE_MODE=true
-```
-
-Do not set a browser-controlled tenant variable. The ThreatFade engine derives the authoritative tenant from the authenticated principal. Production engine URLs must use HTTPS. Never expose engine credentials through `NEXT_PUBLIC_*` variables. See [`docs/engine-api-integration.md`](./docs/engine-api-integration.md) and [`docs/PHASE-3-SOC-ANALYST-PLATFORM.md`](./docs/PHASE-3-SOC-ANALYST-PLATFORM.md) for the synchronization and security boundary.
+Authenticated SOC requests forward the authenticated consumer bearer token through the server-side analyst proxy. Do not set a browser-controlled tenant variable. The ThreatFade engine derives the authoritative tenant from the authenticated principal. Production engine URLs must use HTTPS. Never expose engine credentials through `NEXT_PUBLIC_*` variables. See [`docs/engine-api-integration.md`](./docs/engine-api-integration.md) and [`docs/PHASE-3-SOC-ANALYST-PLATFORM.md`](./docs/PHASE-3-SOC-ANALYST-PLATFORM.md) for the synchronization and security boundary.
 
 ## Content policy
 
