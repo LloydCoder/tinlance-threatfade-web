@@ -121,3 +121,7 @@ A Phase 12 GREEN release requires:
 ## Source-of-truth rule
 
 If the engine API changes, update the engine first, then reconcile the web schemas, proxy allowlist, UI behavior and this document. Never infer an engine capability from a UI mock or marketing copy.
+
+## Final release gate
+
+Phase 12 is GREEN only when the final pull-request head SHA has current green CI, formatting, security/CodeQL and E2E evidence and the SOC pull request has been merged without bypassing required checks.
