@@ -57,7 +57,10 @@ async function refreshAccessToken(refreshToken: string) {
     });
     const response = await fetch(tokenEndpoint, {
       method: "POST",
-      headers: { "Content-Type": "application/x-www-form-urlencoded", Accept: "application/json" },
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+        Accept: "application/json",
+      },
       body,
       redirect: "error",
       cache: "no-store",
@@ -103,7 +106,8 @@ export const authOptions: NextAuthOptions = {
     },
     async jwt({ token, account, profile }) {
       if (account?.access_token) {
-        if (BUILD_PHASE) throw new Error("Enterprise OIDC configuration is unavailable during build");
+        if (BUILD_PHASE)
+          throw new Error("Enterprise OIDC configuration is unavailable during build");
         token.access_token = account.access_token;
         token.refresh_token = account.refresh_token;
         token.access_token_expires_at =
