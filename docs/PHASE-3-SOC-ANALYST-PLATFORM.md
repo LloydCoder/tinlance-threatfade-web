@@ -21,13 +21,13 @@ The web SOC consumes the ThreatFade engine's authenticated analyst API:
 - `POST /enterprise/analyst/detections/{id}/disposition`
 - `POST /enterprise/analyst/detections/{id}/cases`
 
-The engine implementation is backed by the existing Phase 3 analyst-workflow migration and tenant-scoped persistence. The web repository does not fabricate detections, evidence, sessions, entities, cases or workflow state.
+These routes are implemented by the engine's canonical `core/analyst.py` and `core/analyst_routes.py` layers. The web repository does not fabricate detections, evidence, sessions, entities, cases or workflow state.
 
 ## Security boundary
 
 The browser does not call privileged engine endpoints directly. `/api/analyst/*` is a server-side, path-allowlisted proxy.
 
-Normal multi-user deployments forward the authenticated consumer bearer token to the engine. The engine performs authentication, RBAC and tenant authorization for the actual subject. The proxy never accepts a browser-supplied tenant identity.
+The proxy requires an authenticated bearer token and forwards that token to the engine. The engine remains authoritative for authentication, RBAC and tenant authorization. The proxy never accepts a browser-supplied tenant identity as an authorization decision.
 
 The proxy additionally enforces:
 
@@ -41,20 +41,21 @@ The proxy additionally enforces:
 - upstream HTTPS in production
 - upstream redirect rejection
 - an 8-second upstream timeout
+- one bounded retry for safe GET network failures
 - sanitized upstream error responses
 - no-store caching.
 
-A `THREATFADE_SOC_SERVICE_MODE=true` service-token mode remains available only for explicitly protected single-tenant deployments behind an upstream SSO/network boundary and is disabled by default.
+There is no browser-accessible static service-token mode. A real authenticated identity boundary is required before the SOC proxy will forward a request.
 
 ## Authorization
 
 Object-level authorization is authoritative in the engine. A detection ID alone is never treated as proof of access. Every analyst endpoint authenticates the principal, checks the required permission, resolves the authoritative tenant from the principal, and queries with tenant scoping.
 
-The engine uses the existing roles and permissions model. Read operations require `detection:read`; workflow, disposition and case mutations require `case:write`.
+Current analyst routes require `case:read` for analyst reads and `case:write` for workflow, disposition and case mutations. The engine's existing role/permission matrix remains authoritative.
 
 ## Reliability
 
-The web proxy bounds body size and upstream response size, disables redirects, applies an 8-second timeout and returns bounded, user-safe failure messages. The inbox supports server-side pagination, filtering and deterministic sorting.
+The web proxy bounds body size and upstream response size, disables redirects, applies an 8-second timeout and returns bounded, user-safe failure messages. The engine-backed inbox supports server-side pagination, filtering and deterministic sorting.
 
 ## Accessibility
 
