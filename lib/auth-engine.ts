@@ -21,7 +21,10 @@ export async function engineIdentityRequest<T>(
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), TIMEOUT_MS);
   try {
-    const headers: HeadersInit = { Accept: "application/json", Authorization: `Bearer ${accessToken}` };
+    const headers: HeadersInit = {
+      Accept: "application/json",
+      Authorization: `Bearer ${accessToken}`,
+    };
     if (options.sessionToken) headers["X-ThreatFade-Session"] = options.sessionToken;
     let body: string | undefined;
     if (options.body !== undefined) {
@@ -48,7 +51,10 @@ export async function engineIdentityRequest<T>(
       }
     }
     if (!response.ok) {
-      const message = typeof payload === "object" && payload && "detail" in payload ? String(payload.detail) : "Identity request rejected";
+      const message =
+        typeof payload === "object" && payload && "detail" in payload
+          ? String(payload.detail)
+          : "Identity request rejected";
       throw new Error(message);
     }
     return payload as T;

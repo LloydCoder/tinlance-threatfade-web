@@ -3,8 +3,23 @@
   "version": "0.1.0",
   "private": true,
   "description": "Official ThreatFade product website, documentation, research hub, interactive demos, and enterprise platform.",
-  "engines": {"node": ">=20.19.0"},
-  "scripts": {"dev": "next dev", "build": "next build", "start": "next start", "lint": "eslint .", "typecheck": "tsc --noEmit", "format": "prettier --write .", "format:check": "bash scripts/check-format.sh", "docs:check": "node scripts/validate-documentation.mjs", "test": "vitest run", "test:watch": "vitest", "test:e2e": "playwright test", "test:e2e:ui": "playwright test --ui"},
+  "engines": {
+    "node": ">=20.19.0"
+  },
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "format": "prettier --write .",
+    "format:check": "bash scripts/check-format.sh",
+    "docs:check": "node scripts/validate-documentation.mjs",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui"
+  },
   "dependencies": {
     "@mdx-js/mdx": "3.1.1",
     "@radix-ui/react-slot": "1.3.3",
