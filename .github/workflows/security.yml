@@ -35,8 +35,8 @@ jobs:
         with:
           node-version: 22
 
-      - name: Install dependencies
-        run: npm install --no-audit --no-fund
+      - name: Install dependencies for audit
+        run: npm install --ignore-scripts --no-audit --no-fund --progress=false --fetch-timeout=60000 --fetch-retries=2
 
       - name: Audit production dependencies
         run: npm audit --omit=dev --audit-level=high
