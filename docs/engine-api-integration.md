@@ -8,6 +8,21 @@ The current engine baseline used for this integration is **v0.4.0**. The engine 
 
 The documented detection model includes detection state, confidence, score, entropy, drop ratio, z-outlier, fade start, matched-rule count, ATT&CK identifier and structured evidence, with optional ML fields.
 
+## SOC analyst contract
+
+Phase 12 consumes the engine's canonical authenticated analyst API:
+
+- `GET /enterprise/analyst/inbox`
+- `GET /enterprise/analyst/detections/{id}`
+- `GET /enterprise/analyst/detections/{id}/timeline`
+- `GET /enterprise/analyst/detections/{id}/entities`
+- `GET /enterprise/analyst/detections/{id}/sessions`
+- `PATCH /enterprise/analyst/detections/{id}/workflow`
+- `POST /enterprise/analyst/detections/{id}/disposition`
+- `POST /enterprise/analyst/detections/{id}/cases`
+
+The engine owns the persistence and authorization model for these operations. The web repository does not create a duplicate detection, evidence, session, case or workflow database.
+
 ## Web integration boundary
 
 `lib/api/client.ts` is a server-side integration boundary. UI components must not construct engine URLs or call the engine directly.
@@ -26,13 +41,15 @@ The client:
 - validates every JSON response against typed Zod schemas;
 - exposes sanitized application errors rather than raw upstream bodies.
 
-This follows the defensive principle of using an allowlist/code-owned destination where the application only needs to contact a known service, and avoiding automatic redirects in SSRF-sensitive HTTP clients.
+The SOC proxy adds an exact path allowlist, numeric detection-ID validation, bounded query parameters and JSON mutation bodies, an 8-second timeout, redirect rejection, bounded retry for safe GET transport failures, body-size limits and sanitized upstream errors.
 
-## Authentication boundary
+## Authentication and authorization boundary
 
-Production detection operations require the engine's documented identity and authorization controls. The website does **not** store or expose engine credentials in browser code. Any future authenticated integration must terminate at a server-side boundary and use the engine's documented OIDC/JWT/API-key controls.
+Production detection and analyst operations require the engine's documented identity and authorization controls. The website does **not** store or expose engine credentials in browser code.
 
-The current client intentionally avoids arbitrary proxying: it does not accept arbitrary paths, arbitrary URLs, tenant identifiers, export paths, raw authentication headers, or unrestricted PCAP uploads.
+For SOC requests, the browser sends the authenticated consumer bearer token to the same-origin web server. The server forwards it to the engine. The web server never treats a browser-supplied tenant header as authoritative. The engine authenticates the principal, checks the required permission and derives tenant scope before reading or mutating resources.
+
+Authenticated analyst reads require the engine's existing case-read permission; workflow, disposition and case mutations require the existing case-write permission. A detection ID alone is never proof of access.
 
 ## CORS
 
@@ -48,4 +65,4 @@ The integration distinguishes upstream HTTP failures from unavailable/timeout fa
 
 ## Synchronization rule
 
-When the engine API changes, update `lib/api/models.ts`, `lib/validation/engine.ts` and this document from the engine source first. Do not infer API contracts from the website UI.
+When the engine API changes, update the engine first, then update `lib/api/models.ts`, `lib/validation/engine.ts`, the analyst proxy allowlist, SOC UI behavior and this document. Do not infer API contracts from the website UI.

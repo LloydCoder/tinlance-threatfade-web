@@ -39,18 +39,24 @@ Next.js web platform
    ├── Research
    ├── Documentation
    ├── Playground
-   └── Enterprise
+   └── SOC / Enterprise
           │
           ▼
-     Explicit API boundary
+   Server-side analyst API proxy
           │
           ▼
   ThreatFade engine / API
 ```
 
-The engine integration is server-side and typed. `lib/api/client.ts` owns engine URLs, timeouts, retries, response-size limits, redirect behavior and schema validation. Browser components must not call engine endpoints directly or receive engine credentials.
+The engine integration is server-side and typed. `lib/api/client.ts` owns public engine URLs, timeouts, retries, response-size limits, redirect behavior and schema validation. The SOC workflow uses an additional server-only `/api/analyst/*` proxy. The proxy requires a real authenticated consumer bearer token and forwards it so the engine makes the authorization decision for the actual subject; it never accepts a browser-supplied tenant header as an authorization decision.
 
 The public playground is treated as an untrusted-input boundary. Curated demonstrations come first; arbitrary PCAP processing requires a separately reviewed isolation and resource-control design.
+
+## SOC analyst workspace
+
+Phase 12 adds an engine-backed investigation workflow covering detection inbox, investigation detail, evidence/provenance, entities, sessions, cases, workflow state and analyst disposition/history. The web application does not fabricate analyst data or duplicate engine persistence. The engine repository remains authoritative for capability, authentication, authorization and tenant isolation.
+
+See [`docs/release/phase12-soc-productization.md`](./docs/release/phase12-soc-productization.md) for the canonical Phase 12 implementation and release boundary.
 
 ## Development
 
@@ -73,7 +79,7 @@ npm run test:e2e
 
 ## Engine integration configuration
 
-The Phase 8 integration uses server-only configuration:
+Public engine integration uses server-only configuration:
 
 ```text
 THREATFADE_API_URL
@@ -81,7 +87,7 @@ THREATFADE_API_TIMEOUT_MS
 THREATFADE_API_MAX_RETRIES
 ```
 
-Production engine URLs must use HTTPS. Do not expose engine credentials through `NEXT_PUBLIC_*` variables. See [`docs/engine-api-integration.md`](./docs/engine-api-integration.md) for the synchronization and security boundary.
+Authenticated SOC requests forward the authenticated consumer bearer token through the server-side analyst proxy. Do not set a browser-controlled tenant variable. The ThreatFade engine derives the authoritative tenant from the authenticated principal. Production engine URLs must use HTTPS. Never expose engine credentials through `NEXT_PUBLIC_*` variables. See [`docs/engine-api-integration.md`](./docs/engine-api-integration.md) and [`docs/architecture.md`](./docs/architecture.md) for the synchronization and security boundary.
 
 ## Content policy
 
