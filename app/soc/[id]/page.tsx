@@ -68,34 +68,58 @@ const reasons = [
 ] as const;
 const formatDate = (value?: string | null) => (value ? new Date(value).toLocaleString() : "—");
 
+async function fetchDetection(id: string): Promise<InvestigationData> {
+  const response = await fetch(`/api/analyst/detections/${encodeURIComponent(id)}`, {
+    cache: "no-store",
+  });
+  if (!response.ok)
+    throw new Error(
+      response.status === 401
+        ? "Authentication required"
+        : `Detection unavailable (${response.status})`,
+    );
+  return (await response.json()) as InvestigationData;
+}
+
 export default function InvestigationPage({ params }: { params: Promise<{ id: string }> }) {
   const [id, setId] = useState("");
   const [data, setData] = useState<InvestigationData | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
   const [note, setNote] = useState("");
+
   useEffect(() => {
-    void params.then((value) => setId(value.id));
-  }, [params]);
-  const refresh = async () => {
-    if (!id) return;
-    const response = await fetch(`/api/analyst/detections/${encodeURIComponent(id)}`, {
-      cache: "no-store",
+    let cancelled = false;
+    void params.then((value) => {
+      if (!cancelled) setId(value.id);
     });
-    if (!response.ok)
-      throw new Error(
-        response.status === 401
-          ? "Authentication required"
-          : `Detection unavailable (${response.status})`,
-      );
-    setData((await response.json()) as InvestigationData);
-  };
+    return () => {
+      cancelled = true;
+    };
+  }, [params]);
+
   useEffect(() => {
-    if (id)
-      void refresh().catch((e) =>
-        setError(e instanceof Error ? e.message : "Detection unavailable"),
-      );
+    if (!id) return;
+    let cancelled = false;
+    async function load() {
+      try {
+        const next = await fetchDetection(id);
+        if (!cancelled) {
+          setData(next);
+          setError(null);
+        }
+      } catch (e) {
+        if (!cancelled) {
+          setError(e instanceof Error ? e.message : "Detection unavailable");
+        }
+      }
+    }
+    void load();
+    return () => {
+      cancelled = true;
+    };
   }, [id]);
+
   async function mutate(path: string, method: string, body: unknown) {
     setBusy(true);
     setError(null);
@@ -111,13 +135,15 @@ export default function InvestigationPage({ params }: { params: Promise<{ id: st
             ? "You are not authorized for this action"
             : `Request failed (${response.status})`,
         );
-      await refresh();
+      const next = await fetchDetection(id);
+      setData(next);
     } catch (e) {
       setError(e instanceof Error ? e.message : "Request failed");
     } finally {
       setBusy(false);
     }
   }
+
   if (error && !data)
     return (
       <main className="mx-auto max-w-5xl px-6 py-12">
