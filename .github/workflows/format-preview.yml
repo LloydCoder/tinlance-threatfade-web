@@ -8,7 +8,7 @@ on:
     types: [checks_requested]
 
 permissions:
-  contents: write
+  contents: read
 
 concurrency:
   group: format-preview-${{ github.workflow }}-${{ github.ref }}
@@ -20,25 +20,15 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - name: Checkout PR head
+      - name: Checkout
         uses: actions/checkout@v7
         with:
-          ref: ${{ github.event.pull_request.head.ref }}
-          repository: ${{ github.event.pull_request.head.repo.full_name }}
-          persist-credentials: true
+          persist-credentials: false
       - name: Setup Node
         uses: actions/setup-node@v7
         with:
           node-version: 22
       - name: Install dependencies
         run: npm install --no-audit --no-fund
-      - name: Apply Prettier to Phase 12 files
-        run: npx prettier --write app/api/analyst/'[...path]'/route.ts app/soc/'[id]'/page.tsx app/soc/page.tsx docs/growth/THREATFADE-COMMERCIAL-FLYWHEEL.md docs/growth/THREATFADE-CONVERSION-FLYWHEEL.md docs/growth/THREATFADE-CUSTOMER-VALUE-FLYWHEEL.md docs/growth/THREATFADE-DEMAND-INTELLIGENCE-FLYWHEEL.md docs/growth/THREATFADE-PRODUCT-OSS-FLYWHEEL.md docs/growth/THREATFADE-RESEARCH-FLYWHEEL.md docs/growth/THREATFADE-TRUST-EVIDENCE-LAYER.md docs/strategy/COMMERCIAL-FLYWHEEL.md docs/strategy/CONTENT-FLYWHEEL.md docs/strategy/CONVERSION-FLYWHEEL.md
-      - name: Commit Phase 12 formatting
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add app/api/analyst app/soc docs/growth/THREATFADE-*.md docs/strategy/COMMERCIAL-FLYWHEEL.md docs/strategy/CONTENT-FLYWHEEL.md docs/strategy/CONVERSION-FLYWHEEL.md
-          if git diff --cached --quiet; then exit 0; fi
-          git commit -m "chore(phase12): apply Prettier formatting [skip format-preview]"
-          git push origin HEAD:${{ github.event.pull_request.head.ref }}
+      - name: Format check
+        run: npm run format:check
