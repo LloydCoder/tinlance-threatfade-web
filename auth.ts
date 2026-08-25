@@ -10,10 +10,13 @@ interface ThreatFadeProfile extends Profile {
   preferred_username?: string;
 }
 
+const BUILD_PHASE = process.env.NEXT_PHASE === "phase-production-build";
+
 function required(name: string): string {
   const value = process.env[name];
-  if (!value) throw new Error(`${name} is not configured`);
-  return value;
+  if (value) return value;
+  if (BUILD_PHASE) return `__threatfade_build_placeholder_${name}__`;
+  throw new Error(`${name} is not configured`);
 }
 
 const issuer = required("THREATFADE_OIDC_ISSUER").replace(/\/$/, "");
@@ -100,6 +103,7 @@ export const authOptions: NextAuthOptions = {
     },
     async jwt({ token, account, profile }) {
       if (account?.access_token) {
+        if (BUILD_PHASE) throw new Error("Enterprise OIDC configuration is unavailable during build");
         token.access_token = account.access_token;
         token.refresh_token = account.refresh_token;
         token.access_token_expires_at =
