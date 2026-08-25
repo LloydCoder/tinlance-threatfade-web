@@ -8,7 +8,14 @@ export type ConversionEvent =
   | "read_docs"
   | "explore_research"
   | "request_evaluation"
-  | "contact_threatfade";
+  | "contact_threatfade"
+  | "view_pricing"
+  | "request_assessment"
+  | "request_pilot"
+  | "request_enterprise"
+  | "request_managed"
+  | "request_custom_detection"
+  | "request_research";
 
 export function ConversionLink({
   href,
@@ -17,6 +24,7 @@ export function ConversionLink({
   className,
   target,
   rel,
+  source = "enterprise",
 }: {
   href: string;
   event: ConversionEvent;
@@ -24,11 +32,12 @@ export function ConversionLink({
   className?: string;
   target?: string;
   rel?: string;
+  source?: string;
 }) {
   function handleClick() {
     const detail = {
       name: event,
-      source: "enterprise",
+      source,
       timestamp: Date.now(),
     };
     window.dispatchEvent(new CustomEvent("threatfade:conversion", { detail }));
