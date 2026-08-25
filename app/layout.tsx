@@ -7,6 +7,7 @@ import {
   softwareApplicationJsonLd,
   websiteJsonLd,
 } from "@/lib/seo/json-ld";
+import { Providers } from "./providers";
 import "./globals.css";
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
@@ -52,7 +53,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
             dangerouslySetInnerHTML={jsonLdScript(item)}
           />
         ))}
-        {children}
+        <Providers>{children}</Providers>
       </body>
     </html>
   );

@@ -1,12 +1,9 @@
 import { expect, test } from "@playwright/test";
 
-test("SOC workspace renders an investigation-first shell", async ({ page }) => {
+test("SOC workspace redirects unauthenticated browsers to sign-in", async ({ page }) => {
   await page.goto("/soc");
-  await expect(page.getByRole("heading", { name: "Detection inbox" })).toBeVisible();
-  await expect(page.getByLabel("Search detections")).toBeVisible();
-  await expect(page.getByLabel("Status")).toBeVisible();
-  await expect(page.getByLabel("Sort detections")).toBeVisible();
-  await expect(page.getByRole("link", { name: "Correlation view" })).toBeVisible();
+  await expect(page).toHaveURL(/\/login$/);
+  await expect(page.getByRole("heading", { name: "Sign in securely" })).toBeVisible();
 });
 
 test("analyst proxy denies unauthenticated access", async ({ request }) => {
@@ -25,5 +22,6 @@ test("analyst proxy rejects cross-origin mutations before upstream access", asyn
     headers: { Origin: "https://attacker.example", Authorization: "Bearer test-token" },
     data: { status: "investigating" },
   });
-  expect(response.status()).toBe(401);
+  expect(response.status()).toBe(403);
+  await expect(response.json()).resolves.toEqual({ error: "Cross-origin mutation denied" });
 });
