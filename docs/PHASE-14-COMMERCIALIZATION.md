@@ -10,17 +10,17 @@ Turn the existing open-core technical trust surface into a clear commercial deci
 
 ## Commercial rate card
 
-| Level | Offer | Public starting standard | Primary motion |
-|---|---|---:|---|
-| 0 | Community / Open Core | $0 | GitHub / local evaluation |
-| 1 | Pro | $49/month or $490/year | Direct commercial enquiry |
-| 2 | Team | $299/month or $2,990/year | Team commercial enquiry |
-| 3 | Detection Gap Assessment | $5,000+ | Scoped technical assessment |
-| 4 | Paid Pilot | $7,500–$15,000 | 30–60 day paid validation |
-| 5 | Enterprise | $25,000+/year | Annual platform commitment |
-| 6 | Managed | $3,500–$15,000+/month | Managed detection service |
-| 7 | Custom Detection Engineering | $5,000–$25,000+ | Scoped professional service |
-| 8 | Research Partnership | $25,000–$150,000+ | Scoped research engagement |
+| Level | Offer                        |  Public starting standard | Primary motion              |
+| ----- | ---------------------------- | ------------------------: | --------------------------- |
+| 0     | Community / Open Core        |                        $0 | GitHub / local evaluation   |
+| 1     | Pro                          |    $49/month or $490/year | Direct commercial enquiry   |
+| 2     | Team                         | $299/month or $2,990/year | Team commercial enquiry     |
+| 3     | Detection Gap Assessment     |                   $5,000+ | Scoped technical assessment |
+| 4     | Paid Pilot                   |            $7,500–$15,000 | 30–60 day paid validation   |
+| 5     | Enterprise                   |             $25,000+/year | Annual platform commitment  |
+| 6     | Managed                      |     $3,500–$15,000+/month | Managed detection service   |
+| 7     | Custom Detection Engineering |           $5,000–$25,000+ | Scoped professional service |
+| 8     | Research Partnership         |         $25,000–$150,000+ | Scoped research engagement  |
 
 These are public planning standards, not contractual promises. Final quotes depend on deployment, analysis volume, integrations, support and security requirements.
 

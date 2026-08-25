@@ -16,6 +16,7 @@ Source: https://limacharlie.io/pricing
 Wazuh continues to monetize an open-source security core through cloud and professional services. Its current Cloud page lists Small from $571/month, Medium from $923/month and Large from $1,467/month, with Custom for larger environments. Wazuh also publishes professional support and consulting services covering architecture, health checks, custom rules, dashboards, integrations and software development.
 
 Sources:
+
 - https://wazuh.com/cloud/
 - https://wazuh.com/services/professional-support/
 - https://wazuh.com/services/consulting-services/
@@ -25,6 +26,7 @@ Sources:
 Panther's current materials emphasize security-lake/SIEM economics and the distinction between ingestion-based and other pricing models. Panther notes that traditional per-GB SIEM pricing can create unpredictable cost as coverage expands. This reinforces the ThreatFade decision not to make raw telemetry volume the only commercial value metric at the initial stage.
 
 Sources:
+
 - https://panther.com/product/data-pipeline
 - https://panther.com/blog/siem-as-a-service
 
