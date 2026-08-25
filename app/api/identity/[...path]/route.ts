@@ -52,7 +52,7 @@ function sameOrigin(request: NextRequest) {
   return Boolean(origin && origin === request.nextUrl.origin);
 }
 
-export async function forward(request: NextRequest, path: string[]) {
+async function forwardRequest(request: NextRequest, path: string[]) {
   if (!allowed(path)) return NextResponse.json({ error: "Route not available" }, { status: 404 });
   if (!sameOrigin(request))
     return NextResponse.json({ error: "Cross-origin mutation denied" }, { status: 403 });
@@ -136,23 +136,23 @@ export async function forward(request: NextRequest, path: string[]) {
 }
 
 export async function GET(request: NextRequest, context: { params: Promise<{ path: string[] }> }) {
-  return forward(request, (await context.params).path);
+  return forwardRequest(request, (await context.params).path);
 }
 
 export async function POST(request: NextRequest, context: { params: Promise<{ path: string[] }> }) {
-  return forward(request, (await context.params).path);
+  return forwardRequest(request, (await context.params).path);
 }
 
 export async function PATCH(
   request: NextRequest,
   context: { params: Promise<{ path: string[] }> },
 ) {
-  return forward(request, (await context.params).path);
+  return forwardRequest(request, (await context.params).path);
 }
 
 export async function DELETE(
   request: NextRequest,
   context: { params: Promise<{ path: string[] }> },
 ) {
-  return forward(request, (await context.params).path);
+  return forwardRequest(request, (await context.params).path);
 }
