@@ -1,0 +1,31 @@
+name: One-shot formatter
+
+on:
+  push:
+    branches: [phase-3-soc-platform]
+
+permissions:
+  contents: write
+
+jobs:
+  format:
+    if: ${{ !contains(github.event.head_commit.message, '[skip one-shot-formatter]') }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: true
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7
+        with:
+          node-version: 22
+      - run: npm install --no-audit --no-fund
+      - run: ./node_modules/.bin/prettier --write app/soc/page.tsx
+      - name: Commit formatted file
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add app/soc/page.tsx
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "style(soc): apply Prettier formatting [skip one-shot-formatter]"
+          git push origin HEAD:phase-3-soc-platform
