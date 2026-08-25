@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useCallback, useEffect, useState, type ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 
 type Detection = {
   id: number;
@@ -57,7 +57,52 @@ export default function SocPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  const load = useCallback(async () => {
+  useEffect(() => {
+    let cancelled = false;
+    const params = new URLSearchParams({
+      limit: "25",
+      offset: String(offset),
+      sort,
+      order,
+    });
+    if (status !== "all") params.set("status", status);
+
+    async function load() {
+      try {
+        const next = await fetchInbox(params);
+        if (!cancelled) {
+          setData(next);
+          setError(null);
+          setLoading(false);
+        }
+      } catch (e) {
+        if (!cancelled) {
+          setError(e instanceof Error ? e.message : "Inbox unavailable");
+          setData((current) => ({ ...current, items: [] }));
+          setLoading(false);
+        }
+      }
+    }
+
+    void load();
+    return () => {
+      cancelled = true;
+    };
+  }, [offset, order, sort, status]);
+
+  const filtered = data.items.filter((item) =>
+    `${item.subject} ${item.source} ${item.mitre_ttp}`
+      .toLowerCase()
+      .includes(query.toLowerCase()),
+  );
+
+  function beginReload() {
+    setLoading(true);
+    setError(null);
+  }
+
+  async function refresh() {
+    beginReload();
     const params = new URLSearchParams({
       limit: "25",
       offset: String(offset),
@@ -68,26 +113,12 @@ export default function SocPage() {
     try {
       const next = await fetchInbox(params);
       setData(next);
-      setError(null);
     } catch (e) {
       setError(e instanceof Error ? e.message : "Inbox unavailable");
       setData((current) => ({ ...current, items: [] }));
     } finally {
       setLoading(false);
     }
-  }, [offset, order, sort, status]);
-
-  useEffect(() => {
-    void load();
-  }, [load]);
-
-  const filtered = data.items.filter((item) =>
-    `${item.subject} ${item.source} ${item.mitre_ttp}`.toLowerCase().includes(query.toLowerCase()),
-  );
-
-  function beginReload() {
-    setLoading(true);
-    setError(null);
   }
 
   function changeSort(value: string) {
@@ -167,10 +198,7 @@ export default function SocPage() {
         </select>
         <button
           type="button"
-          onClick={() => {
-            beginReload();
-            void load();
-          }}
+          onClick={() => void refresh()}
           className="rounded-lg border border-[var(--tf-border)] px-4 py-3 text-sm"
           disabled={loading}
         >
