@@ -39,7 +39,7 @@ Next.js web platform
    ├── Research
    ├── Documentation
    ├── Playground
-   └── SOC / Enterprise
+   └── SOC / Commercial
           │
           ▼
    Server-side analyst API proxy
@@ -57,6 +57,34 @@ The public playground is treated as an untrusted-input boundary. Curated demonst
 Phase 12 adds an engine-backed investigation workflow covering detection inbox, investigation detail, evidence/provenance, entities, sessions, cases, workflow state and analyst disposition/history. The web application does not fabricate analyst data or duplicate engine persistence. The engine repository remains authoritative for capability, authentication, authorization and tenant isolation.
 
 See [`docs/release/phase12-soc-productization.md`](./docs/release/phase12-soc-productization.md) for the canonical Phase 12 implementation and release boundary.
+
+## Commercialization
+
+Phase 14 adds a commercial decision layer without introducing fake SaaS billing or unsupported entitlements. The public starting rate card is:
+
+| Offer                        |         Starting standard |
+| ---------------------------- | ------------------------: |
+| Community / Open Core        |                        $0 |
+| Pro                          |    $49/month or $490/year |
+| Team                         | $299/month or $2,990/year |
+| Detection Gap Assessment     |                   $5,000+ |
+| Paid Pilot                   |            $7,500–$15,000 |
+| Enterprise                   |             $25,000+/year |
+| Managed                      |     $3,500–$15,000+/month |
+| Custom Detection Engineering |           $5,000–$25,000+ |
+| Research Partnership         |         $25,000–$150,000+ |
+
+Commercial routes:
+
+- `/pricing` — value ladder, packaging, FAQ and commercial trust.
+- `/assessment` — Detection Gap Assessment methodology and qualification.
+- `/pilot` — bounded 30–60 day paid pilot and success criteria.
+- `/enterprise` — annual enterprise evaluation and deployment path.
+- `/managed` — managed detection and engineering service.
+
+These prices are public planning standards, not contractual promises. Final quotes reflect deployment, usage, integrations, support and security requirements. Phase 14 does not claim payment processing, entitlement enforcement or billing infrastructure that is not implemented.
+
+The primary high-intent path is **Community → Assessment → Pilot → Enterprise → Managed**, while Pro and Team are optional commitment bridges. See [`docs/PHASE-14-COMMERCIALIZATION.md`](./docs/PHASE-14-COMMERCIALIZATION.md) for the authoritative implementation boundary and [`docs/growth/THREATFADE-COMMERCIAL-FLYWHEEL.md`](./docs/growth/THREATFADE-COMMERCIAL-FLYWHEEL.md) for the strategic flywheel.
 
 ## Development
 

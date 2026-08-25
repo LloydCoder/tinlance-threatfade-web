@@ -41,7 +41,7 @@ const audiences = [
 export default function EnterprisePage() {
   return (
     <PageShell
-      eyebrow="Enterprise evaluation"
+      eyebrow="Enterprise evaluation · from $25,000/year"
       title="Evaluate the detection layer. Keep your existing security stack."
       description="ThreatFade sits between observed signals and the operational systems that investigate them. Enterprise evaluation starts with architecture, evidence and deployment boundaries—not a feature checklist."
     >
@@ -53,43 +53,41 @@ export default function EnterprisePage() {
           </TfPanel>
         ))}
       </div>
-      <section className="mt-12 grid gap-6 lg:grid-cols-[1.1fr_.9fr]">
+
+      <section className="mt-10 grid gap-6 lg:grid-cols-[1.1fr_.9fr]">
         <TfPanel raised className="p-6 sm:p-8">
-          <TfBadge tone="signal">Operational model</TfBadge>
+          <TfBadge tone="signal">Commercial model</TfBadge>
           <h2 className="mt-4 text-2xl font-semibold">
-            Prioritize → Inspect → Pivot → Disposition → Handoff
+            Annual platform commitment, scoped to operational value.
           </h2>
           <p className="mt-4 text-sm leading-7 text-[var(--tf-text-muted)]">
-            ThreatFade produces structured detection evidence and context for analyst workflows. It
-            can persist tenant-scoped records and expose documented interoperable outputs.
+            Enterprise pricing starts at $25,000/year. Final scope reflects deployment topology,
+            analysis requirements, integrations, governance, support and security requirements
+            rather than arbitrary seat counts.
           </p>
         </TfPanel>
         <TfPanel className="p-6 sm:p-8">
-          <TfBadge tone="neutral">Evaluation path</TfBadge>
+          <TfBadge tone="neutral">High-intent path</TfBadge>
           <ol className="mt-5 space-y-5 text-sm text-[var(--tf-text-muted)]">
             <li>
-              <strong className="text-[var(--tf-text)]">01 · Read</strong>
+              <strong className="text-[var(--tf-text)]">01 · Assess</strong>
               <br />
-              Architecture, security and documentation.
+              Find evidence-backed detection gaps.
             </li>
             <li>
-              <strong className="text-[var(--tf-text)]">02 · Run</strong>
+              <strong className="text-[var(--tf-text)]">02 · Pilot</strong>
               <br />
-              Start locally or inspect the curated playground.
+              Validate the capability against agreed success criteria.
             </li>
             <li>
-              <strong className="text-[var(--tf-text)]">03 · Scope</strong>
+              <strong className="text-[var(--tf-text)]">03 · Enterprise</strong>
               <br />
-              Select a detection scenario and evidence question.
-            </li>
-            <li>
-              <strong className="text-[var(--tf-text)]">04 · Evaluate</strong>
-              <br />
-              Compare against your own operational acceptance criteria.
+              Operationalize the capability under a defined commercial scope.
             </li>
           </ol>
         </TfPanel>
       </section>
+
       <section className="mt-8 grid gap-4 md:grid-cols-3">
         <Link
           href="/how-it-works"
@@ -119,11 +117,45 @@ export default function EnterprisePage() {
           </p>
         </Link>
       </section>
+
       <div className="mt-10 flex flex-wrap gap-3">
         <ConversionLink
           className="tf-button tf-button-primary"
+          href="/assessment"
+          event="request_assessment"
+          source="enterprise"
+        >
+          Start with an assessment
+        </ConversionLink>
+        <ConversionLink
+          className="tf-button"
+          href="/pilot"
+          event="request_pilot"
+          source="enterprise"
+        >
+          Scope a pilot
+        </ConversionLink>
+        <ConversionLink
+          className="tf-button"
+          href="/managed"
+          event="request_managed"
+          source="enterprise"
+        >
+          Managed option
+        </ConversionLink>
+        <ConversionLink
+          className="tf-button"
+          href="/pricing"
+          event="view_pricing"
+          source="enterprise"
+        >
+          View pricing
+        </ConversionLink>
+        <ConversionLink
+          className="tf-button"
           href="/docs/getting-started"
           event="read_docs"
+          source="enterprise"
         >
           Read documentation
         </ConversionLink>
@@ -131,17 +163,11 @@ export default function EnterprisePage() {
           className="tf-button"
           href="https://github.com/LloydCoder/tinlance-threatfade"
           event="view_github"
+          source="enterprise"
           target="_blank"
           rel="noreferrer"
         >
           View on GitHub
-        </ConversionLink>
-        <ConversionLink
-          className="tf-button"
-          href="mailto:hello@tinlance.com?subject=ThreatFade%20evaluation"
-          event="request_evaluation"
-        >
-          Request evaluation
         </ConversionLink>
       </div>
     </PageShell>
