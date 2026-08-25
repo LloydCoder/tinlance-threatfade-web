@@ -91,9 +91,7 @@ export default function SocPage() {
   }, [offset, order, sort, status]);
 
   const filtered = data.items.filter((item) =>
-    `${item.subject} ${item.source} ${item.mitre_ttp}`
-      .toLowerCase()
-      .includes(query.toLowerCase()),
+    `${item.subject} ${item.source} ${item.mitre_ttp}`.toLowerCase().includes(query.toLowerCase()),
   );
 
   function beginReload() {
