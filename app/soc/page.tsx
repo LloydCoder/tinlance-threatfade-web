@@ -82,9 +82,7 @@ export default function SocPage() {
   }, [load]);
 
   const filtered = data.items.filter((item) =>
-    `${item.subject} ${item.source} ${item.mitre_ttp}`
-      .toLowerCase()
-      .includes(query.toLowerCase()),
+    `${item.subject} ${item.source} ${item.mitre_ttp}`.toLowerCase().includes(query.toLowerCase()),
   );
 
   function beginReload() {
