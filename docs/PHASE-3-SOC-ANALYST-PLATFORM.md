@@ -1,21 +1,67 @@
-# Phase 3 — SOC / Analyst Platform
+# Phase 12 — SOC Productization
 
-The ThreatFade web application now includes an investigation-first SOC workspace at `/soc`.
+ThreatFade Web now exposes an investigation-first SOC workspace at `/soc` while preserving the public product, research, documentation and playground surfaces.
 
 ## Operator flow
 
-Detection inbox → investigation workspace → evidence review → timeline → disposition → case linkage.
+Detection inbox → triage → investigation → evidence/entities/sessions → case creation → disposition → timeline.
 
-The UI deliberately separates detection score/confidence from evidence. Evidence cards show provenance hashes and collection timestamps; confidence is an analytical assessment.
+The web UI distinguishes observed evidence/provenance from analytical confidence and from the presentation-only triage severity band.
+
+## Engine-backed capabilities
+
+The web SOC consumes the ThreatFade engine's authenticated analyst API:
+
+- `GET /enterprise/analyst/inbox`
+- `GET /enterprise/analyst/detections/{id}`
+- `GET /enterprise/analyst/detections/{id}/timeline`
+- `GET /enterprise/analyst/detections/{id}/entities`
+- `GET /enterprise/analyst/detections/{id}/sessions`
+- `PATCH /enterprise/analyst/detections/{id}/workflow`
+- `POST /enterprise/analyst/detections/{id}/disposition`
+- `POST /enterprise/analyst/detections/{id}/cases`
+
+The engine implementation is backed by the existing Phase 3 analyst-workflow migration and tenant-scoped persistence. The web repository does not fabricate detections, evidence, sessions, entities, cases or workflow state.
 
 ## Security boundary
 
-The browser does not call privileged engine endpoints directly. `/api/analyst/*` is a server-side, path-allowlisted proxy. In the normal multi-user model it forwards the originating consumer bearer token to the ThreatFade engine, so the engine makes the final authentication, RBAC and tenant decision for the actual subject. The proxy never accepts a browser-supplied tenant header.
+The browser does not call privileged engine endpoints directly. `/api/analyst/*` is a server-side, path-allowlisted proxy.
 
-An explicit `THREATFADE_SOC_SERVICE_MODE=true` is supported only for single-tenant deployments that place the web application behind an upstream SSO/network boundary. It is disabled by default. A machine/service token is never presented as a substitute for user authorization in a normal multi-user deployment.
+Normal multi-user deployments forward the authenticated consumer bearer token to the engine. The engine performs authentication, RBAC and tenant authorization for the actual subject. The proxy never accepts a browser-supplied tenant identity.
 
-Mutating proxy requests reject a cross-origin `Origin` header. Route paths are allowlisted to exact analyst operations, numeric detection IDs are validated, request/response bodies are bounded and upstream redirects are disabled. This follows the server-side, object-level authorization model required by OWASP ASVS 5.0 V8.3/V8.4.
+The proxy additionally enforces:
+
+- exact path allowlisting
+- numeric detection identifiers
+- query-parameter allowlisting
+- JSON-only mutation bodies
+- bounded request and response bodies
+- bearer-token length bounds
+- same-origin `Origin` checks for mutations
+- upstream HTTPS in production
+- upstream redirect rejection
+- an 8-second upstream timeout
+- sanitized upstream error responses
+- no-store caching.
+
+A `THREATFADE_SOC_SERVICE_MODE=true` service-token mode remains available only for explicitly protected single-tenant deployments behind an upstream SSO/network boundary and is disabled by default.
+
+## Authorization
+
+Object-level authorization is authoritative in the engine. A detection ID alone is never treated as proof of access. Every analyst endpoint authenticates the principal, checks the required permission, resolves the authoritative tenant from the principal, and queries with tenant scoping.
+
+The engine uses the existing roles and permissions model. Read operations require `detection:read`; workflow, disposition and case mutations require `case:write`.
+
+## Reliability
+
+The web proxy bounds body size and upstream response size, disables redirects, applies an 8-second timeout and returns bounded, user-safe failure messages. The inbox supports server-side pagination, filtering and deterministic sorting.
+
+## Accessibility
+
+The workspace uses semantic headings, tables, labels, keyboard-operable controls, focusable links/buttons, explicit loading/error/empty states and `aria` status/error semantics. It remains subject to the repository's WCAG/axe E2E gate.
 
 ## Validation boundary
 
-The workspace is repository-implemented and is intended for authenticated enterprise deployments. Production identity-provider configuration, real customer-scale usability, and external FusionOps connectivity remain deployment validation rather than claims made by the public website.
+Phase 12 establishes the repository implementation and test boundary. It does **not** claim that a production identity provider is configured, that a customer-scale deployment has been validated, or that external FusionOps connectivity has been exercised in a live customer environment.
+
+Independent penetration testing, independent detection validation, purple-team validation and customer-scale performance evidence remain external assurance activities.
