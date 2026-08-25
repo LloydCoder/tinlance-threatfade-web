@@ -35,8 +35,8 @@ jobs:
         with:
           node-version: 22
 
-      - name: Install dependencies
-        run: npm install --no-audit --no-fund
+      - name: Resolve production dependency graph
+        run: npm install --package-lock-only --omit=dev --ignore-scripts --no-audit --no-fund --progress=false --fetch-timeout=60000 --fetch-retries=2
 
       - name: Audit production dependencies
         run: npm audit --omit=dev --audit-level=high
