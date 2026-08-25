@@ -6,6 +6,13 @@
 
 Phase 12 turns the existing public ThreatFade web surface into an investigation-first SOC workspace without replacing or duplicating the public marketing, research, documentation, or playground architecture.
 
+## Repository boundary
+
+- Engine source of truth: `https://github.com/LloydCoder/tinlance-threatfade`
+- Web implementation: `https://github.com/LloydCoder/tinlance-threatfade-web`
+
+The engine owns detection and analyst capability semantics; the web repository owns presentation, server-side integration and the SOC user experience.
+
 ## Implemented operator flow
 
 Detection inbox → triage → investigation → evidence/entities/sessions → case creation → disposition → analyst timeline.
