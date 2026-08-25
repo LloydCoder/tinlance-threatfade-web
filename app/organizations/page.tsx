@@ -1,28 +1,45 @@
 "use client";
 
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 type Organization = { id: string; name: string; slug: string; role: string; created_at: string };
 
 export default function OrganizationsPage() {
   const { status } = useSession();
+  const router = useRouter();
   const [items, setItems] = useState<Organization[]>([]);
   const [name, setName] = useState("");
   const [slug, setSlug] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
+
+  useEffect(() => {
+    if (status !== "authenticated") return;
+    let active = true;
+    fetch("/api/identity/organizations", { cache: "no-store" })
+      .then(async (response) => {
+        if (!response.ok) throw new Error("Organizations unavailable");
+        return (await response.json()) as { items: Organization[] };
+      })
+      .then((data) => {
+        if (active) setItems(data.items);
+      })
+      .catch((e) => {
+        if (active) setError(e instanceof Error ? e.message : "Organizations unavailable");
+      });
+    return () => {
+      active = false;
+    };
+  }, [status]);
+
   async function load() {
     const response = await fetch("/api/identity/organizations", { cache: "no-store" });
     if (!response.ok) throw new Error("Organizations unavailable");
     setItems(((await response.json()) as { items: Organization[] }).items);
   }
-  useEffect(() => {
-    if (status === "authenticated")
-      void load().catch((e) =>
-        setError(e instanceof Error ? e.message : "Organizations unavailable"),
-      );
-  }, [status]);
+
   async function create() {
     setBusy(true);
     setError(null);
@@ -42,6 +59,7 @@ export default function OrganizationsPage() {
       setBusy(false);
     }
   }
+
   async function switchOrganization(id: string) {
     setBusy(true);
     setError(null);
@@ -52,13 +70,14 @@ export default function OrganizationsPage() {
         body: JSON.stringify({ organization_id: id }),
       });
       if (!response.ok) throw new Error("Organization switch denied");
-      window.location.assign("/soc");
+      router.push("/soc");
     } catch (e) {
       setError(e instanceof Error ? e.message : "Organization switch denied");
     } finally {
       setBusy(false);
     }
   }
+
   if (status !== "authenticated")
     return <main className="mx-auto max-w-4xl px-6 py-16">Sign in required.</main>;
   return (
