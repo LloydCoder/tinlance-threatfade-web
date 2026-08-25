@@ -30,6 +30,20 @@ function Badge({ children }: { children: ReactNode }) {
   );
 }
 
+async function fetchInbox(params: URLSearchParams): Promise<InboxResponse> {
+  const response = await fetch(`/api/analyst/inbox?${params.toString()}`, {
+    cache: "no-store",
+  });
+  if (!response.ok) {
+    throw new Error(
+      response.status === 401
+        ? "Authentication required"
+        : `Inbox unavailable (${response.status})`,
+    );
+  }
+  return (await response.json()) as InboxResponse;
+}
+
 export default function SocPage() {
   const [data, setData] = useState<InboxResponse>({
     items: [],
@@ -42,22 +56,19 @@ export default function SocPage() {
   const [offset, setOffset] = useState(0);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+
   const load = useCallback(async () => {
-    setLoading(true);
-    setError(null);
+    const params = new URLSearchParams({
+      limit: "25",
+      offset: String(offset),
+      sort,
+      order,
+    });
+    if (status !== "all") params.set("status", status);
     try {
-      const params = new URLSearchParams({ limit: "25", offset: String(offset), sort, order });
-      if (status !== "all") params.set("status", status);
-      const response = await fetch(`/api/analyst/inbox?${params.toString()}`, {
-        cache: "no-store",
-      });
-      if (!response.ok)
-        throw new Error(
-          response.status === 401
-            ? "Authentication required"
-            : `Inbox unavailable (${response.status})`,
-        );
-      setData((await response.json()) as InboxResponse);
+      const next = await fetchInbox(params);
+      setData(next);
+      setError(null);
     } catch (e) {
       setError(e instanceof Error ? e.message : "Inbox unavailable");
       setData((current) => ({ ...current, items: [] }));
@@ -65,13 +76,24 @@ export default function SocPage() {
       setLoading(false);
     }
   }, [offset, order, sort, status]);
+
   useEffect(() => {
     void load();
   }, [load]);
+
   const filtered = data.items.filter((item) =>
-    `${item.subject} ${item.source} ${item.mitre_ttp}`.toLowerCase().includes(query.toLowerCase()),
+    `${item.subject} ${item.source} ${item.mitre_ttp}`
+      .toLowerCase()
+      .includes(query.toLowerCase()),
   );
+
+  function beginReload() {
+    setLoading(true);
+    setError(null);
+  }
+
   function changeSort(value: string) {
+    beginReload();
     if (sort === value) setOrder((current) => (current === "asc" ? "desc" : "asc"));
     else {
       setSort(value);
@@ -79,6 +101,7 @@ export default function SocPage() {
     }
     setOffset(0);
   }
+
   return (
     <main className="mx-auto max-w-7xl px-6 py-12">
       <div className="flex flex-wrap items-end justify-between gap-6">
@@ -120,6 +143,7 @@ export default function SocPage() {
           id="detection-status"
           value={status}
           onChange={(e) => {
+            beginReload();
             setStatus(e.target.value);
             setOffset(0);
           }}
@@ -136,10 +160,7 @@ export default function SocPage() {
         <select
           aria-label="Sort detections"
           value={sort}
-          onChange={(e) => {
-            setSort(e.target.value);
-            setOffset(0);
-          }}
+          onChange={(e) => changeSort(e.target.value)}
           className="rounded-lg border border-[var(--tf-border)] bg-transparent px-4 py-3 text-sm"
         >
           <option value="created_at">Newest</option>
@@ -148,7 +169,10 @@ export default function SocPage() {
         </select>
         <button
           type="button"
-          onClick={() => void load()}
+          onClick={() => {
+            beginReload();
+            void load();
+          }}
           className="rounded-lg border border-[var(--tf-border)] px-4 py-3 text-sm"
           disabled={loading}
         >
@@ -242,7 +266,10 @@ export default function SocPage() {
           <button
             type="button"
             disabled={offset === 0 || loading}
-            onClick={() => setOffset((value) => Math.max(0, value - 25))}
+            onClick={() => {
+              beginReload();
+              setOffset((value) => Math.max(0, value - 25));
+            }}
             className="rounded-lg border px-3 py-2 disabled:opacity-50"
           >
             Previous
@@ -250,7 +277,10 @@ export default function SocPage() {
           <button
             type="button"
             disabled={!data.pagination.has_more || loading}
-            onClick={() => setOffset((value) => value + 25)}
+            onClick={() => {
+              beginReload();
+              setOffset((value) => value + 25);
+            }}
             className="rounded-lg border px-3 py-2 disabled:opacity-50"
           >
             Next
