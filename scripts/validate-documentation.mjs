@@ -26,12 +26,8 @@ for (const file of requiredFiles) {
 }
 
 const readme = exists("README.md") ? read("README.md") : "";
-const architecture = exists("docs/architecture.md")
-  ? read("docs/architecture.md")
-  : "";
-const phase5 = exists("docs/PHASE-5-DOCUMENTATION.md")
-  ? read("docs/PHASE-5-DOCUMENTATION.md")
-  : "";
+const architecture = exists("docs/architecture.md") ? read("docs/architecture.md") : "";
+const phase5 = exists("docs/PHASE-5-DOCUMENTATION.md") ? read("docs/PHASE-5-DOCUMENTATION.md") : "";
 const gate = exists("docs/release/phase11-launch-gate.md")
   ? read("docs/release/phase11-launch-gate.md")
   : "";
@@ -60,14 +56,10 @@ if (!readme.includes("evidence-first")) {
   errors.push("README.md is missing the evidence-first product boundary.");
 }
 if (!readme.includes("does not claim")) {
-  warnings.push(
-    "README.md should keep explicit non-claim language near assurance statements.",
-  );
+  warnings.push("README.md should keep explicit non-claim language near assurance statements.");
 }
 if (!architecture.includes("engine repository remains the source of truth")) {
-  errors.push(
-    "docs/architecture.md must state the engine repository source-of-truth boundary.",
-  );
+  errors.push("docs/architecture.md must state the engine repository source-of-truth boundary.");
 }
 if (!phase5.includes("current ThreatFade engine repository")) {
   errors.push(
@@ -75,28 +67,20 @@ if (!phase5.includes("current ThreatFade engine repository")) {
   );
 }
 if (!phase12.includes("/enterprise/analyst/inbox")) {
-  errors.push(
-    "Phase 12 documentation must identify the canonical analyst inbox endpoint.",
-  );
+  errors.push("Phase 12 documentation must identify the canonical analyst inbox endpoint.");
 }
 if (!phase12.includes("real identity provider")) {
-  errors.push(
-    "Phase 12 documentation must preserve the real identity-provider release boundary.",
-  );
+  errors.push("Phase 12 documentation must preserve the real identity-provider release boundary.");
 }
 if (!phase12.includes("engine repository") || !phase12.includes("source of truth")) {
-  errors.push(
-    "Phase 12 documentation must preserve the engine capability source-of-truth rule.",
-  );
+  errors.push("Phase 12 documentation must preserve the engine capability source-of-truth rule.");
 }
 
 const mdxRoot = path.join(root, "content", "docs");
 if (!fs.existsSync(mdxRoot)) {
   errors.push("Missing content/docs MDX documentation root.");
 } else {
-  const mdxFiles = fs
-    .readdirSync(mdxRoot)
-    .filter((name) => name.endsWith(".mdx"));
+  const mdxFiles = fs.readdirSync(mdxRoot).filter((name) => name.endsWith(".mdx"));
   if (mdxFiles.length < 1) {
     errors.push("No public MDX documentation pages found.");
   }
@@ -112,9 +96,7 @@ if (!fs.existsSync(mdxRoot)) {
 // only when clearly framed as historical records rather than current capability claims.
 const phaseDir = path.join(root, "docs", "phases");
 if (fs.existsSync(phaseDir)) {
-  const phaseFiles = fs
-    .readdirSync(phaseDir)
-    .filter((file) => file.endsWith(".md"));
+  const phaseFiles = fs.readdirSync(phaseDir).filter((file) => file.endsWith(".md"));
   for (const name of phaseFiles) {
     const content = fs.readFileSync(path.join(phaseDir, name), "utf8");
     if (!/^#.*phase/i.test(content)) {
@@ -124,14 +106,10 @@ if (fs.existsSync(phaseDir)) {
 }
 
 if (!gate.includes("manual assistive-technology verification")) {
-  errors.push(
-    "Phase 11 gate must explicitly document the manual accessibility boundary.",
-  );
+  errors.push("Phase 11 gate must explicitly document the manual accessibility boundary.");
 }
 if (!gate.includes("real-user Core Web Vitals")) {
-  errors.push(
-    "Phase 11 gate must explicitly document the field-performance boundary.",
-  );
+  errors.push("Phase 11 gate must explicitly document the field-performance boundary.");
 }
 if (gate.includes("[ ] Manual assistive-technology verification")) {
   errors.push(
