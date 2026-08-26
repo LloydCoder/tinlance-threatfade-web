@@ -58,3 +58,7 @@ Customer telemetry is minimized. The customer request endpoint requires authenti
 ## TADS/FadeReach boundary
 
 Demand Intelligence remains separate from customer-value state. TADS/FadeReach may identify account-level signals for research and acquisition, but it must not write customer lifecycle state or infer customer intent from internal product activity without an explicit, validated integration.
+
+## Validation gate
+
+Phase 18 is subject to the repository's normal formatting, lint, typecheck, test, dependency, build, E2E and security workflows before merge.
