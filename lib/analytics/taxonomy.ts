@@ -32,7 +32,13 @@ export const analyticsEventSchema = z.object({
   utm_medium: optionalShortString,
   utm_campaign: optionalShortString,
   utm_content: optionalShortString,
-  campaign_id: z.string().trim().min(1).max(120).regex(/^[A-Za-z0-9._:-]+$/).optional(),
+  campaign_id: z
+    .string()
+    .trim()
+    .min(1)
+    .max(120)
+    .regex(/^[A-Za-z0-9._:-]+$/)
+    .optional(),
   value: z
     .record(z.string(), z.union([z.string().max(160), z.number().finite(), z.boolean()]))
     .optional(),
