@@ -1,8 +1,14 @@
 "use client";
 
 import type { ReactNode } from "react";
+import { trackConversion } from "@/components/analytics/conversion-tracker";
+import type { ConversionEvent } from "@/lib/analytics/taxonomy";
 
-export type ConversionEvent =
+/**
+ * Legacy names are retained at the component boundary for backwards compatibility.
+ * They are normalized into the Phase 15 canonical event taxonomy before capture.
+ */
+export type LegacyConversionEvent =
   | "run_playground"
   | "view_github"
   | "read_docs"
@@ -17,6 +23,28 @@ export type ConversionEvent =
   | "request_custom_detection"
   | "request_research";
 
+export type ConversionEvent = LegacyConversionEvent | ConversionEvent;
+
+const eventMap: Record<LegacyConversionEvent, ConversionEvent> = {
+  run_playground: "playground_start",
+  view_github: "github_view",
+  read_docs: "docs_start",
+  explore_research: "research_open",
+  request_evaluation: "evaluation_request",
+  contact_threatfade: "evaluation_request",
+  view_pricing: "page_view",
+  request_assessment: "assessment_request",
+  request_pilot: "pilot_request",
+  request_enterprise: "enterprise_request",
+  request_managed: "enterprise_request",
+  request_custom_detection: "enterprise_request",
+  request_research: "enterprise_request",
+};
+
+function canonicalEvent(event: ConversionEvent): ConversionEvent {
+  return event in eventMap ? eventMap[event as LegacyConversionEvent] : event;
+}
+
 export function ConversionLink({
   href,
   event,
@@ -24,7 +52,8 @@ export function ConversionLink({
   className,
   target,
   rel,
-  source = "enterprise",
+  source = "site",
+  cta,
 }: {
   href: string;
   event: ConversionEvent;
@@ -33,19 +62,15 @@ export function ConversionLink({
   target?: string;
   rel?: string;
   source?: string;
+  cta?: string;
 }) {
   function handleClick() {
-    const detail = {
-      name: event,
-      source,
-      timestamp: Date.now(),
-    };
+    const name = canonicalEvent(event);
+    trackConversion(name, { source, cta: cta ?? event });
+
+    const detail = { name, source, cta: cta ?? event, timestamp: Date.now() };
     window.dispatchEvent(new CustomEvent("threatfade:conversion", { detail }));
-    const dataLayer = (
-      window as Window & {
-        dataLayer?: Array<Record<string, unknown>>;
-      }
-    ).dataLayer;
+    const dataLayer = (window as Window & { dataLayer?: Array<Record<string, unknown>> }).dataLayer;
     dataLayer?.push({ event: "threatfade_conversion", ...detail });
   }
 
@@ -56,7 +81,7 @@ export function ConversionLink({
       target={target}
       rel={rel}
       onClick={handleClick}
-      data-tf-event={event}
+      data-tf-event={canonicalEvent(event)}
     >
       {children}
     </a>
