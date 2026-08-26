@@ -80,7 +80,8 @@ export default function DetectionChallengePage() {
             source="research-challenge"
             cta="challenge-dataset"
           >
-            <Download className="size-4" />View challenge fixture
+            <Download className="size-4" />
+            View challenge fixture
           </ConversionLink>
           <Link
             href="/research/behavioral-fade-detection-reproducibility-study-v1"

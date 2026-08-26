@@ -78,10 +78,7 @@ export default async function ResearchArticlePage({
 
   return (
     <PageShell eyebrow={article.category} title={article.title} description={article.description}>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={jsonLdScript(structuredData)}
-      />
+      <script type="application/ld+json" dangerouslySetInnerHTML={jsonLdScript(structuredData)} />
       <script type="application/ld+json" dangerouslySetInnerHTML={jsonLdScript(breadcrumbs)} />
       <ResearchMeta
         author={article.author}

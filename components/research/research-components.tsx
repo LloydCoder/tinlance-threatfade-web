@@ -1,10 +1,7 @@
 import type { ReactNode } from "react";
 import { ExternalLink } from "lucide-react";
 import { TfBadge, TfLabel, TfPanel } from "@/components/ui/tf-primitives";
-import type {
-  ResearchEvidence,
-  ResearchStatus as ResearchStatusType,
-} from "@/content/research";
+import type { ResearchEvidence, ResearchStatus as ResearchStatusType } from "@/content/research";
 
 const evidenceLabel: Record<ResearchEvidence, string> = {
   synthetic: "Synthetic",
@@ -78,11 +75,7 @@ export function ResearchArtifacts({
   );
 }
 
-export function ResearchToc({
-  headings,
-}: {
-  headings: { id: string; title: string }[];
-}) {
+export function ResearchToc({ headings }: { headings: { id: string; title: string }[] }) {
   return (
     <nav aria-label="On this page" className="tf-panel p-5">
       <TfLabel>On this page</TfLabel>

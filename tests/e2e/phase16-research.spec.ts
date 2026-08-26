@@ -26,8 +26,6 @@ test.describe("Phase 16 research scale", () => {
       }),
     ).toBeVisible();
     await expect(page.getByText(/leaderboard not yet populated/i)).toBeVisible();
-    await expect(
-      page.getByText(/cannot establish universal detection accuracy/i),
-    ).toBeVisible();
+    await expect(page.getByText(/cannot establish universal detection accuracy/i)).toBeVisible();
   });
 });

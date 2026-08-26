@@ -15,9 +15,10 @@ export default function ChangelogPage() {
           </div>
           <h2 className="mt-4 text-xl font-semibold">Research and Content Scale</h2>
           <p className="mt-3 text-sm leading-7 text-[var(--tf-text-muted)]">
-            Added the flagship Behavioral Fade Detection Reproducibility Study v1 protocol, benchmark
-            protocol, public Detection Challenge, searchable research index, evidence-class metadata,
-            research artifacts, expanded technical topic cluster and editorial governance.
+            Added the flagship Behavioral Fade Detection Reproducibility Study v1 protocol,
+            benchmark protocol, public Detection Challenge, searchable research index,
+            evidence-class metadata, research artifacts, expanded technical topic cluster and
+            editorial governance.
           </p>
           <p className="mt-3 text-sm leading-7 text-[var(--tf-text-muted)]">
             No benchmark or detection result was invented. Planned protocols remain labeled planned,
@@ -44,9 +45,9 @@ export default function ChangelogPage() {
             enterprise evaluation and managed detection experiences.
           </p>
           <p className="mt-3 text-sm leading-7 text-[var(--tf-text-muted)]">
-            The open-core boundary remains explicit: pricing pages do not claim billing, entitlements,
-            certifications, customer proof or security outcomes that have not been implemented or
-            independently validated.
+            The open-core boundary remains explicit: pricing pages do not claim billing,
+            entitlements, certifications, customer proof or security outcomes that have not been
+            implemented or independently validated.
           </p>
         </article>
 

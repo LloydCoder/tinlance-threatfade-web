@@ -1,15 +1,7 @@
 export type ResearchStatus =
-  | "validated"
-  | "synthetic"
-  | "experimental"
-  | "hypothesized"
-  | "planned";
+  "validated" | "synthetic" | "experimental" | "hypothesized" | "planned";
 export type ResearchEvidence =
-  | "synthetic"
-  | "project_validation"
-  | "independent"
-  | "experimental"
-  | "planned";
+  "synthetic" | "project_validation" | "independent" | "experimental" | "planned";
 
 export type ResearchArticle = {
   slug: string;

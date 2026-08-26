@@ -28,12 +28,7 @@ export function ResearchIndex({
     const normalized = query.trim().toLowerCase();
     return articles.filter((article) => {
       const matchesCategory = category === "All" || article.category === category;
-      const haystack = [
-        article.title,
-        article.description,
-        article.category,
-        ...article.tags,
-      ]
+      const haystack = [article.title, article.description, article.category, ...article.tags]
         .join(" ")
         .toLowerCase();
       return matchesCategory && (!normalized || haystack.includes(normalized));

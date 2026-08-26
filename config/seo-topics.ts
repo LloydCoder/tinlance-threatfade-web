@@ -33,7 +33,11 @@ export const seoTopics = {
     status: "validated",
     summary:
       "ThreatFade uses rolling Shannon entropy as one signal among several. Entropy changes are evidence inputs, not a standalone malware verdict.",
-    links: ["/research/entropy-and-statistical-deviation", "/how-it-works", "/docs/detection-packs"],
+    links: [
+      "/research/entropy-and-statistical-deviation",
+      "/how-it-works",
+      "/docs/detection-packs",
+    ],
   },
   "network-threat-hunting": {
     title: "Network threat hunting with behavioral evidence",

@@ -10,13 +10,13 @@ Google's current guidance emphasizes helpful, reliable, people-first content and
 
 Every research item has one evidence class:
 
-| Class | Meaning | Allowed claims |
-|---|---|---|
-| Synthetic | Deterministic/generated fixture | Fixture-level behavior only |
-| Project validation | Repository-backed evaluation | Conditions documented in the repository |
-| Independent | Independent corpus/evaluation | Only the scope actually evaluated |
-| Experimental | Candidate method | Experimental findings only |
-| Planned | Protocol/hypothesis | No observed result claim |
+| Class              | Meaning                         | Allowed claims                          |
+| ------------------ | ------------------------------- | --------------------------------------- |
+| Synthetic          | Deterministic/generated fixture | Fixture-level behavior only             |
+| Project validation | Repository-backed evaluation    | Conditions documented in the repository |
+| Independent        | Independent corpus/evaluation   | Only the scope actually evaluated       |
+| Experimental       | Candidate method                | Experimental findings only              |
+| Planned            | Protocol/hypothesis             | No observed result claim                |
 
 ## Claim policy
 
