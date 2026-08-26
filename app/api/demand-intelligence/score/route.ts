@@ -1,5 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
-import { accountProfileSchema, scoreAccount } from "@/lib/demand-intelligence/model";
+import {
+  accountProfileSchema,
+  scoreAccount,
+} from "@/lib/demand-intelligence/model";
 
 const MAX_BODY_BYTES = 24_000;
 const WINDOW_MS = 60_000;
@@ -7,7 +10,11 @@ const MAX_REQUESTS = 20;
 const buckets = new Map<string, { count: number; resetAt: number }>();
 
 function clientKey(request: NextRequest) {
-  return request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || request.headers.get("x-real-ip") || "unknown";
+  return (
+    request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
+    request.headers.get("x-real-ip") ||
+    "unknown"
+  );
 }
 
 function allowed(key: string) {
@@ -33,15 +40,28 @@ function trustedOrigin(request: NextRequest) {
 }
 
 export async function POST(request: NextRequest) {
-  if (!request.headers.get("content-type")?.includes("application/json"))
-    return NextResponse.json({ error: "Unsupported content type" }, { status: 415 });
-  if (!trustedOrigin(request))
+  if (!request.headers.get("content-type")?.includes("application/json")) {
+    return NextResponse.json(
+      { error: "Unsupported content type" },
+      { status: 415 },
+    );
+  }
+  if (!trustedOrigin(request)) {
     return NextResponse.json({ error: "Untrusted origin" }, { status: 403 });
-  if (!allowed(clientKey(request)))
-    return NextResponse.json({ error: "Too many requests" }, { status: 429, headers: { "Retry-After": "60", "Cache-Control": "no-store" } });
+  }
+  if (!allowed(clientKey(request))) {
+    return NextResponse.json(
+      { error: "Too many requests" },
+      {
+        status: 429,
+        headers: { "Retry-After": "60", "Cache-Control": "no-store" },
+      },
+    );
+  }
   const contentLength = Number(request.headers.get("content-length") ?? 0);
-  if (Number.isFinite(contentLength) && contentLength > MAX_BODY_BYTES)
+  if (Number.isFinite(contentLength) && contentLength > MAX_BODY_BYTES) {
     return NextResponse.json({ error: "Request too large" }, { status: 413 });
+  }
 
   let raw: unknown;
   try {
@@ -51,8 +71,12 @@ export async function POST(request: NextRequest) {
   }
 
   const parsed = accountProfileSchema.safeParse(raw);
-  if (!parsed.success)
-    return NextResponse.json({ error: "Invalid account profile" }, { status: 400 });
+  if (!parsed.success) {
+    return NextResponse.json(
+      { error: "Invalid account profile" },
+      { status: 400 },
+    );
+  }
 
   const result = scoreAccount(parsed.data);
   return NextResponse.json(
