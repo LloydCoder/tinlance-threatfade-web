@@ -14,6 +14,19 @@ export const conversionEvents = [
   "assessment_request",
   "pilot_request",
   "enterprise_request",
+  "evaluation_qualified",
+  "onboarding_started",
+  "onboarding_completed",
+  "first_detection",
+  "first_investigation",
+  "first_disposition",
+  "repeat_usage",
+  "pilot_started",
+  "pilot_completed",
+  "expansion_signal",
+  "advocacy_request",
+  "product_feedback_submitted",
+  "customer_request",
 ] as const;
 
 export type ConversionEvent = (typeof conversionEvents)[number];
@@ -32,16 +45,8 @@ export const analyticsEventSchema = z.object({
   utm_medium: optionalShortString,
   utm_campaign: optionalShortString,
   utm_content: optionalShortString,
-  campaign_id: z
-    .string()
-    .trim()
-    .min(1)
-    .max(120)
-    .regex(/^[A-Za-z0-9._:-]+$/)
-    .optional(),
-  value: z
-    .record(z.string(), z.union([z.string().max(160), z.number().finite(), z.boolean()]))
-    .optional(),
+  campaign_id: z.string().trim().min(1).max(120).regex(/^[A-Za-z0-9._:-]+$/).optional(),
+  value: z.record(z.string(), z.union([z.string().max(160), z.number().finite(), z.boolean()])).optional(),
 });
 
 export type AnalyticsEvent = z.infer<typeof analyticsEventSchema>;
@@ -60,20 +65,23 @@ export const eventStage: Record<ConversionEvent, string> = {
   assessment_request: "revenue",
   pilot_request: "revenue",
   enterprise_request: "revenue",
+  evaluation_qualified: "customer",
+  onboarding_started: "customer",
+  onboarding_completed: "customer",
+  first_detection: "customer",
+  first_investigation: "customer",
+  first_disposition: "customer",
+  repeat_usage: "customer",
+  pilot_started: "revenue",
+  pilot_completed: "revenue",
+  expansion_signal: "expansion",
+  advocacy_request: "advocacy",
+  product_feedback_submitted: "product",
+  customer_request: "customer",
 };
 
 export const publicAnalyticsProperties = [
-  "path",
-  "source",
-  "cta",
-  "landing_page",
-  "referrer",
-  "utm_source",
-  "utm_medium",
-  "utm_campaign",
-  "utm_content",
-  "campaign_id",
-  "stage",
+  "path", "source", "cta", "landing_page", "referrer", "utm_source", "utm_medium", "utm_campaign", "utm_content", "campaign_id", "stage",
 ] as const;
 
 export function sanitizeAnalyticsEvent(input: unknown): AnalyticsEvent {
