@@ -1,14 +1,28 @@
 import type { ReactNode } from "react";
+import { ExternalLink } from "lucide-react";
 import { TfBadge, TfLabel, TfPanel } from "@/components/ui/tf-primitives";
-import type { ResearchStatus as ResearchStatusType } from "@/content/research";
+import type { ResearchEvidence, ResearchStatus as ResearchStatusType } from "@/content/research";
+
+const evidenceLabel: Record<ResearchEvidence, string> = {
+  synthetic: "Synthetic",
+  project_validation: "Project validation",
+  independent: "Independent",
+  experimental: "Experimental",
+  planned: "Planned",
+};
 
 export function ResearchStatus({ status }: { status: ResearchStatusType }) {
   const tone = status === "validated" ? "signal" : status === "planned" ? "neutral" : status === "experimental" ? "warning" : "info";
   return <TfBadge tone={tone}>{status}</TfBadge>;
 }
 
-export function ResearchMeta({ author, published, updated, readingTime }: { author: string; published: string; updated?: string; readingTime: string }) {
-  return <div className="flex flex-wrap gap-x-5 gap-y-2 border-y border-[var(--tf-line)] py-4 font-mono text-[10px] uppercase tracking-[0.12em] text-[var(--tf-text-subtle)]"><span>{author}</span><time dateTime={published}>Published {published}</time>{updated ? <time dateTime={updated}>Updated {updated}</time> : null}<span>{readingTime}</span></div>;
+export function ResearchMeta({ author, published, updated, readingTime, evidence }: { author: string; published: string; updated?: string; readingTime: string; evidence: ResearchEvidence }) {
+  return <div className="flex flex-wrap gap-x-5 gap-y-2 border-y border-[var(--tf-line)] py-4 font-mono text-[10px] uppercase tracking-[0.12em] text-[var(--tf-text-subtle)]"><span>{author}</span><time dateTime={published}>Published {published}</time>{updated ? <time dateTime={updated}>Updated {updated}</time> : null}<span>{readingTime}</span><span>Evidence: {evidenceLabel[evidence]}</span></div>;
+}
+
+export function ResearchArtifacts({ artifacts }: { artifacts?: { label: string; href: string }[] }) {
+  if (!artifacts?.length) return null;
+  return <TfPanel raised className="my-8 p-5"><TfLabel>Research artifacts</TfLabel><ul className="mt-4 space-y-3 text-sm">{artifacts.map((artifact) => <li key={artifact.href}><a className="inline-flex items-center gap-2 text-[var(--tf-signal)]" href={artifact.href} target="_blank" rel="noreferrer">{artifact.label}<ExternalLink className="size-3" aria-hidden="true" /></a></li>)}</ul></TfPanel>;
 }
 
 export function ResearchToc({ headings }: { headings: { id: string; title: string }[] }) {
