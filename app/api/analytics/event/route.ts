@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { cookies, headers } from "next/headers";
 import { randomUUID } from "node:crypto";
-import { sanitizeAnalyticsEvent } from "@/lib/analytics/taxonomy";
 import { analyticsProvider } from "@/lib/analytics/provider";
+import { analyticsEventSchema } from "@/lib/analytics/taxonomy";
 
 const ANON_COOKIE = "tf_anon_id";
 const MAX_BODY_BYTES = 12_000;
@@ -21,8 +21,7 @@ function requestOriginIsTrusted(request: NextRequest) {
 }
 
 function clientKey(request: NextRequest) {
-  const forwarded = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim();
-  return forwarded || request.headers.get("x-real-ip") || "unknown";
+  return request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || request.headers.get("x-real-ip") || "unknown";
 }
 
 function allowRequest(key: string) {
@@ -37,27 +36,12 @@ function allowRequest(key: string) {
   return true;
 }
 
-function isOversized(request: NextRequest) {
-  const contentLength = Number(request.headers.get("content-length") ?? 0);
-  return Number.isFinite(contentLength) && contentLength > MAX_BODY_BYTES;
-}
-
 export async function POST(request: NextRequest) {
-  if (!request.headers.get("content-type")?.includes("application/json")) {
-    return NextResponse.json({ error: "Unsupported content type" }, { status: 415 });
-  }
-  if (!requestOriginIsTrusted(request)) {
-    return NextResponse.json({ error: "Untrusted origin" }, { status: 403 });
-  }
-  if (!allowRequest(clientKey(request))) {
-    return NextResponse.json(
-      { error: "Too many analytics events" },
-      { status: 429, headers: { "Retry-After": "60", "Cache-Control": "no-store" } },
-    );
-  }
-  if (isOversized(request)) {
-    return NextResponse.json({ error: "Request too large" }, { status: 413 });
-  }
+  if (!request.headers.get("content-type")?.includes("application/json")) return NextResponse.json({ error: "Unsupported content type" }, { status: 415 });
+  if (!requestOriginIsTrusted(request)) return NextResponse.json({ error: "Untrusted origin" }, { status: 403 });
+  if (!allowRequest(clientKey(request))) return NextResponse.json({ error: "Too many analytics events" }, { status: 429, headers: { "Retry-After": "60", "Cache-Control": "no-store" } });
+  const contentLength = Number(request.headers.get("content-length") ?? 0);
+  if (Number.isFinite(contentLength) && contentLength > MAX_BODY_BYTES) return NextResponse.json({ error: "Request too large" }, { status: 413 });
 
   let raw: unknown;
   try {
@@ -66,44 +50,30 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Invalid JSON" }, { status: 400 });
   }
 
-  const parsed = sanitizeAnalyticsEvent(raw);
+  const parsed = analyticsEventSchema.safeParse(raw);
+  if (!parsed.success) return NextResponse.json({ error: "Invalid analytics event" }, { status: 400 });
+
   const cookieStore = await cookies();
   let distinctId = cookieStore.get(ANON_COOKIE)?.value;
   if (!distinctId || !/^[0-9a-f-]{36}$/i.test(distinctId)) distinctId = randomUUID();
-
   const event = {
-    ...parsed,
-    path: parsed.path.split("?")[0].slice(0, 512),
-    referrer: parsed.referrer ? new URL(parsed.referrer).origin : undefined,
+    ...parsed.data,
+    path: parsed.data.path.split("?")[0].slice(0, 512),
+    referrer: parsed.data.referrer ? new URL(parsed.data.referrer).origin : undefined,
   };
 
   try {
-    await analyticsProvider.capture(event, {
-      distinctId,
-      receivedAt: new Date().toISOString(),
-    });
+    await analyticsProvider.capture(event, { distinctId, receivedAt: new Date().toISOString() });
   } catch {
-    return NextResponse.json({ error: "Analytics temporarily unavailable" }, { status: 503 });
+    return NextResponse.json({ error: "Analytics temporarily unavailable" }, { status: 503, headers: { "Cache-Control": "no-store" } });
   }
 
   const response = NextResponse.json({ ok: true }, { status: 202, headers: { "Cache-Control": "no-store" } });
-  if (!cookieStore.get(ANON_COOKIE)) {
-    response.cookies.set(ANON_COOKIE, distinctId, {
-      httpOnly: true,
-      sameSite: "lax",
-      secure: process.env.NODE_ENV === "production",
-      path: "/",
-      maxAge: 60 * 60 * 24 * 180,
-    });
-  }
+  if (!cookieStore.get(ANON_COOKIE)) response.cookies.set(ANON_COOKIE, distinctId, { httpOnly: true, sameSite: "lax", secure: process.env.NODE_ENV === "production", path: "/", maxAge: 60 * 60 * 24 * 180 });
   return response;
 }
 
 export async function GET() {
   const headerStore = await headers();
-  const host = headerStore.get("host");
-  return NextResponse.json(
-    { service: "conversion-analytics", configured: Boolean(host && process.env.POSTHOG_PROJECT_API_KEY) },
-    { headers: { "Cache-Control": "no-store" } },
-  );
+  return NextResponse.json({ service: "conversion-analytics", configured: Boolean(headerStore.get("host") && process.env.POSTHOG_PROJECT_API_KEY) }, { headers: { "Cache-Control": "no-store" } });
 }
