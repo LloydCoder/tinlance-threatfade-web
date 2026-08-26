@@ -39,13 +39,13 @@ Production deployment remains subject to the existing Vercel external deployment
 
 The enterprise integration contract defines server-side adapters for:
 
-| Integration | Boundary | Format | Status |
-|---|---|---|---|
-| SIEM | server-side adapter | CEF, JSON | contract-defined |
-| SOAR | server-side adapter | JSON webhook | contract-defined |
-| Webhooks | signed outbound event | JSON | contract-defined |
-| STIX | export adapter | STIX 2.1 | contract-defined |
-| Detection export | versioned API/export | JSON | contract-defined |
+| Integration      | Boundary              | Format       | Status           |
+| ---------------- | --------------------- | ------------ | ---------------- |
+| SIEM             | server-side adapter   | CEF, JSON    | contract-defined |
+| SOAR             | server-side adapter   | JSON webhook | contract-defined |
+| Webhooks         | signed outbound event | JSON         | contract-defined |
+| STIX             | export adapter        | STIX 2.1     | contract-defined |
+| Detection export | versioned API/export  | JSON         | contract-defined |
 
 A contract-defined integration is **not** marketed as a live connector until an adapter is deployed, authenticated, tested, rate-limited, observable and documented.
 
