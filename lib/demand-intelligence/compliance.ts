@@ -28,12 +28,8 @@ export function evaluateOutreach(input: {
   if (!input.identityAndAddressConfigured) {
     return {
       allowed: false,
-      reasons: [
-        "Sender identity and a valid opt-out/contact address are not configured.",
-      ],
-      requiredActions: [
-        "Configure sender identity and unsubscribe/contact address.",
-      ],
+      reasons: ["Sender identity and a valid opt-out/contact address are not configured."],
+      requiredActions: ["Configure sender identity and unsubscribe/contact address."],
     };
   }
 
@@ -61,9 +57,7 @@ export function evaluateOutreach(input: {
 
   if (!input.lawfulBasisDocumented) {
     reasons.push("The processing lawful basis has not been documented.");
-    requiredActions.push(
-      "Complete and retain a jurisdiction-appropriate lawful-basis assessment.",
-    );
+    requiredActions.push("Complete and retain a jurisdiction-appropriate lawful-basis assessment.");
   }
 
   if (reasons.length) return { allowed: false, reasons, requiredActions };
