@@ -64,9 +64,9 @@ The procurement center explicitly avoids unsupported certification, compliance, 
 
 ## Security basis
 
-Phase 19 follows zero-trust principles: access is based on authenticated identity and authorization policy rather than network location. NIST SP 800-207 emphasizes discrete authentication and authorization before enterprise resource access. cite-placeholder-nist-800-207
+Phase 19 follows zero-trust principles: access is based on authenticated identity and authorization policy rather than network location. NIST SP 800-207 emphasizes discrete authentication and authorization before enterprise resource access.
 
-Security logging follows the principle that events need sufficient metadata for investigation and that authentication and authorization events are security-relevant. OWASP ASVS 5.0 includes dedicated authentication, authorization, OIDC, data-protection and security-logging requirements. cite-placeholder-owasp-asvs-5
+Security logging follows the principle that events need sufficient metadata for investigation and that authentication and authorization events are security-relevant. OWASP ASVS 5.0 includes dedicated authentication, authorization, OIDC, data-protection and security-logging requirements.
 
 ## Assurance limits
 
