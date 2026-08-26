@@ -35,8 +35,9 @@ class PostHogProvider implements AnalyticsProvider {
       utm_medium: event.utm_medium,
       utm_campaign: event.utm_campaign,
       utm_content: event.utm_content,
+      campaign_id: event.campaign_id,
       stage: eventStage[event.name],
-      analytics_version: "15.0",
+      analytics_version: "17.0",
     };
     const properties = Object.fromEntries(
       Object.entries(rawProperties).filter(([, value]) => value !== undefined),
