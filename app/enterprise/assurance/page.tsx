@@ -27,9 +27,7 @@ export default function EnterpriseAssurancePage() {
           <TfPanel key={item.claim} className="p-6">
             <div className="flex items-start justify-between gap-4">
               <h2 className="font-semibold">{item.claim}</h2>
-              <TfBadge tone={badgeTone(item.status)}>
-                {assuranceStatusLabel[item.status]}
-              </TfBadge>
+              <TfBadge tone={badgeTone(item.status)}>{assuranceStatusLabel[item.status]}</TfBadge>
             </div>
             <p className="mt-4 text-sm leading-6 text-[var(--tf-text-muted)]">{item.evidence}</p>
             {item.limitation && (
