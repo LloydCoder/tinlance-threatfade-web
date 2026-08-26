@@ -42,6 +42,10 @@ if ((${#files[@]})); then
   echo "Checking ${#files[@]} changed file(s) with Prettier..."
   npx prettier --check --ignore-unknown "${files[@]}"
 else
+  if [[ "${GITHUB_EVENT_NAME:-}" == "push" ]]; then
+    echo "No changed files detected for this push; skipping repository-wide formatting debt scan."
+    exit 0
+  fi
   echo "No changed-file baseline found; checking the full repository with Prettier..."
   npx prettier --check --ignore-unknown .
 fi
