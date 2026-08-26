@@ -19,7 +19,8 @@ export const assuranceClaims: AssuranceClaim[] = [
   {
     claim: "ThreatFade detection capability",
     status: "implemented",
-    evidence: "Detection implementation exists in the engine repository and is covered by repository validation.",
+    evidence:
+      "Detection implementation exists in the engine repository and is covered by repository validation.",
   },
   {
     claim: "Detection evaluation methodology",
@@ -35,7 +36,8 @@ export const assuranceClaims: AssuranceClaim[] = [
   {
     claim: "Independent penetration test",
     status: "not-validated",
-    evidence: "A third-party penetration-test scope is prepared, but no signed independent report exists.",
+    evidence:
+      "A third-party penetration-test scope is prepared, but no signed independent report exists.",
     limitation: "Security testing preparation is not a completed penetration test.",
   },
   {
@@ -51,7 +53,8 @@ export const assuranceClaims: AssuranceClaim[] = [
   {
     claim: "Independent customer-scale performance validation",
     status: "not-validated",
-    evidence: "Scale benchmark methodology is prepared; independent reproduction has not occurred.",
+    evidence:
+      "Scale benchmark methodology is prepared; independent reproduction has not occurred.",
   },
 ];
 
