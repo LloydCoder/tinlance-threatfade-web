@@ -52,6 +52,18 @@ The engine integration is server-side and typed. `lib/api/client.ts` owns public
 
 The public playground is treated as an untrusted-input boundary. Curated demonstrations come first; arbitrary PCAP processing requires a separately reviewed isolation and resource-control design.
 
+## Research and content scale
+
+Phase 16 turns ThreatFade research into a reproducible authority loop rather than a generic content factory:
+
+**Research question → protocol → reproducible run → benchmark artifact → technical analysis → documentation → GitHub artifact → distribution → evaluation evidence → supported commercial proof**
+
+The research index supports search and category filtering and exposes an explicit evidence class for every publication. The flagship **Behavioral Fade Detection Reproducibility Study v1** is protocol-first; it does not publish invented results. The public **Detection Challenge v1** uses non-sensitive synthetic artifacts, anti-leakage rules and a deliberately empty leaderboard until real submissions are evaluated.
+
+Research claims follow an evidence ladder: synthetic, project validation, independent, experimental and planned. See [`docs/PHASE-16-RESEARCH-CONTENT-SCALE.md`](./docs/PHASE-16-RESEARCH-CONTENT-SCALE.md) and [`docs/research/editorial-governance.md`](./docs/research/editorial-governance.md).
+
+The SEO/AI-search architecture follows conventional technical SEO and current Google guidance: useful people-first content, indexability, canonical URLs, accurate structured data, internal linking and citable primary-source artifacts. There is no separate AI-search trick layer. See [`docs/architecture/seo-ai-discovery.md`](./docs/architecture/seo-ai-discovery.md).
+
 ## SOC analyst workspace
 
 Phase 12 adds an engine-backed investigation workflow covering detection inbox, investigation detail, evidence/provenance, entities, sessions, cases, workflow state and analyst disposition/history. The web application does not fabricate analyst data or duplicate engine persistence. The engine repository remains authoritative for capability, authentication, authorization and tenant isolation.
@@ -133,7 +145,7 @@ Authenticated SOC requests forward the authenticated consumer bearer token throu
 
 ## Content policy
 
-Published claims must be traceable to repository evidence or clearly labeled as roadmap/proposal material. The site does not represent repository tests as universal accuracy guarantees, nor engineering controls as SOC 2/ISO certification or independent assurance.
+Published claims must be traceable to repository evidence or clearly labeled as roadmap/proposal material. The site does not represent repository tests as universal accuracy guarantees, nor engineering controls as SOC 2/ISO certification or independent assurance. AI assistance may support research or editing, but final publications require human evidence review and must add original value.
 
 ## Security
 

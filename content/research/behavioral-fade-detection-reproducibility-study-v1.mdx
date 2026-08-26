@@ -1,0 +1,85 @@
+---
+title: "Behavioral Fade Detection Reproducibility Study v1"
+description: "The flagship ThreatFade research protocol for reproducible evaluation of fade scenarios, benign transient fades, provenance and limitations."
+author: "ThreatFade Engineering"
+published: "2026-08-26"
+status: "planned"
+category: "Flagship study"
+tags:
+  - behavioral fading
+  - benchmark
+  - reproducibility
+  - detection engineering
+references:
+  - "ThreatFade Phase 16 research manifest"
+  - "ThreatFade ground-truth dataset standard"
+  - "ThreatFade detection evaluation methodology"
+---
+
+<ResearchStatus status="planned" />
+
+## Research question {#research-question}
+
+Can a behavioral fade detector distinguish documented fade scenarios from a benign transient fade under controlled, reproducible conditions without treating a single signal such as entropy as a maliciousness verdict?
+
+This is a **protocol-first** publication. No new accuracy, throughput or generalization result is claimed here.
+
+## Detection model {#detection-model}
+
+The study evaluates the existing ThreatFade production statistical/fade pipeline against versioned scenarios. The engine remains the technical source of truth. The study does not introduce a new detector, alter production thresholds or promote the experimental ML comparator.
+
+The initial reproducible fixture contains:
+
+- `c2_quieting` — synthetic malicious scenario.
+- `normal_with_fade` — synthetic benign regression scenario.
+
+The first execution should record the exact engine commit, fixture digest, runtime, configuration and threshold profile before calculating metrics.
+
+## Benchmark and evaluation plan
+
+The primary detection metrics are:
+
+- true positives, true negatives, false positives and false negatives;
+- precision;
+- recall/sensitivity;
+- specificity;
+- F1;
+- false-positive rate;
+- false-negative rate.
+
+PR-AUC, ROC-AUC and calibration metrics are secondary and should only be reported when the score distribution and labels make them statistically meaningful.
+
+Performance measurements remain separate from detection quality. When performance is measured, report throughput, p50/p95/p99 latency, RSS and queue depth using the existing benchmark harness. Do not convert synthetic event throughput into a network-interface packet-rate claim.
+
+## Reproducibility contract
+
+A result is publishable only when the execution artifact includes:
+
+1. pinned engine commit;
+2. dataset identifier and SHA-256 digest;
+3. configuration/threshold digest;
+4. runtime and dependency versions;
+5. execution timestamp;
+6. scenario/split counts;
+7. raw confusion-matrix counts;
+8. computed metrics;
+9. known limitations;
+10. command or workflow used to reproduce the run.
+
+The corresponding engine manifest is versioned in the public repository under `research/phase16/`.
+
+## Evidence boundary {#evidence-boundary}
+
+The current fixture is synthetic and small. It can support deterministic regression and reproducibility, but it cannot establish production detection accuracy, customer-scale performance or real-world generalization.
+
+Independent evaluation requires independently collected or independently labeled data and an auditable protocol. Real-PCAP evidence must additionally document provenance, licensing/handling constraints, environment, capture conditions and ground truth.
+
+The publication will be updated with execution results only after the protocol has actually been run. Until then, the correct status is **planned**.
+
+## Research → product loop
+
+The study is designed to produce reusable artifacts rather than a one-off article:
+
+**protocol → reproducible run → benchmark artifact → technical analysis → documentation → GitHub artifact → distribution → evaluation evidence**
+
+Commercial pages may reference the study as a research asset, but must never convert a protocol into a performance or accuracy claim.

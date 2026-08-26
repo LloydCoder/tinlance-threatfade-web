@@ -10,6 +10,7 @@ import {
   ResearchMeta,
   ResearchStatus,
   ResearchToc,
+  ResearchArtifacts,
 } from "@/components/research/research-components";
 import { articleJsonLd, breadcrumbJsonLd, jsonLdScript } from "@/lib/seo/json-ld";
 import { siteConfig } from "@/config/site";
@@ -28,6 +29,7 @@ export async function generateMetadata({
   const { slug } = await params;
   const article = getResearchArticle(slug);
   if (!article) return {};
+
   return {
     title: article.title,
     description: article.description,
@@ -53,6 +55,7 @@ export default async function ResearchArticlePage({
   const { slug } = await params;
   const article = getResearchArticle(slug);
   if (!article) notFound();
+
   const source = await getResearchSource(slug);
   const { content } = await compileMDX({
     source: source.content,
@@ -82,7 +85,10 @@ export default async function ResearchArticlePage({
         published={article.published}
         updated={article.updated}
         readingTime={article.readingTime}
+        evidence={article.evidence}
       />
+      <ResearchArtifacts artifacts={article.artifacts} />
+
       <div className="mt-8 grid gap-10 lg:grid-cols-[minmax(0,1fr)_18rem]">
         <article className="prose prose-invert max-w-none prose-headings:scroll-mt-24 prose-headings:font-semibold prose-p:text-[var(--tf-text-muted)] prose-p:leading-8 prose-a:text-[var(--tf-signal)] prose-code:text-[var(--tf-signal)] prose-pre:bg-transparent">
           <div className="mb-6">
