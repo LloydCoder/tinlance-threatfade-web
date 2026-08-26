@@ -8,8 +8,6 @@ export type LegacyConversionEvent =
   | "run_playground"
   | "view_github"
   | "read_docs"
-  | "github_view"
-  | "read_docs"
   | "explore_research"
   | "request_evaluation"
   | "contact_threatfade"
