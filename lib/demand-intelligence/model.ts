@@ -42,9 +42,7 @@ export const accountProfileSchema = z.object({
   name: z.string().trim().min(1).max(160),
   website: z.string().url().max(2048).optional(),
   industry: z.string().trim().max(120).optional(),
-  employeeBand: z
-    .enum(["1-19", "20-49", "50-199", "200-499", "500-999", "1000+"])
-    .optional(),
+  employeeBand: z.enum(["1-19", "20-49", "50-199", "200-499", "500-999", "1000+"]).optional(),
   geography: z.string().trim().max(120).optional(),
   buyers: z.array(z.enum(buyerRoles)).max(20).default([]),
   signals: z.array(signalSchema).max(100).default([]),
@@ -83,10 +81,7 @@ function recencyFactor(days: number) {
   return Math.exp(-days / 90);
 }
 
-function weightedSignalScore(
-  signals: Signal[],
-  weights: Record<SignalType, number>,
-) {
+function weightedSignalScore(signals: Signal[], weights: Record<SignalType, number>) {
   if (!signals.length) return 0;
   const contributions = signals.map(
     (signal) =>
