@@ -18,11 +18,15 @@ references:
 
 <ResearchStatus status="planned" />
 
-## Research question {#research-question}
+<a id="research-question" aria-hidden="true" />
+
+## Research question
 
 What can be measured reproducibly about ThreatFade's detection behavior and software data-plane performance, and what cannot be inferred from those measurements?
 
-## Detection model {#detection-model}
+<a id="detection-model" aria-hidden="true" />
+
+## Detection model
 
 The benchmark does not replace the engine's detector. It invokes the existing implementation and records observed outputs under a pinned test protocol.
 
@@ -52,7 +56,9 @@ Future independent datasets must preserve train/test isolation, provenance, lice
 
 The existing software-data-plane harness records throughput, p50/p95/p99 latency, RSS, queue depth and accepted/dropped events. Capture-adapter loss and NIC capacity require deployment-host measurements and are not inferred from synthetic events.
 
-## Evidence boundary {#evidence-boundary}
+<a id="evidence-boundary" aria-hidden="true" />
+
+## Evidence boundary
 
 No benchmark result is included in this protocol. A result becomes publication-ready only after the exact command/workflow, engine commit, dataset digest and execution artifact have been recorded.
 
