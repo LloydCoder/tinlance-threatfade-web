@@ -1,7 +1,8 @@
 name: Phase 17 Prettier Diff Helper
 
 on:
-  workflow_dispatch:
+  push:
+    branches: [phase17-demand-intelligence]
 
 permissions:
   contents: read
@@ -17,5 +18,5 @@ jobs:
         with:
           node-version: 22
       - run: npm install --no-audit --no-fund --progress=false
-      - run: npx prettier --write app/account/demand/page.tsx app/api/demand-intelligence/score/route.ts app/demand/[problem]/page.tsx lib/demand-intelligence/compliance.test.ts lib/demand-intelligence/compliance.ts lib/demand-intelligence/landing-pages.ts lib/demand-intelligence/model.test.ts lib/demand-intelligence/model.ts
+      - run: npx prettier --write app/account/demand/page.tsx app/api/demand-intelligence/score/route.ts 'app/demand/[problem]/page.tsx' lib/demand-intelligence/compliance.test.ts lib/demand-intelligence/compliance.ts lib/demand-intelligence/landing-pages.ts lib/demand-intelligence/model.test.ts lib/demand-intelligence/model.ts
       - run: git diff --no-ext-diff -- app/account/demand/page.tsx app/api/demand-intelligence/score/route.ts 'app/demand/[problem]/page.tsx' lib/demand-intelligence/compliance.test.ts lib/demand-intelligence/compliance.ts lib/demand-intelligence/landing-pages.ts lib/demand-intelligence/model.test.ts lib/demand-intelligence/model.ts
