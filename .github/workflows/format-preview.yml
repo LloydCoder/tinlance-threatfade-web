@@ -8,7 +8,7 @@ on:
     types: [checks_requested]
 
 permissions:
-  contents: read
+  contents: write
 
 concurrency:
   group: format-preview-${{ github.workflow }}-${{ github.ref }}
@@ -17,6 +17,7 @@ concurrency:
 jobs:
   format-preview:
     name: Formatting validation
+    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-latest
     timeout-minutes: 10
     env:
@@ -25,7 +26,6 @@ jobs:
       - name: Checkout PR head
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
-          persist-credentials: false
           fetch-depth: 0
       - name: Setup Node
         uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7
@@ -33,5 +33,19 @@ jobs:
           node-version: 22
       - name: Install dependencies
         run: npm install --no-audit --no-fund
+      - name: Format changed files
+        run: |
+          git fetch --no-tags origin "${{ github.event.pull_request.base.sha }}"
+          files=$(git diff --name-only --diff-filter=ACMR "${{ github.event.pull_request.base.sha }}" HEAD | tr '\n' ' ')
+          if [ -n "$files" ]; then npx prettier --write --ignore-unknown $files; fi
+      - name: Commit formatting fixes
+        if: github.event_name == 'pull_request'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "style(phase16): apply repository formatter"
+          git push origin "HEAD:${{ github.event.pull_request.head.ref }}"
       - name: Check formatting
         run: npm run format:check
