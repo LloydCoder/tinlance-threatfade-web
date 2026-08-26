@@ -83,7 +83,7 @@ They use problem language rather than asserting that a target account has experi
 
 ## Campaign attribution
 
-Phase 15's existing analytics boundary already captures:
+Phase 15's existing analytics boundary captures:
 
 - `utm_source`
 - `utm_medium`
@@ -94,7 +94,9 @@ Phase 15's existing analytics boundary already captures:
 - CTA
 - referrer
 
-Phase 17 consumes this existing attribution model rather than creating a second analytics system.
+Phase 17 adds a validated `campaign_id` property for controlled account/campaign attribution. It is limited to a short allow-listed identifier format and is not an authoritative customer or revenue state. PostHog receives the field only when analytics is configured.
+
+The existing conversion system remains the single attribution path; Phase 17 does not create a parallel analytics store.
 
 ## Compliance boundary
 
