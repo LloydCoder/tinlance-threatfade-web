@@ -45,8 +45,16 @@ export const analyticsEventSchema = z.object({
   utm_medium: optionalShortString,
   utm_campaign: optionalShortString,
   utm_content: optionalShortString,
-  campaign_id: z.string().trim().min(1).max(120).regex(/^[A-Za-z0-9._:-]+$/).optional(),
-  value: z.record(z.string(), z.union([z.string().max(160), z.number().finite(), z.boolean()])).optional(),
+  campaign_id: z
+    .string()
+    .trim()
+    .min(1)
+    .max(120)
+    .regex(/^[A-Za-z0-9._:-]+$/)
+    .optional(),
+  value: z
+    .record(z.string(), z.union([z.string().max(160), z.number().finite(), z.boolean()]))
+    .optional(),
 });
 
 export type AnalyticsEvent = z.infer<typeof analyticsEventSchema>;
@@ -81,7 +89,17 @@ export const eventStage: Record<ConversionEvent, string> = {
 };
 
 export const publicAnalyticsProperties = [
-  "path", "source", "cta", "landing_page", "referrer", "utm_source", "utm_medium", "utm_campaign", "utm_content", "campaign_id", "stage",
+  "path",
+  "source",
+  "cta",
+  "landing_page",
+  "referrer",
+  "utm_source",
+  "utm_medium",
+  "utm_campaign",
+  "utm_content",
+  "campaign_id",
+  "stage",
 ] as const;
 
 export function sanitizeAnalyticsEvent(input: unknown): AnalyticsEvent {
