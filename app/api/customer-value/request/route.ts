@@ -62,6 +62,6 @@ export async function POST(request: NextRequest) {
   } catch {
     return NextResponse.json({ error: "Customer request service temporarily unavailable" }, { status: 503 });
   }
-  try { await trackServerEvent("customer_request", request, { type: parsed.data.type }); } catch { /* delivery remains authoritative */ }
+  try { await trackServerEvent("customer_request", request); } catch { /* delivery remains authoritative */ }
   return NextResponse.json({ ok: true }, { status: 202, headers: { "Cache-Control": "no-store" } });
 }
