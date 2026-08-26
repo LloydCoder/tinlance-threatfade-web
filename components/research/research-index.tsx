@@ -37,15 +37,15 @@ export function ResearchIndex({
 
   return (
     <div>
-      <div className="mb-8 grid gap-4 lg:grid-cols-[minmax(0,1fr)_auto]">
-        <label className="flex items-center gap-3 rounded-xl border border-[var(--tf-line)] bg-[var(--tf-surface)] px-4 py-3">
-          <Search className="size-4 text-[var(--tf-text-subtle)]" aria-hidden="true" />
+      <div className="mb-8 grid gap-4">
+        <label className="flex min-w-0 items-center gap-3 rounded-xl border border-[var(--tf-line)] bg-[var(--tf-surface)] px-4 py-3">
+          <Search className="size-4 shrink-0 text-[var(--tf-text-subtle)]" aria-hidden="true" />
           <span className="sr-only">Search research</span>
           <input
             value={query}
             onChange={(event) => setQuery(event.target.value)}
             placeholder="Search research, methods, scenarios…"
-            className="w-full bg-transparent text-sm outline-none placeholder:text-[var(--tf-text-subtle)]"
+            className="min-w-0 w-full bg-transparent text-sm outline-none placeholder:text-[var(--tf-text-subtle)]"
           />
         </label>
         <div className="flex flex-wrap gap-2" aria-label="Research categories">
