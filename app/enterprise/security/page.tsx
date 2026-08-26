@@ -11,11 +11,23 @@ export const metadata: Metadata = {
 };
 
 const evidenceLinks = [
-  ["Architecture", "/how-it-works", "Control-plane, detection-plane and deployment boundaries."],
+  [
+    "Architecture",
+    "/how-it-works",
+    "Control-plane, detection-plane and deployment boundaries.",
+  ],
   ["Security", "/security", "Implemented application-security controls and assurance limits."],
   ["Documentation", "/docs/getting-started", "Operational and deployment documentation."],
-  ["Vulnerability disclosure", "/security", "Security reporting and responsible disclosure path."],
-  ["Procurement", "/enterprise/procurement", "Questionnaire-ready evidence index and contact path."],
+  [
+    "Vulnerability disclosure",
+    "/security",
+    "Security reporting and responsible disclosure path.",
+  ],
+  [
+    "Procurement",
+    "/enterprise/procurement",
+    "Questionnaire-ready evidence index and contact path.",
+  ],
 ] as const;
 
 export default function EnterpriseSecurityPage() {
@@ -51,7 +63,11 @@ export default function EnterpriseSecurityPage() {
 
       <section className="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         {evidenceLinks.map(([title, href, body]) => (
-          <Link key={href} href={href} className="tf-panel p-6 transition hover:border-[var(--tf-signal)]">
+          <Link
+            key={href}
+            href={href}
+            className="tf-panel p-6 transition hover:border-[var(--tf-signal)]"
+          >
             <h2 className="font-semibold">{title} →</h2>
             <p className="mt-2 text-sm leading-6 text-[var(--tf-text-muted)]">{body}</p>
           </Link>
@@ -59,7 +75,8 @@ export default function EnterpriseSecurityPage() {
       </section>
 
       <p className="mt-10 text-xs leading-5 text-[var(--tf-text-muted)]">
-        ThreatFade does not claim SOC 2, ISO 27001, FedRAMP, PCI DSS or other certification from this page. Independent assurance is reported only when the corresponding evidence exists.
+        ThreatFade does not claim SOC 2, ISO 27001, FedRAMP, PCI DSS or other certification from
+        this page. Independent assurance is reported only when the corresponding evidence exists.
       </p>
     </PageShell>
   );
