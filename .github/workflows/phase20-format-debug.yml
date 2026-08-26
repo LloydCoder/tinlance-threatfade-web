@@ -1,6 +1,8 @@
 name: Phase 20 format debug
 
 on:
+  push:
+    branches: [phase20-independent-assurance]
   workflow_dispatch:
 
 permissions:
