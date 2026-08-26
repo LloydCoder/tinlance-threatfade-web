@@ -1,8 +1,4 @@
-export type EnterpriseCapabilityStatus =
-  | "implemented"
-  | "documented"
-  | "on-demand"
-  | "not-claimed";
+export type EnterpriseCapabilityStatus = "implemented" | "documented" | "on-demand" | "not-claimed";
 
 export type EnterpriseCapability = {
   area: string;
