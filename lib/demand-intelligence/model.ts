@@ -42,7 +42,9 @@ export const accountProfileSchema = z.object({
   name: z.string().trim().min(1).max(160),
   website: z.string().url().max(2048).optional(),
   industry: z.string().trim().max(120).optional(),
-  employeeBand: z.enum(["1-19", "20-49", "50-199", "200-499", "500-999", "1000+"]).optional(),
+  employeeBand: z
+    .enum(["1-19", "20-49", "50-199", "200-499", "500-999", "1000+"])
+    .optional(),
   geography: z.string().trim().max(120).optional(),
   buyers: z.array(z.enum(buyerRoles)).max(20).default([]),
   signals: z.array(signalSchema).max(100).default([]),
@@ -81,10 +83,17 @@ function recencyFactor(days: number) {
   return Math.exp(-days / 90);
 }
 
-function weightedSignalScore(signals: Signal[], weights: Record<SignalType, number>) {
+function weightedSignalScore(
+  signals: Signal[],
+  weights: Record<SignalType, number>,
+) {
   if (!signals.length) return 0;
-  const contributions = signals.map((signal) =>
-    signal.strength * signal.confidence * recencyFactor(signal.recencyDays) * weights[signal.type],
+  const contributions = signals.map(
+    (signal) =>
+      signal.strength *
+      signal.confidence *
+      recencyFactor(signal.recencyDays) *
+      weights[signal.type],
   );
   const saturation = contributions.reduce((sum, value) => sum + value, 0);
   return Math.min(1, saturation / 2.25);
@@ -105,15 +114,21 @@ export function scoreAccount(profile: AccountProfile): DemandScore {
     .map((signal) => ({
       type: signal.type,
       contribution:
-        signal.strength * signal.confidence * recencyFactor(signal.recencyDays) * fitWeights[signal.type],
+        signal.strength *
+        signal.confidence *
+        recencyFactor(signal.recencyDays) *
+        fitWeights[signal.type],
     }))
     .sort((a, b) => b.contribution - a.contribution)
     .slice(0, 5);
 
   const explanation = strongestSignals.map(
-    ({ type, contribution }) => `${type} contributes ${Math.round(contribution * 100)} points to fit; this is a relevance signal, not proof of buying intent.`,
+    ({ type, contribution }) =>
+      `${type} contributes ${Math.round(contribution * 100)} points to fit; this is a relevance signal, not proof of buying intent.`,
   );
-  if (!profile.signals.length) explanation.push("No signals were supplied; scores remain intentionally low.");
+  if (!profile.signals.length) {
+    explanation.push("No signals were supplied; scores remain intentionally low.");
+  }
   return {
     threatFadeFit: Math.round(threatFadeFit * 100),
     buyingIntent: Math.round(buyingIntent * 100),
