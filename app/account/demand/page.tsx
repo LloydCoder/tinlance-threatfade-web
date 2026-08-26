@@ -22,9 +22,7 @@ export default function DemandIntelligencePage() {
   const [error, setError] = useState<string | null>(null);
 
   if (status === "loading") {
-    return (
-      <main className="mx-auto max-w-4xl px-6 py-16">Loading…</main>
-    );
+    return <main className="mx-auto max-w-4xl px-6 py-16">Loading…</main>;
   }
   if (!session) {
     return (
@@ -77,8 +75,8 @@ export default function DemandIntelligencePage() {
         Research an account without turning a signal into a claim.
       </h1>
       <p className="mt-4 max-w-3xl text-[var(--tf-text-muted)]">
-        Fit and buying intent are separate, explainable scores. A signal can
-        prioritize research; it does not establish that an account is buying.
+        Fit and buying intent are separate, explainable scores. A signal can prioritize research; it
+        does not establish that an account is buying.
       </p>
       <section className="mt-8 grid gap-5 rounded-2xl border border-[var(--tf-border)] p-6 md:grid-cols-2">
         <label className="text-sm">
