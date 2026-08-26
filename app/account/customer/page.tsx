@@ -22,7 +22,12 @@ function countFrom(payload: DetectionResponse | null) {
 
 function memberCount(payload: unknown) {
   if (Array.isArray(payload)) return payload.length;
-  if (typeof payload === "object" && payload && "items" in payload && Array.isArray(payload.items)) {
+  if (
+    typeof payload === "object" &&
+    payload &&
+    "items" in payload &&
+    Array.isArray(payload.items)
+  ) {
     return payload.items.length;
   }
   return 0;
@@ -60,15 +65,14 @@ export default function CustomerValuePage() {
         let organizations: Organization[] = [];
         if (orgResponse.ok) {
           const body = (await orgResponse.json()) as { items?: Organization[] } | Organization[];
-          organizations = Array.isArray(body) ? body : body.items ?? [];
+          organizations = Array.isArray(body) ? body : (body.items ?? []);
         }
         const current = organizations[0] ?? null;
         let members = 0;
         if (current?.id && /^[0-9a-f]{32}$/.test(current.id)) {
-          const membersResponse = await fetch(
-            `/api/identity/organizations/${current.id}/members`,
-            { cache: "no-store" },
-          );
+          const membersResponse = await fetch(`/api/identity/organizations/${current.id}/members`, {
+            cache: "no-store",
+          });
           if (membersResponse.ok) members = memberCount(await membersResponse.json());
         }
         if (cancelled) return;
@@ -147,7 +151,10 @@ export default function CustomerValuePage() {
           <h2 className="text-xl font-semibold">Activation & success milestones</h2>
           <div className="mt-5 space-y-3">
             {milestones.map((item) => (
-              <div key={item.id} className="flex gap-3 rounded-xl border border-[var(--tf-border)] p-4">
+              <div
+                key={item.id}
+                className="flex gap-3 rounded-xl border border-[var(--tf-border)] p-4"
+              >
                 <span
                   aria-hidden
                   className={`mt-0.5 h-3 w-3 shrink-0 rounded-full ${item.complete ? "bg-emerald-500" : "bg-slate-300"}`}
@@ -169,13 +176,16 @@ export default function CustomerValuePage() {
           </p>
           <div className="mt-6 grid gap-2 text-sm">
             <div className="flex justify-between">
-              <span>Retention</span><span>Longitudinal data required</span>
+              <span>Retention</span>
+              <span>Longitudinal data required</span>
             </div>
             <div className="flex justify-between">
-              <span>Churn</span><span>Billing cohort required</span>
+              <span>Churn</span>
+              <span>Billing cohort required</span>
             </div>
             <div className="flex justify-between">
-              <span>NRR</span><span>Revenue cohort required</span>
+              <span>NRR</span>
+              <span>Revenue cohort required</span>
             </div>
           </div>
         </div>
@@ -184,8 +194,8 @@ export default function CustomerValuePage() {
       <section className="mt-8 rounded-2xl border border-[var(--tf-border)] p-6">
         <h2 className="text-xl font-semibold">Expansion signals</h2>
         <p className="mt-2 text-sm text-[var(--tf-text-muted)]">
-          No automatic upsell is triggered. Validate the underlying customer need before recommending
-          a plan change.
+          No automatic upsell is triggered. Validate the underlying customer need before
+          recommending a plan change.
         </p>
         <div className="mt-5 grid gap-3 md:grid-cols-2">
           {expansionSignals.length ? (
@@ -222,10 +232,30 @@ export default function CustomerValuePage() {
           feedback is treated as input to validation, not as an automatic roadmap commitment.
         </p>
         <div className="mt-5 flex flex-wrap gap-3">
-          <a href="/contact?type=reference" className="rounded-lg border px-4 py-2 text-sm font-medium">Offer a reference</a>
-          <a href="/contact?type=case-study" className="rounded-lg border px-4 py-2 text-sm font-medium">Discuss a case study</a>
-          <a href="/contact?type=research" className="rounded-lg border px-4 py-2 text-sm font-medium">Research collaboration</a>
-          <a href="/contact?type=feedback" className="rounded-lg bg-slate-950 px-4 py-2 text-sm font-medium text-white">Send product feedback</a>
+          <a
+            href="/contact?type=reference"
+            className="rounded-lg border px-4 py-2 text-sm font-medium"
+          >
+            Offer a reference
+          </a>
+          <a
+            href="/contact?type=case-study"
+            className="rounded-lg border px-4 py-2 text-sm font-medium"
+          >
+            Discuss a case study
+          </a>
+          <a
+            href="/contact?type=research"
+            className="rounded-lg border px-4 py-2 text-sm font-medium"
+          >
+            Research collaboration
+          </a>
+          <a
+            href="/contact?type=feedback"
+            className="rounded-lg bg-slate-950 px-4 py-2 text-sm font-medium text-white"
+          >
+            Send product feedback
+          </a>
         </div>
       </section>
     </main>

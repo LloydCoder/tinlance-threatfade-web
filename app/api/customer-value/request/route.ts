@@ -75,7 +75,10 @@ export async function POST(request: NextRequest) {
   const to = process.env.THREATFADE_LEAD_TO_EMAIL;
   const from = process.env.THREATFADE_LEAD_FROM_EMAIL;
   if (!apiKey || !to || !from) {
-    return NextResponse.json({ error: "Customer request intake is not configured" }, { status: 503 });
+    return NextResponse.json(
+      { error: "Customer request intake is not configured" },
+      { status: 503 },
+    );
   }
 
   const html = `<h2>ThreatFade customer ${escapeHtml(parsed.data.type)} request</h2><p><strong>Authenticated account:</strong> ${escapeHtml(email)}</p><p><strong>Message:</strong></p><p>${escapeHtml(parsed.data.message).replace(/\n/g, "<br>")}</p>`;

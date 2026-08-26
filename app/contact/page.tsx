@@ -28,7 +28,7 @@ export default function ContactPage() {
     setStatus(
       response.ok
         ? "Request received. We will review it and respond through the authenticated account contact."
-        : body?.error ?? "Request could not be submitted.",
+        : (body?.error ?? "Request could not be submitted."),
     );
     if (response.ok) setMessage("");
   }

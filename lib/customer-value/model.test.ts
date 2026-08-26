@@ -14,7 +14,9 @@ const empty = {
 describe("customer value lifecycle", () => {
   it("does not claim activation before product activity", () => {
     expect(healthLabel(empty)).toBe("Not yet activated");
-    expect(getMilestones(empty).every((item) => !item.complete || item.id === "team-adoption")).toBe(true);
+    expect(
+      getMilestones(empty).every((item) => !item.complete || item.id === "team-adoption"),
+    ).toBe(true);
   });
 
   it("marks core activation milestones from observed activity", () => {
@@ -25,7 +27,11 @@ describe("customer value lifecycle", () => {
       dispositionCount: 1,
       activeMembers: 2,
     };
-    expect(getMilestones(snapshot).filter((item) => item.complete).map((item) => item.id)).toEqual([
+    expect(
+      getMilestones(snapshot)
+        .filter((item) => item.complete)
+        .map((item) => item.id),
+    ).toEqual([
       "first-detection",
       "first-investigation",
       "first-disposition",

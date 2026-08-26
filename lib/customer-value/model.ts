@@ -84,7 +84,8 @@ export function getExpansionSignals(snapshot: CustomerSnapshot): ExpansionSignal
     signals.push({
       id: "additional-users",
       label: "Additional users",
-      rationale: "Three or more active members are represented; review Team or Enterprise capacity.",
+      rationale:
+        "Three or more active members are represented; review Team or Enterprise capacity.",
       severity: "opportunity",
     });
   }
@@ -108,7 +109,8 @@ export function getExpansionSignals(snapshot: CustomerSnapshot): ExpansionSignal
     signals.push({
       id: "integration-request",
       label: "Integration request",
-      rationale: "An integration requirement exists; validate the requirement before proposing expansion.",
+      rationale:
+        "An integration requirement exists; validate the requirement before proposing expansion.",
       severity: "opportunity",
     });
   }
