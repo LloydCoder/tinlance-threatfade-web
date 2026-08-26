@@ -14,6 +14,19 @@ export const conversionEvents = [
   "assessment_request",
   "pilot_request",
   "enterprise_request",
+  "evaluation_qualified",
+  "onboarding_started",
+  "onboarding_completed",
+  "first_detection",
+  "first_investigation",
+  "first_disposition",
+  "repeat_usage",
+  "pilot_started",
+  "pilot_completed",
+  "expansion_signal",
+  "advocacy_request",
+  "product_feedback_submitted",
+  "customer_request",
 ] as const;
 
 export type ConversionEvent = (typeof conversionEvents)[number];
@@ -60,6 +73,19 @@ export const eventStage: Record<ConversionEvent, string> = {
   assessment_request: "revenue",
   pilot_request: "revenue",
   enterprise_request: "revenue",
+  evaluation_qualified: "customer",
+  onboarding_started: "customer",
+  onboarding_completed: "customer",
+  first_detection: "customer",
+  first_investigation: "customer",
+  first_disposition: "customer",
+  repeat_usage: "customer",
+  pilot_started: "revenue",
+  pilot_completed: "revenue",
+  expansion_signal: "expansion",
+  advocacy_request: "advocacy",
+  product_feedback_submitted: "product",
+  customer_request: "customer",
 };
 
 export const publicAnalyticsProperties = [
