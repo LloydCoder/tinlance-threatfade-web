@@ -1,8 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import {
-  accountProfileSchema,
-  scoreAccount,
-} from "@/lib/demand-intelligence/model";
+import { accountProfileSchema, scoreAccount } from "@/lib/demand-intelligence/model";
 
 const MAX_BODY_BYTES = 24_000;
 const WINDOW_MS = 60_000;
@@ -41,10 +38,7 @@ function trustedOrigin(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   if (!request.headers.get("content-type")?.includes("application/json")) {
-    return NextResponse.json(
-      { error: "Unsupported content type" },
-      { status: 415 },
-    );
+    return NextResponse.json({ error: "Unsupported content type" }, { status: 415 });
   }
   if (!trustedOrigin(request)) {
     return NextResponse.json({ error: "Untrusted origin" }, { status: 403 });
@@ -72,10 +66,7 @@ export async function POST(request: NextRequest) {
 
   const parsed = accountProfileSchema.safeParse(raw);
   if (!parsed.success) {
-    return NextResponse.json(
-      { error: "Invalid account profile" },
-      { status: 400 },
-    );
+    return NextResponse.json({ error: "Invalid account profile" }, { status: 400 });
   }
 
   const result = scoreAccount(parsed.data);
