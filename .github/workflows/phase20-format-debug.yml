@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   format:
@@ -21,4 +21,11 @@ jobs:
           cache: npm
       - run: npm install --no-audit --no-fund
       - run: npx prettier --write app/enterprise/assurance/page.tsx app/enterprise/security/page.tsx lib/assurance/model.ts
-      - run: git diff -- app/enterprise/assurance/page.tsx app/enterprise/security/page.tsx lib/assurance/model.ts
+      - run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if [[ -n "$(git status --porcelain -- app/enterprise/assurance/page.tsx app/enterprise/security/page.tsx lib/assurance/model.ts)" ]]; then
+            git add app/enterprise/assurance/page.tsx app/enterprise/security/page.tsx lib/assurance/model.ts
+            git commit -m "style: apply Prettier to Phase 20 assurance UI"
+            git push origin HEAD:phase20-independent-assurance
+          fi
