@@ -86,6 +86,20 @@ These prices are public planning standards, not contractual promises. Final quot
 
 The primary high-intent path is **Community → Assessment → Pilot → Enterprise → Managed**, while Pro and Team are optional commitment bridges. See [`docs/PHASE-14-COMMERCIALIZATION.md`](./docs/PHASE-14-COMMERCIALIZATION.md) for the authoritative implementation boundary and [`docs/growth/THREATFADE-COMMERCIAL-FLYWHEEL.md`](./docs/growth/THREATFADE-COMMERCIAL-FLYWHEEL.md) for the strategic flywheel.
 
+## Conversion engine
+
+Phase 15 adds the measurable acquisition → activation → evaluation → revenue boundary. The canonical website events are defined in `lib/analytics/taxonomy.ts` and captured through the server-side `/api/analytics/event` boundary.
+
+The website-level funnel is:
+
+**Visitor → Research/Product engagement → GitHub → Installation → First detection → Repeat detection → Evaluation request → Assessment → Pilot → Enterprise → Expansion**
+
+The website only emits events it can actually observe. Installation, organization activation, contract revenue and expansion remain authoritative in product/commercial systems. The site does not fabricate those outcomes.
+
+Attribution is limited to UTM source/medium/campaign/content, landing path and referrer origin. Security telemetry, credentials, packet contents, incident data and unnecessary personal data are excluded.
+
+Authenticated analytics administrators can use `/account/conversion` for the trailing-30-day funnel view. See [`docs/PHASE-15-CONVERSION-ENGINE.md`](./docs/PHASE-15-CONVERSION-ENGINE.md) for the authoritative taxonomy, activation definition, provider boundary, lead-capture controls and environment configuration.
+
 ## Development
 
 Requirements: Node.js 20.9+.

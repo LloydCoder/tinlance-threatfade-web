@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { Suspense } from "react";
 import { siteConfig } from "@/config/site";
+import { ConversionTracker } from "@/components/analytics/conversion-tracker";
 import {
   jsonLdScript,
   organizationJsonLd,
@@ -53,7 +55,12 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
             dangerouslySetInnerHTML={jsonLdScript(item)}
           />
         ))}
-        <Providers>{children}</Providers>
+        <Providers>
+          <Suspense fallback={null}>
+            <ConversionTracker />
+          </Suspense>
+          {children}
+        </Providers>
       </body>
     </html>
   );

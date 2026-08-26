@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ConversionLink } from "@/components/analytics/conversion-link";
+import { LeadCaptureForm } from "@/components/analytics/lead-capture-form";
 import { PageShell } from "@/components/layout/page-shell";
 import { TfBadge, TfPanel } from "@/components/ui/tf-primitives";
 
@@ -53,7 +54,6 @@ export default function EnterprisePage() {
           </TfPanel>
         ))}
       </div>
-
       <section className="mt-10 grid gap-6 lg:grid-cols-[1.1fr_.9fr]">
         <TfPanel raised className="p-6 sm:p-8">
           <TfBadge tone="signal">Commercial model</TfBadge>
@@ -87,7 +87,6 @@ export default function EnterprisePage() {
           </ol>
         </TfPanel>
       </section>
-
       <section className="mt-8 grid gap-4 md:grid-cols-3">
         <Link
           href="/how-it-works"
@@ -117,7 +116,6 @@ export default function EnterprisePage() {
           </p>
         </Link>
       </section>
-
       <div className="mt-10 flex flex-wrap gap-3">
         <ConversionLink
           className="tf-button tf-button-primary"
@@ -170,6 +168,11 @@ export default function EnterprisePage() {
           View on GitHub
         </ConversionLink>
       </div>
+      <LeadCaptureForm
+        requestType="enterprise"
+        event="enterprise_request"
+        fallbackHref="mailto:hello@tinlance.com?subject=ThreatFade%20Enterprise%20Evaluation"
+      />
     </PageShell>
   );
 }

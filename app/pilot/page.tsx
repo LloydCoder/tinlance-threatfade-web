@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { ArrowRight, Check } from "lucide-react";
 import { ConversionLink } from "@/components/analytics/conversion-link";
+import { LeadCaptureForm } from "@/components/analytics/lead-capture-form";
 import { PageShell } from "@/components/layout/page-shell";
 import { TfBadge, TfPanel } from "@/components/ui/tf-primitives";
 
@@ -110,6 +111,11 @@ export default function PilotPage() {
           </ConversionLink>
         </div>
       </section>
+      <LeadCaptureForm
+        requestType="pilot"
+        event="pilot_request"
+        fallbackHref="mailto:hello@tinlance.com?subject=ThreatFade%20Paid%20Pilot"
+      />
     </PageShell>
   );
 }

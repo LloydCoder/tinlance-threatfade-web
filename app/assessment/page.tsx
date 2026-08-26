@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { ArrowRight, CheckCircle2 } from "lucide-react";
 import { ConversionLink } from "@/components/analytics/conversion-link";
+import { LeadCaptureForm } from "@/components/analytics/lead-capture-form";
 import { PageShell } from "@/components/layout/page-shell";
 import { TfBadge, TfPanel } from "@/components/ui/tf-primitives";
 
@@ -118,6 +119,11 @@ export default function AssessmentPage() {
           </ConversionLink>
         </div>
       </section>
+      <LeadCaptureForm
+        requestType="assessment"
+        event="assessment_request"
+        fallbackHref="mailto:hello@tinlance.com?subject=ThreatFade%20Detection%20Gap%20Assessment"
+      />
       <section className="mt-8 grid gap-4 md:grid-cols-2">
         <TfPanel className="p-6">
           <TfBadge tone="signal">What this is not</TfBadge>
