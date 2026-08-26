@@ -81,23 +81,32 @@ class PostHogProvider implements AnalyticsProvider {
     const events = Object.keys(eventStage) as ConversionEvent[];
     const query = `SELECT event, count(DISTINCT person_id) AS users FROM events WHERE timestamp >= '${start}' AND event IN (${events.map((event) => `'${event}'`).join(",")}) GROUP BY event ORDER BY users DESC LIMIT 100`;
 
-    const response = await fetch(`${posthogHost()}/api/projects/${encodeURIComponent(process.env.POSTHOG_PROJECT_ID)}/query/`, {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${process.env.POSTHOG_API_KEY}`,
-        "Content-Type": "application/json",
+    const response = await fetch(
+      `${posthogHost()}/api/projects/${encodeURIComponent(process.env.POSTHOG_PROJECT_ID)}/query/`,
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${process.env.POSTHOG_API_KEY}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ query: { kind: "HogQLQuery", query } }),
+        cache: "no-store",
+        redirect: "error",
+        signal: AbortSignal.timeout(5000),
       },
-      body: JSON.stringify({ query: { kind: "HogQLQuery", query } }),
-      cache: "no-store",
-      redirect: "error",
-      signal: AbortSignal.timeout(5000),
-    });
+    );
 
     if (!response.ok) throw new Error(`Analytics query returned ${response.status}`);
     const payload = (await response.json()) as { results?: Array<[string, number]> };
     const allowed = new Set(events);
     const metrics = (payload.results ?? [])
-      .filter((row): row is [string, number] => Array.isArray(row) && typeof row[0] === "string" && typeof row[1] === "number" && allowed.has(row[0] as ConversionEvent))
+      .filter(
+        (row): row is [string, number] =>
+          Array.isArray(row) &&
+          typeof row[0] === "string" &&
+          typeof row[1] === "number" &&
+          allowed.has(row[0] as ConversionEvent),
+      )
       .map(([event, users]) => ({ event: event as ConversionEvent, users }));
 
     return { configured: true, metrics };

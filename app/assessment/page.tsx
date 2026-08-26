@@ -45,25 +45,37 @@ export default function AssessmentPage() {
           <dl className="mt-6 space-y-5 text-sm">
             <div>
               <dt className="font-medium">Starting price</dt>
-              <dd className="mt-1 text-[var(--tf-text-muted)]">$5,000+ depending on environment and scope.</dd>
+              <dd className="mt-1 text-[var(--tf-text-muted)]">
+                $5,000+ depending on environment and scope.
+              </dd>
             </div>
             <div>
               <dt className="font-medium">Timeline</dt>
-              <dd className="mt-1 text-[var(--tf-text-muted)]">Typically 1–2 weeks after data and access are available.</dd>
+              <dd className="mt-1 text-[var(--tf-text-muted)]">
+                Typically 1–2 weeks after data and access are available.
+              </dd>
             </div>
             <div>
               <dt className="font-medium">Buyer</dt>
-              <dd className="mt-1 text-[var(--tf-text-muted)]">SOC leader, security architect, detection engineering owner or equivalent.</dd>
+              <dd className="mt-1 text-[var(--tf-text-muted)]">
+                SOC leader, security architect, detection engineering owner or equivalent.
+              </dd>
             </div>
             <div>
               <dt className="font-medium">Output</dt>
-              <dd className="mt-1 text-[var(--tf-text-muted)]">Evidence-backed gap report plus a pilot recommendation.</dd>
+              <dd className="mt-1 text-[var(--tf-text-muted)]">
+                Evidence-backed gap report plus a pilot recommendation.
+              </dd>
             </div>
           </dl>
         </TfPanel>
       </div>
       <section className="mt-10 grid gap-4 md:grid-cols-3">
-        {["Scope the environment", "Analyze representative evidence", "Turn findings into a pilot"].map((title, index) => (
+        {[
+          "Scope the environment",
+          "Analyze representative evidence",
+          "Turn findings into a pilot",
+        ].map((title, index) => (
           <TfPanel key={title} className="p-6">
             <div className="font-mono text-[10px] text-[var(--tf-text-subtle)]">0{index + 1}</div>
             <h2 className="mt-5 font-semibold">{title}</h2>
@@ -79,7 +91,9 @@ export default function AssessmentPage() {
       </section>
       <section className="mt-10 rounded-2xl border border-[var(--tf-line)] p-7 sm:p-9">
         <TfBadge tone="neutral">Qualification</TfBadge>
-        <h2 className="mt-4 text-2xl font-semibold">The assessment is a good fit when you can answer four questions.</h2>
+        <h2 className="mt-4 text-2xl font-semibold">
+          The assessment is a good fit when you can answer four questions.
+        </h2>
         <ul className="mt-5 grid gap-4 text-sm leading-6 text-[var(--tf-text-muted)] md:grid-cols-2">
           <li>What network or signal environment is in scope?</li>
           <li>Which adversarial behavior or detection gap matters?</li>
@@ -87,8 +101,22 @@ export default function AssessmentPage() {
           <li>What would make a subsequent pilot successful?</li>
         </ul>
         <div className="mt-7 flex flex-wrap gap-3">
-          <ConversionLink href="mailto:hello@tinlance.com?subject=ThreatFade%20Detection%20Gap%20Assessment" event="request_assessment" source="assessment" className="tf-button tf-button-primary">Request an assessment</ConversionLink>
-          <ConversionLink href="/pilot" event="request_pilot" source="assessment" className="tf-button">See the pilot path <ArrowRight className="size-4" /></ConversionLink>
+          <ConversionLink
+            href="mailto:hello@tinlance.com?subject=ThreatFade%20Detection%20Gap%20Assessment"
+            event="request_assessment"
+            source="assessment"
+            className="tf-button tf-button-primary"
+          >
+            Request an assessment
+          </ConversionLink>
+          <ConversionLink
+            href="/pilot"
+            event="request_pilot"
+            source="assessment"
+            className="tf-button"
+          >
+            See the pilot path <ArrowRight className="size-4" />
+          </ConversionLink>
         </div>
       </section>
       <LeadCaptureForm
@@ -99,11 +127,19 @@ export default function AssessmentPage() {
       <section className="mt-8 grid gap-4 md:grid-cols-2">
         <TfPanel className="p-6">
           <TfBadge tone="signal">What this is not</TfBadge>
-          <p className="mt-4 text-sm leading-7 text-[var(--tf-text-muted)]">It is not a promise of universal detection accuracy, an independent certification, or a replacement for your existing SIEM/SOAR. The report states evidence and limitations explicitly.</p>
+          <p className="mt-4 text-sm leading-7 text-[var(--tf-text-muted)]">
+            It is not a promise of universal detection accuracy, an independent certification, or a
+            replacement for your existing SIEM/SOAR. The report states evidence and limitations
+            explicitly.
+          </p>
         </TfPanel>
         <TfPanel className="p-6">
           <TfBadge tone="neutral">Next step</TfBadge>
-          <p className="mt-4 text-sm leading-7 text-[var(--tf-text-muted)]">If the assessment establishes a credible gap, the next step is a 30–60 day paid pilot with agreed success criteria. The pilot fee can be credited toward the first annual Enterprise contract when agreed in the commercial terms.</p>
+          <p className="mt-4 text-sm leading-7 text-[var(--tf-text-muted)]">
+            If the assessment establishes a credible gap, the next step is a 30–60 day paid pilot
+            with agreed success criteria. The pilot fee can be credited toward the first annual
+            Enterprise contract when agreed in the commercial terms.
+          </p>
         </TfPanel>
       </section>
     </PageShell>

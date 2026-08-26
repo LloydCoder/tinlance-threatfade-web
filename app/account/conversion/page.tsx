@@ -43,7 +43,7 @@ export default async function ConversionDashboard() {
   const counts = new Map(result.metrics.map((metric) => [metric.event, metric.users]));
   const rows = funnelOrder.map((event, index) => {
     const users = counts.get(event) ?? 0;
-    const previous = index === 0 ? users : counts.get(funnelOrder[index - 1]) ?? 0;
+    const previous = index === 0 ? users : (counts.get(funnelOrder[index - 1]) ?? 0);
     return {
       event,
       stage: eventStage[event],
@@ -60,7 +60,9 @@ export default async function ConversionDashboard() {
             Internal growth telemetry
           </p>
           <h1 className="mt-3 text-3xl font-semibold">ThreatFade conversion engine</h1>
-          <p className="mt-2 text-sm text-[var(--tf-text-muted)]">Canonical funnel · trailing 30 days</p>
+          <p className="mt-2 text-sm text-[var(--tf-text-muted)]">
+            Canonical funnel · trailing 30 days
+          </p>
         </div>
         <div className="rounded-full border border-[var(--tf-line)] px-3 py-1 text-xs">
           {result.configured ? "Provider connected" : "Provider not configured"}
@@ -70,8 +72,8 @@ export default async function ConversionDashboard() {
       {!result.configured ? (
         <div className="mt-8 rounded-2xl border border-[var(--tf-line)] p-6 text-sm leading-7 text-[var(--tf-text-muted)]">
           Configure <code>POSTHOG_PROJECT_ID</code>, <code>POSTHOG_PROJECT_API_KEY</code> and the
-          server-only <code>POSTHOG_API_KEY</code> to populate this dashboard. No analytics secret is
-          exposed to the browser.
+          server-only <code>POSTHOG_API_KEY</code> to populate this dashboard. No analytics secret
+          is exposed to the browser.
         </div>
       ) : null}
 

@@ -21,7 +21,11 @@ function requestOriginIsTrusted(request: NextRequest) {
 }
 
 function clientKey(request: NextRequest) {
-  return request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || request.headers.get("x-real-ip") || "unknown";
+  return (
+    request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
+    request.headers.get("x-real-ip") ||
+    "unknown"
+  );
 }
 
 function allowRequest(key: string) {
@@ -37,11 +41,18 @@ function allowRequest(key: string) {
 }
 
 export async function POST(request: NextRequest) {
-  if (!request.headers.get("content-type")?.includes("application/json")) return NextResponse.json({ error: "Unsupported content type" }, { status: 415 });
-  if (!requestOriginIsTrusted(request)) return NextResponse.json({ error: "Untrusted origin" }, { status: 403 });
-  if (!allowRequest(clientKey(request))) return NextResponse.json({ error: "Too many analytics events" }, { status: 429, headers: { "Retry-After": "60", "Cache-Control": "no-store" } });
+  if (!request.headers.get("content-type")?.includes("application/json"))
+    return NextResponse.json({ error: "Unsupported content type" }, { status: 415 });
+  if (!requestOriginIsTrusted(request))
+    return NextResponse.json({ error: "Untrusted origin" }, { status: 403 });
+  if (!allowRequest(clientKey(request)))
+    return NextResponse.json(
+      { error: "Too many analytics events" },
+      { status: 429, headers: { "Retry-After": "60", "Cache-Control": "no-store" } },
+    );
   const contentLength = Number(request.headers.get("content-length") ?? 0);
-  if (Number.isFinite(contentLength) && contentLength > MAX_BODY_BYTES) return NextResponse.json({ error: "Request too large" }, { status: 413 });
+  if (Number.isFinite(contentLength) && contentLength > MAX_BODY_BYTES)
+    return NextResponse.json({ error: "Request too large" }, { status: 413 });
 
   let raw: unknown;
   try {
@@ -51,7 +62,8 @@ export async function POST(request: NextRequest) {
   }
 
   const parsed = analyticsEventSchema.safeParse(raw);
-  if (!parsed.success) return NextResponse.json({ error: "Invalid analytics event" }, { status: 400 });
+  if (!parsed.success)
+    return NextResponse.json({ error: "Invalid analytics event" }, { status: 400 });
 
   const cookieStore = await cookies();
   let distinctId = cookieStore.get(ANON_COOKIE)?.value;
@@ -65,15 +77,34 @@ export async function POST(request: NextRequest) {
   try {
     await analyticsProvider.capture(event, { distinctId, receivedAt: new Date().toISOString() });
   } catch {
-    return NextResponse.json({ error: "Analytics temporarily unavailable" }, { status: 503, headers: { "Cache-Control": "no-store" } });
+    return NextResponse.json(
+      { error: "Analytics temporarily unavailable" },
+      { status: 503, headers: { "Cache-Control": "no-store" } },
+    );
   }
 
-  const response = NextResponse.json({ ok: true }, { status: 202, headers: { "Cache-Control": "no-store" } });
-  if (!cookieStore.get(ANON_COOKIE)) response.cookies.set(ANON_COOKIE, distinctId, { httpOnly: true, sameSite: "lax", secure: process.env.NODE_ENV === "production", path: "/", maxAge: 60 * 60 * 24 * 180 });
+  const response = NextResponse.json(
+    { ok: true },
+    { status: 202, headers: { "Cache-Control": "no-store" } },
+  );
+  if (!cookieStore.get(ANON_COOKIE))
+    response.cookies.set(ANON_COOKIE, distinctId, {
+      httpOnly: true,
+      sameSite: "lax",
+      secure: process.env.NODE_ENV === "production",
+      path: "/",
+      maxAge: 60 * 60 * 24 * 180,
+    });
   return response;
 }
 
 export async function GET() {
   const headerStore = await headers();
-  return NextResponse.json({ service: "conversion-analytics", configured: Boolean(headerStore.get("host") && process.env.POSTHOG_PROJECT_API_KEY) }, { headers: { "Cache-Control": "no-store" } });
+  return NextResponse.json(
+    {
+      service: "conversion-analytics",
+      configured: Boolean(headerStore.get("host") && process.env.POSTHOG_PROJECT_API_KEY),
+    },
+    { headers: { "Cache-Control": "no-store" } },
+  );
 }

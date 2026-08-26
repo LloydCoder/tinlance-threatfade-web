@@ -12,21 +12,21 @@ The website tracks the measurable web-side stages. Installation, first detection
 
 ## Canonical event taxonomy
 
-| Event | Stage | Trigger |
-| --- | --- | --- |
-| `page_view` | acquisition | Route/page becomes visible |
-| `research_open` | engagement | Research content opened |
-| `docs_start` | engagement | Documentation journey started |
-| `github_view` | evaluation | Repository CTA opened |
-| `playground_start` | activation | Playground session begins |
-| `detection_start` | activation | A real detection workflow begins |
-| `detection_complete` | activation | Detection completes successfully |
-| `signup_start` | evaluation | Signup flow begins |
-| `signup_complete` | evaluation | Signup completes |
-| `evaluation_request` | evaluation | Evaluation CTA/form submitted |
-| `assessment_request` | revenue | Assessment CTA/form submitted |
-| `pilot_request` | revenue | Pilot CTA/form submitted |
-| `enterprise_request` | revenue | Enterprise CTA/form submitted |
+| Event                | Stage       | Trigger                          |
+| -------------------- | ----------- | -------------------------------- |
+| `page_view`          | acquisition | Route/page becomes visible       |
+| `research_open`      | engagement  | Research content opened          |
+| `docs_start`         | engagement  | Documentation journey started    |
+| `github_view`        | evaluation  | Repository CTA opened            |
+| `playground_start`   | activation  | Playground session begins        |
+| `detection_start`    | activation  | A real detection workflow begins |
+| `detection_complete` | activation  | Detection completes successfully |
+| `signup_start`       | evaluation  | Signup flow begins               |
+| `signup_complete`    | evaluation  | Signup completes                 |
+| `evaluation_request` | evaluation  | Evaluation CTA/form submitted    |
+| `assessment_request` | revenue     | Assessment CTA/form submitted    |
+| `pilot_request`      | revenue     | Pilot CTA/form submitted         |
+| `enterprise_request` | revenue     | Enterprise CTA/form submitted    |
 
 Legacy CTA event names remain accepted at the `ConversionLink` boundary and are normalized into the canonical taxonomy. New code should use canonical names.
 

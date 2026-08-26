@@ -32,7 +32,9 @@ export const analyticsEventSchema = z.object({
   utm_medium: optionalShortString,
   utm_campaign: optionalShortString,
   utm_content: optionalShortString,
-  value: z.record(z.string(), z.union([z.string().max(160), z.number().finite(), z.boolean()])).optional(),
+  value: z
+    .record(z.string(), z.union([z.string().max(160), z.number().finite(), z.boolean()]))
+    .optional(),
 });
 
 export type AnalyticsEvent = z.infer<typeof analyticsEventSchema>;

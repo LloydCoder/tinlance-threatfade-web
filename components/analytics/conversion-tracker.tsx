@@ -7,7 +7,9 @@ import type { ConversionEvent } from "@/lib/analytics/taxonomy";
 const ATTRIBUTION_KEY = "threatfade_attribution_v1";
 const attributionKeys = ["utm_source", "utm_medium", "utm_campaign", "utm_content"] as const;
 
-type Attribution = Partial<Record<(typeof attributionKeys)[number], string>> & { landing_page?: string };
+type Attribution = Partial<Record<(typeof attributionKeys)[number], string>> & {
+  landing_page?: string;
+};
 type SearchParamsLike = { get(name: string): string | null };
 
 function clean(value: string | null, max = 160) {
@@ -18,7 +20,9 @@ function clean(value: string | null, max = 160) {
 
 function readAttribution(): Attribution {
   try {
-    const stored = JSON.parse(window.localStorage.getItem(ATTRIBUTION_KEY) ?? "null") as Attribution | null;
+    const stored = JSON.parse(
+      window.localStorage.getItem(ATTRIBUTION_KEY) ?? "null",
+    ) as Attribution | null;
     return stored && typeof stored === "object" ? stored : {};
   } catch {
     return {};
@@ -51,7 +55,11 @@ function persistAttribution(searchParams: SearchParamsLike, path: string) {
 
 export function trackConversion(
   name: ConversionEvent,
-  options: { source?: string; cta?: string; value?: Record<string, string | number | boolean> } = {},
+  options: {
+    source?: string;
+    cta?: string;
+    value?: Record<string, string | number | boolean>;
+  } = {},
 ) {
   if (typeof window === "undefined") return;
   const attribution = readAttribution();
@@ -72,13 +80,22 @@ export function trackConversion(
   const body = JSON.stringify(payload);
   try {
     if (navigator.sendBeacon) {
-      const sent = navigator.sendBeacon("/api/analytics/event", new Blob([body], { type: "application/json" }));
+      const sent = navigator.sendBeacon(
+        "/api/analytics/event",
+        new Blob([body], { type: "application/json" }),
+      );
       if (sent) return;
     }
   } catch {
     // Fall through to keepalive fetch.
   }
-  void fetch("/api/analytics/event", { method: "POST", headers: { "Content-Type": "application/json" }, body, keepalive: true, credentials: "same-origin" }).catch(() => undefined);
+  void fetch("/api/analytics/event", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body,
+    keepalive: true,
+    credentials: "same-origin",
+  }).catch(() => undefined);
 }
 
 export function ConversionTracker() {
@@ -90,7 +107,10 @@ export function ConversionTracker() {
     const attribution = persistAttribution(searchParams, pathname);
     if (firstRender.current) {
       firstRender.current = false;
-      trackConversion("page_view", { source: "site", value: { has_attribution: Boolean(Object.keys(attribution).length) } });
+      trackConversion("page_view", {
+        source: "site",
+        value: { has_attribution: Boolean(Object.keys(attribution).length) },
+      });
       return;
     }
     trackConversion("page_view", { source: "navigation" });
