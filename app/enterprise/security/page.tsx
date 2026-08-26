@@ -13,6 +13,11 @@ export const metadata: Metadata = {
 const evidenceLinks = [
   ["Architecture", "/how-it-works", "Control-plane, detection-plane and deployment boundaries."],
   ["Security", "/security", "Implemented application-security controls and assurance limits."],
+  [
+    "Independent assurance",
+    "/enterprise/assurance",
+    "External-validation evidence and explicit claim boundaries.",
+  ],
   ["Documentation", "/docs/getting-started", "Operational and deployment documentation."],
   ["Vulnerability disclosure", "/security", "Security reporting and responsible disclosure path."],
   [

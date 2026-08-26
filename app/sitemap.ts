@@ -19,6 +19,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/playground",
     "/changelog",
     "/enterprise",
+    "/enterprise/security",
+    "/enterprise/procurement",
+    "/enterprise/assurance",
     "/security",
   ];
   const research = researchArticles.map((article) => ({
