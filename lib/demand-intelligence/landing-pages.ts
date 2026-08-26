@@ -36,8 +36,7 @@ export const demandLandingPages = {
     cta: "Discuss an assessment",
   },
   "encrypted-traffic": {
-    title:
-      "Evaluate encrypted-traffic behavior without pretending encryption is decrypted",
+    title: "Evaluate encrypted-traffic behavior without pretending encryption is decrypted",
     eyebrow: "Network detection",
     description:
       "A research-led path for teams investigating behavioral signals available around encrypted traffic.",
