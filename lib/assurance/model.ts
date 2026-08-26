@@ -53,8 +53,7 @@ export const assuranceClaims: AssuranceClaim[] = [
   {
     claim: "Independent customer-scale performance validation",
     status: "not-validated",
-    evidence:
-      "Scale benchmark methodology is prepared; independent reproduction has not occurred.",
+    evidence: "Scale benchmark methodology is prepared; independent reproduction has not occurred.",
   },
 ];
 
