@@ -7,9 +7,8 @@ import type { ConversionEvent } from "@/lib/analytics/taxonomy";
 const ATTRIBUTION_KEY = "threatfade_attribution_v1";
 const attributionKeys = ["utm_source", "utm_medium", "utm_campaign", "utm_content"] as const;
 
-type Attribution = Partial<Record<(typeof attributionKeys)[number], string>> & {
-  landing_page?: string;
-};
+type Attribution = Partial<Record<(typeof attributionKeys)[number], string>> & { landing_page?: string };
+type SearchParamsLike = { get(name: string): string | null };
 
 function clean(value: string | null, max = 160) {
   if (!value) return undefined;
@@ -26,7 +25,7 @@ function readAttribution(): Attribution {
   }
 }
 
-function persistAttribution(searchParams: URLSearchParams, path: string) {
+function persistAttribution(searchParams: SearchParamsLike, path: string) {
   const current = readAttribution();
   let changed = false;
   for (const key of attributionKeys) {
@@ -73,23 +72,13 @@ export function trackConversion(
   const body = JSON.stringify(payload);
   try {
     if (navigator.sendBeacon) {
-      const sent = navigator.sendBeacon(
-        "/api/analytics/event",
-        new Blob([body], { type: "application/json" }),
-      );
+      const sent = navigator.sendBeacon("/api/analytics/event", new Blob([body], { type: "application/json" }));
       if (sent) return;
     }
   } catch {
     // Fall through to keepalive fetch.
   }
-
-  void fetch("/api/analytics/event", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body,
-    keepalive: true,
-    credentials: "same-origin",
-  }).catch(() => undefined);
+  void fetch("/api/analytics/event", { method: "POST", headers: { "Content-Type": "application/json" }, body, keepalive: true, credentials: "same-origin" }).catch(() => undefined);
 }
 
 export function ConversionTracker() {
