@@ -28,9 +28,9 @@ describe("enterprise capability model", () => {
       "STIX",
       "Detection export",
     ]);
-    expect(
-      enterpriseIntegrationContract.every((item) => item.status === "contract-defined"),
-    ).toBe(true);
+    expect(enterpriseIntegrationContract.every((item) => item.status === "contract-defined")).toBe(
+      true,
+    );
   });
 
   it("returns internally consistent status counts", () => {
