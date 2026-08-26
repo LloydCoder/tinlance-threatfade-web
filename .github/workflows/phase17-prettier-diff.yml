@@ -3,6 +3,9 @@ name: Phase 17 Prettier Diff Helper
 on:
   push:
     branches: [phase17-demand-intelligence]
+  pull_request:
+    branches: [main]
+    types: [synchronize, reopened]
 
 permissions:
   contents: read
