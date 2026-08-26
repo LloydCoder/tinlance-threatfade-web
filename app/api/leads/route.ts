@@ -13,6 +13,7 @@ const leadSchema = z.object({
 
 const WINDOW_MS = 10 * 60_000;
 const MAX_REQUESTS = 5;
+const MAX_BODY_BYTES = 8_000;
 const buckets = new Map<string, { count: number; resetAt: number }>();
 
 function clientKey(request: NextRequest) {
@@ -31,17 +32,26 @@ function allowed(key: string) {
   return true;
 }
 
+function trustedOrigin(request: NextRequest) {
+  const origin = request.headers.get("origin");
+  if (!origin) return true;
+  try {
+    return new URL(origin).origin === new URL(request.url).origin;
+  } catch {
+    return false;
+  }
+}
+
 function escapeHtml(value: string) {
   return value.replace(/[&<>"']/g, (character) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[character] ?? character);
 }
 
 export async function POST(request: NextRequest) {
-  if (!request.headers.get("content-type")?.includes("application/json")) {
-    return NextResponse.json({ error: "Unsupported content type" }, { status: 415 });
-  }
-  if (!allowed(clientKey(request))) {
-    return NextResponse.json({ error: "Too many requests" }, { status: 429, headers: { "Retry-After": "600", "Cache-Control": "no-store" } });
-  }
+  if (!request.headers.get("content-type")?.includes("application/json")) return NextResponse.json({ error: "Unsupported content type" }, { status: 415 });
+  if (!trustedOrigin(request)) return NextResponse.json({ error: "Untrusted origin" }, { status: 403 });
+  if (!allowed(clientKey(request))) return NextResponse.json({ error: "Too many requests" }, { status: 429, headers: { "Retry-After": "600", "Cache-Control": "no-store" } });
+  const contentLength = Number(request.headers.get("content-length") ?? 0);
+  if (Number.isFinite(contentLength) && contentLength > MAX_BODY_BYTES) return NextResponse.json({ error: "Request too large" }, { status: 413 });
 
   let raw: unknown;
   try {
@@ -58,10 +68,7 @@ export async function POST(request: NextRequest) {
   const apiKey = process.env.RESEND_API_KEY;
   const to = process.env.THREATFADE_LEAD_TO_EMAIL;
   const from = process.env.THREATFADE_LEAD_FROM_EMAIL;
-
-  if (!apiKey || !to || !from) {
-    return NextResponse.json({ error: "Lead intake is not configured" }, { status: 503, headers: { "Cache-Control": "no-store" } });
-  }
+  if (!apiKey || !to || !from) return NextResponse.json({ error: "Lead intake is not configured" }, { status: 503, headers: { "Cache-Control": "no-store" } });
 
   const subject = `ThreatFade ${request_type} request`;
   const html = `<h2>ThreatFade ${escapeHtml(request_type)} request</h2><p><strong>Work email:</strong> ${escapeHtml(email)}</p><p><strong>Company:</strong> ${escapeHtml(company)}</p><p><strong>Role:</strong> ${escapeHtml(role)}</p><p><strong>Notes:</strong> ${escapeHtml(notes ?? "")}</p>`;
@@ -76,9 +83,14 @@ export async function POST(request: NextRequest) {
       signal: AbortSignal.timeout(5000),
     });
     if (!response.ok) throw new Error("lead notification rejected");
-    await trackServerEvent(`${request_type}_request`, request);
-    return NextResponse.json({ ok: true }, { status: 202, headers: { "Cache-Control": "no-store" } });
   } catch {
     return NextResponse.json({ error: "Lead intake temporarily unavailable" }, { status: 503, headers: { "Cache-Control": "no-store" } });
   }
+
+  try {
+    await trackServerEvent(`${request_type}_request`, request);
+  } catch {
+    // Lead delivery remains authoritative; analytics is non-blocking.
+  }
+  return NextResponse.json({ ok: true }, { status: 202, headers: { "Cache-Control": "no-store" } });
 }
