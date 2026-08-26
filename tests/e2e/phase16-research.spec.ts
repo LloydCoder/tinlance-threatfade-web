@@ -1,6 +1,5 @@
 import { expect, test } from "@playwright/test";
 
-// Phase 16 research discovery coverage.
 test.describe("Phase 16 research scale", () => {
   test("research index exposes search and evidence metadata", async ({ page }) => {
     await page.goto("/research");
@@ -27,8 +26,6 @@ test.describe("Phase 16 research scale", () => {
       }),
     ).toBeVisible();
     await expect(page.getByText(/leaderboard not yet populated/i)).toBeVisible();
-    await expect(
-      page.getByText(/cannot establish universal detection accuracy/i),
-    ).toBeVisible();
+    await expect(page.getByText(/cannot establish universal detection accuracy/i)).toBeVisible();
   });
 });
