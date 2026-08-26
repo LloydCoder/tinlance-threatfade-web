@@ -1,5 +1,6 @@
 import { expect, test } from "@playwright/test";
 
+// Phase 16 research discovery coverage.
 test.describe("Phase 16 research scale", () => {
   test("research index exposes search and evidence metadata", async ({ page }) => {
     await page.goto("/research");
