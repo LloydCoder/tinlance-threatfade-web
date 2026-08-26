@@ -24,15 +24,10 @@ export default async function DemandProblemPage({ params }: Props) {
       <h1 className="mt-4 max-w-4xl text-4xl font-semibold tracking-tight md:text-6xl">
         {page.title}
       </h1>
-      <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-600">
-        {page.description}
-      </p>
+      <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-600">{page.description}</p>
       <div className="mt-10 grid gap-4 md:grid-cols-3">
         {page.evidence.map((item) => (
-          <div
-            key={item}
-            className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm"
-          >
+          <div key={item} className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
             <p className="font-medium text-slate-950">{item}</p>
             <p className="mt-2 text-sm leading-6 text-slate-600">
               Evidence and implementation status are documented rather than implied.
@@ -55,9 +50,8 @@ export default async function DemandProblemPage({ params }: Props) {
         </Link>
       </div>
       <p className="mt-8 max-w-2xl text-xs leading-5 text-slate-500">
-        This page is problem-focused, not an assertion that your organization has any
-        specific security condition. Account research should be independently verified
-        before outreach.
+        This page is problem-focused, not an assertion that your organization has any specific
+        security condition. Account research should be independently verified before outreach.
       </p>
     </main>
   );
