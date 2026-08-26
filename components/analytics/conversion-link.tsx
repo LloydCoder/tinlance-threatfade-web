@@ -8,6 +8,8 @@ export type LegacyConversionEvent =
   | "run_playground"
   | "view_github"
   | "read_docs"
+  | "github_view"
+  | "read_docs"
   | "explore_research"
   | "request_evaluation"
   | "contact_threatfade"
@@ -21,7 +23,7 @@ export type LegacyConversionEvent =
 
 export type ConversionEvent = LegacyConversionEvent | CanonicalConversionEvent;
 
-const eventMap: Record<LegacyConversionEvent, CanonicalConversionEvent> = {
+const eventMap: Partial<Record<LegacyConversionEvent, CanonicalConversionEvent>> = {
   run_playground: "playground_start",
   view_github: "github_view",
   read_docs: "docs_start",
@@ -38,28 +40,10 @@ const eventMap: Record<LegacyConversionEvent, CanonicalConversionEvent> = {
 };
 
 function canonicalEvent(event: ConversionEvent): CanonicalConversionEvent {
-  return event in eventMap ? eventMap[event as LegacyConversionEvent] : event;
+  return eventMap[event as LegacyConversionEvent] ?? (event as CanonicalConversionEvent);
 }
 
-export function ConversionLink({
-  href,
-  event,
-  children,
-  className,
-  target,
-  rel,
-  source = "site",
-  cta,
-}: {
-  href: string;
-  event: ConversionEvent;
-  children: ReactNode;
-  className?: string;
-  target?: string;
-  rel?: string;
-  source?: string;
-  cta?: string;
-}) {
+export function ConversionLink({ href, event, children, className, target, rel, source = "site", cta }: { href: string; event: ConversionEvent; children: ReactNode; className?: string; target?: string; rel?: string; source?: string; cta?: string }) {
   function handleClick() {
     const name = canonicalEvent(event);
     trackConversion(name, { source, cta: cta ?? event });
@@ -69,16 +53,5 @@ export function ConversionLink({
     dataLayer?.push({ event: "threatfade_conversion", ...detail });
   }
 
-  return (
-    <a
-      href={href}
-      className={className}
-      target={target}
-      rel={rel}
-      onClick={handleClick}
-      data-tf-event={canonicalEvent(event)}
-    >
-      {children}
-    </a>
-  );
+  return <a href={href} className={className} target={target} rel={rel} onClick={handleClick} data-tf-event={canonicalEvent(event)}>{children}</a>;
 }
