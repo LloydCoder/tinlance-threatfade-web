@@ -25,7 +25,7 @@ test.describe("Phase 16 research scale", () => {
         name: /Can you detect the fade without cheating the evidence/i,
       }),
     ).toBeVisible();
-    await expect(page.getByText(/leaderboard not yet populated/i)).toBeVisible();
+    await expect(page.getByText(/leaderboard not yet populated/i).first()).toBeVisible();
     await expect(page.getByText(/cannot establish universal detection accuracy/i)).toBeVisible();
   });
 });
