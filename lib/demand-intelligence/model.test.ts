@@ -1,8 +1,5 @@
 import { describe, expect, it } from "vitest";
-import {
-  scoreAccount,
-  type AccountProfile,
-} from "@/lib/demand-intelligence/model";
+import { scoreAccount, type AccountProfile } from "@/lib/demand-intelligence/model";
 
 const profile = (signals: AccountProfile["signals"]): AccountProfile => ({
   accountId: "acme",
