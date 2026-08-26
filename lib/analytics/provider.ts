@@ -38,12 +38,20 @@ class PostHogProvider implements AnalyticsProvider {
       stage: eventStage[event.name],
       analytics_version: "15.0",
     };
-    const properties = Object.fromEntries(Object.entries(rawProperties).filter(([, value]) => value !== undefined)) as Record<string, string | number | boolean>;
+    const properties = Object.fromEntries(
+      Object.entries(rawProperties).filter(([, value]) => value !== undefined),
+    ) as Record<string, string | number | boolean>;
 
     const response = await fetch(`${posthogHost()}/capture/`, {
       method: "POST",
       headers: { Authorization: `Bearer ${projectApiKey}`, "Content-Type": "application/json" },
-      body: JSON.stringify({ api_key: projectApiKey, event: event.name, distinct_id: context.distinctId, properties, timestamp: context.receivedAt }),
+      body: JSON.stringify({
+        api_key: projectApiKey,
+        event: event.name,
+        distinct_id: context.distinctId,
+        properties,
+        timestamp: context.receivedAt,
+      }),
       cache: "no-store",
       redirect: "error",
       signal: AbortSignal.timeout(4000),
@@ -54,25 +62,35 @@ class PostHogProvider implements AnalyticsProvider {
   async funnel(days: number) {
     const projectId = process.env.POSTHOG_PROJECT_ID;
     const queryApiKey = process.env.POSTHOG_API_KEY;
-    if (!projectId || !process.env.POSTHOG_PROJECT_API_KEY || !queryApiKey) return { configured: false, metrics: [] };
+    if (!projectId || !process.env.POSTHOG_PROJECT_API_KEY || !queryApiKey)
+      return { configured: false, metrics: [] };
 
     const safeDays = clampDays(days);
     const start = new Date(Date.now() - safeDays * 24 * 60 * 60 * 1000).toISOString();
     const events = Object.keys(eventStage) as ConversionEvent[];
     const query = `SELECT event, count(DISTINCT person_id) AS users FROM events WHERE timestamp >= '${start}' AND event IN (${events.map((event) => `'${event}'`).join(",")}) GROUP BY event ORDER BY users DESC LIMIT 100`;
-    const response = await fetch(`${posthogHost()}/api/projects/${encodeURIComponent(projectId)}/query/`, {
-      method: "POST",
-      headers: { Authorization: `Bearer ${queryApiKey}`, "Content-Type": "application/json" },
-      body: JSON.stringify({ query: { kind: "HogQLQuery", query } }),
-      cache: "no-store",
-      redirect: "error",
-      signal: AbortSignal.timeout(5000),
-    });
+    const response = await fetch(
+      `${posthogHost()}/api/projects/${encodeURIComponent(projectId)}/query/`,
+      {
+        method: "POST",
+        headers: { Authorization: `Bearer ${queryApiKey}`, "Content-Type": "application/json" },
+        body: JSON.stringify({ query: { kind: "HogQLQuery", query } }),
+        cache: "no-store",
+        redirect: "error",
+        signal: AbortSignal.timeout(5000),
+      },
+    );
     if (!response.ok) throw new Error(`Analytics query returned ${response.status}`);
     const payload = (await response.json()) as { results?: Array<[string, number]> };
     const allowed = new Set(events);
     const metrics = (payload.results ?? [])
-      .filter((row): row is [string, number] => Array.isArray(row) && typeof row[0] === "string" && typeof row[1] === "number" && allowed.has(row[0] as ConversionEvent))
+      .filter(
+        (row): row is [string, number] =>
+          Array.isArray(row) &&
+          typeof row[0] === "string" &&
+          typeof row[1] === "number" &&
+          allowed.has(row[0] as ConversionEvent),
+      )
       .map(([event, users]) => ({ event: event as ConversionEvent, users }));
     return { configured: true, metrics };
   }
