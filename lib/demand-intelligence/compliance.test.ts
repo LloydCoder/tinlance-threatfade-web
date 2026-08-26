@@ -12,15 +12,11 @@ describe("outreach compliance guardrails", () => {
   };
 
   it("blocks suppressed contacts", () => {
-    expect(
-      evaluateOutreach({ ...base, suppressionListed: true }).allowed,
-    ).toBe(false);
+    expect(evaluateOutreach({ ...base, suppressionListed: true }).allowed).toBe(false);
   });
 
   it("blocks unknown subscriber classes", () => {
-    expect(
-      evaluateOutreach({ ...base, contactClass: "unknown" }).allowed,
-    ).toBe(false);
+    expect(evaluateOutreach({ ...base, contactClass: "unknown" }).allowed).toBe(false);
   });
 
   it("requires a lawful-basis record", () => {
