@@ -36,7 +36,7 @@ Browser
    ▼
 Next.js web platform
    ├── Marketing
-   ├── Research + benchmark protocols + challenge
+   ├── Research
    ├── Documentation
    ├── Playground
    └── SOC / Commercial
@@ -74,17 +74,17 @@ See [`docs/release/phase12-soc-productization.md`](./docs/release/phase12-soc-pr
 
 Phase 14 adds a commercial decision layer without introducing fake SaaS billing or unsupported entitlements. The public starting rate card is:
 
-| Offer | Starting standard |
-| --- | ---: |
-| Community / Open Core | $0 |
-| Pro | $49/month or $490/year |
-| Team | $299/month or $2,990/year |
-| Detection Gap Assessment | $5,000+ |
-| Paid Pilot | $7,500–$15,000 |
-| Enterprise | $25,000+/year |
-| Managed | $3,500–$15,000+/month |
-| Custom Detection Engineering | $5,000–$25,000+ |
-| Research Partnership | $25,000–$150,000+ |
+| Offer                        |         Starting standard |
+| ---------------------------- | ------------------------: |
+| Community / Open Core        |                        $0 |
+| Pro                          |    $49/month or $490/year |
+| Team                         | $299/month or $2,990/year |
+| Detection Gap Assessment     |                   $5,000+ |
+| Paid Pilot                   |            $7,500–$15,000 |
+| Enterprise                   |             $25,000+/year |
+| Managed                      |     $3,500–$15,000+/month |
+| Custom Detection Engineering |           $5,000–$25,000+ |
+| Research Partnership         |         $25,000–$150,000+ |
 
 Commercial routes:
 
