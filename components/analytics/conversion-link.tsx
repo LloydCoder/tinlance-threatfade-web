@@ -41,7 +41,25 @@ function canonicalEvent(event: ConversionEvent): CanonicalConversionEvent {
   return eventMap[event as LegacyConversionEvent] ?? (event as CanonicalConversionEvent);
 }
 
-export function ConversionLink({ href, event, children, className, target, rel, source = "site", cta }: { href: string; event: ConversionEvent; children: ReactNode; className?: string; target?: string; rel?: string; source?: string; cta?: string }) {
+export function ConversionLink({
+  href,
+  event,
+  children,
+  className,
+  target,
+  rel,
+  source = "site",
+  cta,
+}: {
+  href: string;
+  event: ConversionEvent;
+  children: ReactNode;
+  className?: string;
+  target?: string;
+  rel?: string;
+  source?: string;
+  cta?: string;
+}) {
   function handleClick() {
     const name = canonicalEvent(event);
     trackConversion(name, { source, cta: cta ?? event });
@@ -51,5 +69,16 @@ export function ConversionLink({ href, event, children, className, target, rel, 
     dataLayer?.push({ event: "threatfade_conversion", ...detail });
   }
 
-  return <a href={href} className={className} target={target} rel={rel} onClick={handleClick} data-tf-event={canonicalEvent(event)}>{children}</a>;
+  return (
+    <a
+      href={href}
+      className={className}
+      target={target}
+      rel={rel}
+      onClick={handleClick}
+      data-tf-event={canonicalEvent(event)}
+    >
+      {children}
+    </a>
+  );
 }
