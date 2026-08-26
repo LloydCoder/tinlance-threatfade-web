@@ -6,7 +6,8 @@ import { assuranceClaims, assuranceStatusLabel } from "@/lib/assurance/model";
 
 export const metadata: Metadata = {
   title: "Independent assurance",
-  description: "ThreatFade independent assurance evidence, validation boundaries and external assessment readiness.",
+  description:
+    "ThreatFade independent assurance evidence, validation boundaries and external assessment readiness.",
   alternates: { canonical: "/enterprise/assurance" },
 };
 
@@ -53,10 +54,16 @@ export default function EnterpriseAssurancePage() {
       </section>
 
       <div className="mt-8 flex flex-wrap gap-3">
-        <Link href="/enterprise/security" className="tf-panel px-5 py-3 text-sm font-semibold hover:border-[var(--tf-signal)]">
+        <Link
+          href="/enterprise/security"
+          className="tf-panel px-5 py-3 text-sm font-semibold hover:border-[var(--tf-signal)]"
+        >
           Security center →
         </Link>
-        <Link href="/enterprise/procurement" className="tf-panel px-5 py-3 text-sm font-semibold hover:border-[var(--tf-signal)]">
+        <Link
+          href="/enterprise/procurement"
+          className="tf-panel px-5 py-3 text-sm font-semibold hover:border-[var(--tf-signal)]"
+        >
           Procurement center →
         </Link>
       </div>
