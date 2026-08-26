@@ -1,4 +1,7 @@
-export type ResearchStatus = "validated" | "synthetic" | "experimental" | "hypothesized" | "planned";
+export type ResearchStatus =
+  "validated" | "synthetic" | "experimental" | "hypothesized" | "planned";
+export type ResearchEvidence =
+  "synthetic" | "project_validation" | "independent" | "experimental" | "planned";
 
 export type ResearchArticle = {
   slug: string;
@@ -10,51 +13,117 @@ export type ResearchArticle = {
   published: string;
   updated?: string;
   status: ResearchStatus;
+  evidence: ResearchEvidence;
   readingTime: string;
   references: string[];
+  artifacts?: { label: string; href: string }[];
 };
 
 export const researchArticles: ResearchArticle[] = [
   {
+    slug: "behavioral-fade-detection-reproducibility-study-v1",
+    title: "Behavioral Fade Detection Reproducibility Study v1",
+    description:
+      "The flagship ThreatFade research protocol for reproducible evaluation of fade scenarios, benign transient fades, provenance and limitations.",
+    category: "Flagship study",
+    tags: ["behavioral fading", "benchmark", "reproducibility", "detection engineering"],
+    author: "ThreatFade Engineering",
+    published: "2026-08-26",
+    status: "planned",
+    evidence: "planned",
+    readingTime: "12 min",
+    references: [
+      "ThreatFade Phase 16 research manifest",
+      "ThreatFade ground-truth dataset standard",
+      "ThreatFade detection evaluation methodology",
+    ],
+    artifacts: [
+      {
+        label: "Engine study manifest",
+        href: "https://github.com/LloydCoder/tinlance-threatfade/tree/main/research/phase16",
+      },
+    ],
+  },
+  {
+    slug: "behavioral-fade-benchmark-protocol-v1",
+    title: "Behavioral Fade Benchmark Protocol v1",
+    description:
+      "A pinned benchmark contract covering datasets, splits, metrics, provenance, performance measurement and publication rules without inventing results.",
+    category: "Benchmarking",
+    tags: ["benchmarks", "metrics", "ground truth", "reproducibility"],
+    author: "ThreatFade Engineering",
+    published: "2026-08-26",
+    status: "planned",
+    evidence: "planned",
+    readingTime: "9 min",
+    references: [
+      "ThreatFade Phase 16 research manifest",
+      "ThreatFade benchmark README",
+      "ThreatFade ground-truth fixture",
+    ],
+    artifacts: [
+      {
+        label: "Benchmark manifest",
+        href: "https://github.com/LloydCoder/tinlance-threatfade/blob/main/research/phase16/STUDY-MANIFEST-v1.json",
+      },
+    ],
+  },
+  {
     slug: "behavioral-fade-as-a-detection-signal",
     title: "Behavioral fade as a detection signal",
-    description: "The ThreatFade detection thesis: reduced observability can be modeled as a behavioral deviation rather than assumed benign.",
+    description:
+      "The ThreatFade detection thesis: reduced observability can be modeled as a behavioral deviation rather than assumed benign.",
     category: "Detection methodology",
     tags: ["behavioral fading", "C2", "anomaly detection"],
     author: "ThreatFade Engineering",
     published: "2026-08-23",
     status: "validated",
+    evidence: "project_validation",
     readingTime: "8 min",
     references: ["ThreatFade engine README", "ThreatFade detection pipeline"],
   },
   {
     slug: "entropy-and-statistical-deviation",
     title: "Entropy and statistical deviation in the detection pipeline",
-    description: "How rolling Shannon entropy and statistical deviation participate in ThreatFade's evidence-first pipeline.",
+    description:
+      "How rolling Shannon entropy and statistical deviation participate in ThreatFade's evidence-first pipeline.",
     category: "Detection science",
     tags: ["entropy", "statistics", "signal extraction"],
     author: "ThreatFade Engineering",
     published: "2026-08-23",
     status: "validated",
+    evidence: "project_validation",
     readingTime: "7 min",
     references: ["ThreatFade engine README"],
   },
   {
     slug: "validation-and-benchmark-boundaries",
     title: "Validation, benchmarks and the assurance boundary",
-    description: "Why deterministic benchmarks, project validation and independent assurance must remain separate evidence classes.",
+    description:
+      "Why deterministic benchmarks, project validation and independent assurance must remain separate evidence classes.",
     category: "Validation",
     tags: ["benchmarks", "validation", "assurance"],
     author: "ThreatFade Engineering",
     published: "2026-08-23",
     status: "validated",
+    evidence: "project_validation",
     readingTime: "6 min",
     references: ["ThreatFade engine README"],
   },
 ];
 
 export const researchCategories = [
-  "All", "C2 behavior", "Encrypted traffic", "Entropy", "Behavioral fading", "QUIC", "Detection methodology", "Validation", "Benchmarks", "Adversarial behavior",
+  "All",
+  "Flagship study",
+  "C2 behavior",
+  "Encrypted traffic",
+  "Entropy",
+  "Behavioral fading",
+  "QUIC",
+  "Detection methodology",
+  "Validation",
+  "Benchmarks",
+  "Adversarial behavior",
 ] as const;
 
 export function getResearchArticle(slug: string) {

@@ -1,0 +1,78 @@
+---
+title: "Behavioral Fade Benchmark Protocol v1"
+description: "A pinned benchmark contract covering datasets, splits, metrics, provenance, performance measurement and publication rules without inventing results."
+author: "ThreatFade Engineering"
+published: "2026-08-26"
+status: "planned"
+category: "Benchmarking"
+tags:
+  - benchmarks
+  - metrics
+  - ground truth
+  - reproducibility
+references:
+  - "ThreatFade Phase 16 research manifest"
+  - "ThreatFade benchmark README"
+  - "ThreatFade ground-truth fixture"
+---
+
+<ResearchStatus status="planned" />
+
+<a id="research-question" aria-hidden="true" />
+
+## Research question
+
+What can be measured reproducibly about ThreatFade's detection behavior and software data-plane performance, and what cannot be inferred from those measurements?
+
+<a id="detection-model" aria-hidden="true" />
+
+## Detection model
+
+The benchmark does not replace the engine's detector. It invokes the existing implementation and records observed outputs under a pinned test protocol.
+
+Detection quality and performance are separate tracks. A faster synthetic benchmark is not evidence of better detection, and a successful detection fixture is not evidence of production-scale throughput.
+
+## Dataset and splits
+
+The initial dataset is the versioned synthetic ground-truth fixture in the engine repository. It contains labeled malicious and benign regression cases and explicitly marks the source type as synthetic.
+
+Future independent datasets must preserve train/test isolation, provenance, licensing/handling constraints, environment metadata and label confidence. Dataset changes require a new manifest version and digest.
+
+## Metrics
+
+### Detection
+
+- TP/TN/FP/FN
+- precision
+- recall/sensitivity
+- specificity
+- F1
+- false-positive rate
+- false-negative rate
+- PR-AUC/ROC-AUC when justified by the score distribution and labels
+- calibration metrics when confidence is evaluated probabilistically
+
+### Performance
+
+The existing software-data-plane harness records throughput, p50/p95/p99 latency, RSS, queue depth and accepted/dropped events. Capture-adapter loss and NIC capacity require deployment-host measurements and are not inferred from synthetic events.
+
+<a id="evidence-boundary" aria-hidden="true" />
+
+## Evidence boundary
+
+No benchmark result is included in this protocol. A result becomes publication-ready only after the exact command/workflow, engine commit, dataset digest and execution artifact have been recorded.
+
+This prevents the common failure mode where a benchmark target, CI fixture or roadmap number is accidentally presented as an observed production capability.
+
+## Publication checklist
+
+- [ ] protocol version pinned
+- [ ] engine commit pinned
+- [ ] dataset digest recorded
+- [ ] runtime recorded
+- [ ] configuration recorded
+- [ ] raw counts preserved
+- [ ] metrics independently recalculated from raw counts
+- [ ] limitations published
+- [ ] reproduction command published
+- [ ] no unsupported generalization claim
