@@ -25,7 +25,7 @@
 | `docs_start`                 | engagement  | docs CTA/link is activated                                               | `components/analytics/conversion-link.tsx`                 | client              |
 | `github_view`                | evaluation  | GitHub CTA/link is activated                                             | `components/analytics/conversion-link.tsx`                 | client              |
 | `playground_start`           | activation  | a playground scenario request is initiated                               | `components/playground/playground-client.tsx`              | client              |
-| `playground_complete`        | activation  | a validated curated playground dataset is successfully returned         | `components/playground/playground-client.tsx`              | client              |
+| `playground_complete`        | activation  | a validated curated playground dataset is successfully returned          | `components/playground/playground-client.tsx`              | client              |
 | `detection_start`            | activation  | production detection workflow starts in an authenticated product surface | engine/analyst integration boundary                        | external dependency |
 | `detection_complete`         | activation  | production detection returns a valid completed result                    | engine/analyst integration boundary                        | external dependency |
 | `signup_start`               | evaluation  | signup flow is genuinely started                                         | authenticated conversion surface                           | client              |
