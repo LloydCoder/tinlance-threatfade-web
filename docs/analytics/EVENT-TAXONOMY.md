@@ -1,7 +1,7 @@
 # ThreatFade Canonical Growth Event Taxonomy
 
 **Status:** Canonical registry  
-**Version:** 17.1  
+**Version:** 17.2  
 **Source of truth:** `lib/analytics/taxonomy.ts`  
 **Scope:** public conversion, product activation, commercial lifecycle, customer value, and advocacy telemetry
 
@@ -20,6 +20,7 @@
 | Event | Stage | Genuine trigger | Implementation | Authority |
 |---|---|---|---|---|
 | `page_view` | acquisition | route becomes visible | `components/analytics/conversion-tracker.tsx` | client |
+| `cta_click` | engagement | a conversion CTA/link is actually activated | `components/analytics/conversion-link.tsx` | client |
 | `research_open` | engagement | research CTA/link is activated | `components/analytics/conversion-link.tsx` | client |
 | `docs_start` | engagement | docs CTA/link is activated | `components/analytics/conversion-link.tsx` | client |
 | `github_view` | evaluation | GitHub CTA/link is activated | `components/analytics/conversion-link.tsx` | client |
@@ -29,7 +30,7 @@
 | `detection_complete` | activation | production detection returns a valid completed result | engine/analyst integration boundary | external dependency |
 | `signup_start` | evaluation | signup flow is genuinely started | authenticated conversion surface | client |
 | `signup_complete` | evaluation | signup succeeds | identity provider boundary | external dependency |
-| `evaluation_request` | evaluation | evaluation CTA/form succeeds | conversion/lead flow | server |
+| `evaluation_request` | evaluation | evaluation intake is successfully accepted | conversion/lead flow | server |
 | `assessment_request` | revenue | assessment intake is successfully accepted | `app/api/leads/route.ts` | server |
 | `pilot_request` | revenue | pilot intake is successfully accepted | `app/api/leads/route.ts` | server |
 | `enterprise_request` | revenue | enterprise intake is successfully accepted | `app/api/leads/route.ts` | server |
