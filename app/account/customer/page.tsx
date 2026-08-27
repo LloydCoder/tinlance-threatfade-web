@@ -144,8 +144,16 @@ export default function CustomerValuePage() {
       <section className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {[
           ["Detections", String(snapshot.detectionCount)],
-          ["Investigations", snapshot.known.investigationCount ? String(snapshot.investigationCount) : unavailableMetric],
-          ["Dispositions", snapshot.known.dispositionCount ? String(snapshot.dispositionCount) : unavailableMetric],
+          [
+            "Investigations",
+            snapshot.known.investigationCount
+              ? String(snapshot.investigationCount)
+              : unavailableMetric,
+          ],
+          [
+            "Dispositions",
+            snapshot.known.dispositionCount ? String(snapshot.dispositionCount) : unavailableMetric,
+          ],
           ["Team members", String(snapshot.activeMembers)],
         ].map(([label, value]) => (
           <div key={label} className="rounded-2xl border border-[var(--tf-border)] p-5">
@@ -243,16 +251,28 @@ export default function CustomerValuePage() {
           feedback is treated as input to validation, not as an automatic roadmap commitment.
         </p>
         <div className="mt-5 flex flex-wrap gap-3">
-          <a href="/contact?type=reference" className="rounded-lg border px-4 py-2 text-sm font-medium">
+          <a
+            href="/contact?type=reference"
+            className="rounded-lg border px-4 py-2 text-sm font-medium"
+          >
             Offer a reference
           </a>
-          <a href="/contact?type=case-study" className="rounded-lg border px-4 py-2 text-sm font-medium">
+          <a
+            href="/contact?type=case-study"
+            className="rounded-lg border px-4 py-2 text-sm font-medium"
+          >
             Discuss a case study
           </a>
-          <a href="/contact?type=research" className="rounded-lg border px-4 py-2 text-sm font-medium">
+          <a
+            href="/contact?type=research"
+            className="rounded-lg border px-4 py-2 text-sm font-medium"
+          >
             Research collaboration
           </a>
-          <a href="/contact?type=feedback" className="rounded-lg bg-slate-950 px-4 py-2 text-sm font-medium text-white">
+          <a
+            href="/contact?type=feedback"
+            className="rounded-lg bg-slate-950 px-4 py-2 text-sm font-medium text-white"
+          >
             Send product feedback
           </a>
         </div>
