@@ -9,9 +9,21 @@ describe("ThreatFade analytics taxonomy", () => {
       source: "assessment",
       utm_source: "linkedin",
       utm_campaign: "q3-security",
+      campaign_id: "tf-q3-2026",
     });
     expect(result.success).toBe(true);
     expect(eventStage.assessment_request).toBe("revenue");
+  });
+
+  it("accepts genuine playground completion telemetry", () => {
+    const result = analyticsEventSchema.safeParse({
+      name: "playground_complete",
+      path: "/playground",
+      source: "playground",
+      value: { scenario: "c2_quieting", production_detector: false },
+    });
+    expect(result.success).toBe(true);
+    expect(eventStage.playground_complete).toBe("activation");
   });
 
   it("rejects unknown events and oversized paths", () => {
