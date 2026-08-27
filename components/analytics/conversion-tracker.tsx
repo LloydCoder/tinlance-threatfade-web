@@ -5,7 +5,13 @@ import { useEffect, useRef } from "react";
 import type { ConversionEvent } from "@/lib/analytics/taxonomy";
 
 const ATTRIBUTION_KEY = "threatfade_attribution_v1";
-const attributionKeys = ["utm_source", "utm_medium", "utm_campaign", "utm_content"] as const;
+const attributionKeys = [
+  "utm_source",
+  "utm_medium",
+  "utm_campaign",
+  "utm_content",
+  "campaign_id",
+] as const;
 
 type Attribution = Partial<Record<(typeof attributionKeys)[number], string>> & {
   landing_page?: string;
@@ -74,6 +80,7 @@ export function trackConversion(
     utm_medium: clean(attribution.utm_medium ?? null),
     utm_campaign: clean(attribution.utm_campaign ?? null),
     utm_content: clean(attribution.utm_content ?? null),
+    campaign_id: clean(attribution.campaign_id ?? null, 120),
     value: options.value,
   };
 
