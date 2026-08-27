@@ -34,4 +34,17 @@ jobs:
       - name: Install dependencies
         run: npm install --no-audit --no-fund
       - name: Check formatting
+        id: format
+        continue-on-error: true
         run: npm run format:check
+      - name: Print formatter-normalized files for repair
+        if: steps.format.outcome == 'failure'
+        run: |
+          files=("app/account/customer/page.tsx" "docs/analytics/EVENT-TAXONOMY.md" "docs/growth/GROWTH-SYSTEM-RECONCILIATION.md" "scripts/validate-growth-system.mjs")
+          npx prettier --write "${files[@]}"
+          for file in "${files[@]}"; do
+            echo "===== FORMATTER OUTPUT: $file ====="
+            cat "$file"
+            echo "===== END FORMATTER OUTPUT: $file ====="
+          done
+          exit 1
