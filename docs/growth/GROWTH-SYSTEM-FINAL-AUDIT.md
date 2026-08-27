@@ -3,7 +3,7 @@
 **Audit date:** 2026-08-27  
 **Repository:** `LloydCoder/tinlance-threatfade-web`  
 **Audit branch:** `growth-system-reconciliation`  
-**Baseline:** `9593dd4ebc1ef4fdc1b8fd0782042274fb8f47b2`  
+**Baseline:** `9593dd4ebc1ef4fdc1b8fd0782042274fb8f47b2`
 
 ## 1. Executive summary
 
@@ -13,17 +13,17 @@ The architecture is **not** honestly 100% self-contained because several lifecyc
 
 ## 2. Nine-system scorecard
 
-| System | Score | Release state |
-|---|---:|---|
-| Commercial Flywheel | 72% | YELLOW — CRM/opportunity lifecycle external |
-| Commercial Research | 68% | YELLOW — enrichment/outreach providers external |
-| Content Flywheel | 82% | YELLOW — distribution providers external |
-| Conversion Flywheel | 82% | YELLOW — durable event ledger/consent external |
-| Customer Value Flywheel | 65% | YELLOW — longitudinal customer state external |
-| Demand Intelligence | 78% | YELLOW — external enrichment and durable rate limiting |
-| Product / OSS Flywheel | 80% | YELLOW — production engine telemetry external |
-| Research Flywheel | 78% | YELLOW — distribution and research-product linkage partly external |
-| Trust / Evidence System | 86% | YELLOW — independent validation/customer evidence external |
+| System                  | Score | Release state                                                      |
+| ----------------------- | ----- | ------------------------------------------------------------------ |
+| Commercial Flywheel     | 72%   | YELLOW — CRM/opportunity lifecycle external                        |
+| Commercial Research     | 68%   | YELLOW — enrichment/outreach providers external                    |
+| Content Flywheel        | 82%   | YELLOW — distribution providers external                           |
+| Conversion Flywheel     | 82%   | YELLOW — durable event ledger/consent external                     |
+| Customer Value Flywheel | 65%   | YELLOW — longitudinal customer state external                      |
+| Demand Intelligence     | 78%   | YELLOW — external enrichment and durable rate limiting             |
+| Product / OSS Flywheel  | 80%   | YELLOW — production engine telemetry external                      |
+| Research Flywheel       | 78%   | YELLOW — distribution and research-product linkage partly external |
+| Trust / Evidence System | 86%   | YELLOW — independent validation/customer evidence external         |
 
 Scores measure implementation completeness inside the web repository, not business performance, revenue, traffic, or customer success.
 
@@ -119,7 +119,7 @@ The final CI gate is configured to run:
 8. production Next.js build;
 9. Playwright Chromium E2E.
 
-The audited CI run has already passed format, documentation reconciliation, growth reconciliation, lint, typecheck, unit tests, and dependency audit before the production build/E2E stages.
+The audited CI run has already passed format, documentation reconciliation, growth reconciliation, lint, typecheck, unit tests, dependency audit, and the production build before the Playwright stages.
 
 ## 11. Analytics verification
 
