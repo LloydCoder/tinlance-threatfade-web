@@ -41,6 +41,8 @@ jobs:
         run: npm run format:check
       - name: Documentation reconciliation
         run: npm run docs:check
+      - name: Growth system reconciliation
+        run: npm run growth:check
       - name: Lint
         run: npm run lint
       - name: Typecheck
