@@ -25,6 +25,13 @@ export const customerSnapshotSchema = z.object({
   environmentCount: z.number().int().nonnegative(),
   integrationRequestCount: z.number().int().nonnegative(),
   customDetectionRequestCount: z.number().int().nonnegative(),
+  known: z.object({
+    investigationCount: z.boolean(),
+    dispositionCount: z.boolean(),
+    environmentCount: z.boolean(),
+    integrationRequestCount: z.boolean(),
+    customDetectionRequestCount: z.boolean(),
+  }),
 });
 
 export type CustomerSnapshot = z.infer<typeof customerSnapshotSchema>;
@@ -34,6 +41,7 @@ export type CustomerMilestone = {
   label: string;
   description: string;
   complete: boolean;
+  known: boolean;
 };
 
 export type ExpansionSignal = {
@@ -50,30 +58,35 @@ export function getMilestones(snapshot: CustomerSnapshot): CustomerMilestone[] {
       label: "First detection",
       description: "A detection has been observed in the organization workspace.",
       complete: snapshot.detectionCount > 0,
+      known: true,
     },
     {
       id: "first-investigation",
       label: "First investigation",
       description: "An analyst has started an investigation from a detection.",
-      complete: snapshot.investigationCount > 0,
+      complete: snapshot.known.investigationCount && snapshot.investigationCount > 0,
+      known: snapshot.known.investigationCount,
     },
     {
       id: "first-disposition",
       label: "First analyst disposition",
       description: "An analyst has recorded an outcome for a detection.",
-      complete: snapshot.dispositionCount > 0,
+      complete: snapshot.known.dispositionCount && snapshot.dispositionCount > 0,
+      known: snapshot.known.dispositionCount,
     },
     {
       id: "repeat-use",
       label: "Repeat usage",
       description: "The workspace has more than one detection to investigate over time.",
       complete: snapshot.detectionCount > 1,
+      known: true,
     },
     {
       id: "team-adoption",
       label: "Team adoption",
       description: "More than one organization member is active.",
       complete: snapshot.activeMembers > 1,
+      known: true,
     },
   ];
 }
@@ -89,7 +102,7 @@ export function getExpansionSignals(snapshot: CustomerSnapshot): ExpansionSignal
       severity: "opportunity",
     });
   }
-  if (snapshot.environmentCount > 1) {
+  if (snapshot.known.environmentCount && snapshot.environmentCount > 1) {
     signals.push({
       id: "additional-environments",
       label: "Additional environments",
@@ -105,7 +118,7 @@ export function getExpansionSignals(snapshot: CustomerSnapshot): ExpansionSignal
       severity: "opportunity",
     });
   }
-  if (snapshot.integrationRequestCount > 0) {
+  if (snapshot.known.integrationRequestCount && snapshot.integrationRequestCount > 0) {
     signals.push({
       id: "integration-request",
       label: "Integration request",
@@ -114,7 +127,7 @@ export function getExpansionSignals(snapshot: CustomerSnapshot): ExpansionSignal
       severity: "opportunity",
     });
   }
-  if (snapshot.customDetectionRequestCount > 0) {
+  if (snapshot.known.customDetectionRequestCount && snapshot.customDetectionRequestCount > 0) {
     signals.push({
       id: "custom-detection",
       label: "Custom detection request",
@@ -126,7 +139,7 @@ export function getExpansionSignals(snapshot: CustomerSnapshot): ExpansionSignal
 }
 
 export function healthLabel(snapshot: CustomerSnapshot) {
-  const completed = getMilestones(snapshot).filter((item) => item.complete).length;
+  const completed = getMilestones(snapshot).filter((item) => item.known && item.complete).length;
   if (completed >= 5) return "Healthy adoption";
   if (completed >= 3) return "Adoption in progress";
   if (completed >= 1) return "Activation needed";
