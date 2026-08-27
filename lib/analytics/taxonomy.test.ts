@@ -15,6 +15,17 @@ describe("ThreatFade analytics taxonomy", () => {
     expect(eventStage.assessment_request).toBe("revenue");
   });
 
+  it("accepts CTA click telemetry without treating a click as a conversion", () => {
+    const result = analyticsEventSchema.safeParse({
+      name: "cta_click",
+      path: "/pricing",
+      source: "pricing",
+      cta: "request_assessment",
+    });
+    expect(result.success).toBe(true);
+    expect(eventStage.cta_click).toBe("engagement");
+  });
+
   it("accepts genuine playground completion telemetry", () => {
     const result = analyticsEventSchema.safeParse({
       name: "playground_complete",
