@@ -2,7 +2,7 @@ name: CI
 
 on:
   push:
-    branches: [main, "feat/**"]
+    branches: [main, "feat/**", "growth-system-reconciliation"]
   pull_request:
     branches: [main]
     types: [opened, synchronize, reopened, ready_for_review]
