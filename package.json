@@ -15,6 +15,7 @@
     "format": "prettier --write .",
     "format:check": "bash scripts/check-format.sh",
     "docs:check": "node scripts/validate-documentation.mjs",
+    "growth:check": "node scripts/validate-growth-system.mjs",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:e2e": "playwright test",
