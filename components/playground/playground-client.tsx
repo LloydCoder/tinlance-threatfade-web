@@ -172,7 +172,7 @@ export function PlaygroundClient() {
                 <div key={stage.id} className="flex gap-3">
                   <div className="flex flex-col items-center">
                     <div
-                      className={`rounded-full border p-1 ${stage.state === "not-executed" ? "border-[var(--tf-line)]" : "border-[var(--tf-signal)] text-[var(--tf-signal)]`}
+                      className={`rounded-full border p-1 ${stage.state === "not-executed" ? "border-[var(--tf-line)]" : "border-[var(--tf-signal)] text-[var(--tf-signal)]"}`}
                     >
                       {stage.state === "not-executed" ? (
                         <CircleDot className="size-3" />
