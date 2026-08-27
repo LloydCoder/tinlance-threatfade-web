@@ -20,7 +20,6 @@ export function LeadCaptureForm({
     if (status === "submitting") return;
     const formElement = eventObject.currentTarget;
     const form = new FormData(formElement);
-    trackConversion(event, { source: requestType, cta: "lead_form_start" });
     setStatus("submitting");
     try {
       const response = await fetch("/api/leads", {
