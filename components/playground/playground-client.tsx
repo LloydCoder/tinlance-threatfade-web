@@ -49,7 +49,7 @@ export function PlaygroundClient() {
       const body = await r.json();
       if (!r.ok) throw new Error(body.error);
       setData(body);
-      trackConversion("detection_complete", {
+      trackConversion("playground_complete", {
         source: "playground",
         cta: "curated_dataset_loaded",
         value: { scenario: next, production_detector: false },
@@ -172,7 +172,7 @@ export function PlaygroundClient() {
                 <div key={stage.id} className="flex gap-3">
                   <div className="flex flex-col items-center">
                     <div
-                      className={`rounded-full border p-1 ${stage.state === "not-executed" ? "border-[var(--tf-line)]" : "border-[var(--tf-signal)] text-[var(--tf-signal)]"}`}
+                      className={`rounded-full border p-1 ${stage.state === "not-executed" ? "border-[var(--tf-line)]" : "border-[var(--tf-signal)] text-[var(--tf-signal)]`}
                     >
                       {stage.state === "not-executed" ? (
                         <CircleDot className="size-3" />
