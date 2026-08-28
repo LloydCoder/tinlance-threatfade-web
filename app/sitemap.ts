@@ -4,7 +4,7 @@ import { docsSections } from "@/config/docs";
 import { researchArticles } from "@/content/research";
 import { seoTopics } from "@/config/seo-topics";
 
-const stableLastModified = new Date("2026-08-26T00:00:00.000Z");
+const stableLastModified = new Date("2026-08-28T00:00:00.000Z");
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const routes = [
@@ -18,11 +18,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/docs",
     "/playground",
     "/changelog",
+    "/pricing",
+    "/assessment",
+    "/pilot",
+    "/managed",
     "/enterprise",
     "/enterprise/security",
     "/enterprise/procurement",
     "/enterprise/assurance",
     "/security",
+    "/contact",
   ];
   const research = researchArticles.map((article) => ({
     url: `${siteConfig.url}/research/${article.slug}`,
