@@ -1,6 +1,6 @@
 {
   "name": "tinlance-threatfade-web",
-  "version": "0.1.0",
+  "version": "0.9.0-dev",
   "private": true,
   "description": "Official ThreatFade product website, documentation, research hub, interactive demos, and enterprise platform.",
   "engines": {
