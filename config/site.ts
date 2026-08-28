@@ -8,7 +8,8 @@ export const siteConfig = {
   url: "https://threatfade.com",
   github: "https://github.com/LloydCoder/tinlance-threatfade",
   webRepository: "https://github.com/LloydCoder/tinlance-threatfade-web",
-  version: "0.7.0",
+  version: "0.9.0-dev",
+  engineApiVersion: "0.7.0",
   license: "Apache-2.0",
   navigation: [
     { label: "Product", href: "/product" },
@@ -19,7 +20,7 @@ export const siteConfig = {
     { label: "Security", href: "/security" },
     { label: "Docs", href: "/docs" },
     { label: "Playground", href: "/playground" },
-    { label: "SOC", href: "/soc" },
+    { label: "Pricing", href: "/pricing" },
     { label: "Enterprise", href: "/enterprise" },
   ] satisfies ReadonlyArray<{ label: string; href: Route }>,
 } as const;
