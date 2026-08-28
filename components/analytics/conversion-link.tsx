@@ -22,19 +22,19 @@ export type LegacyConversionEvent =
 export type ConversionEvent = LegacyConversionEvent | CanonicalConversionEvent;
 
 const eventMap: Partial<Record<LegacyConversionEvent, CanonicalConversionEvent>> = {
-  run_playground: "playground_start",
+  run_playground: "cta_click",
   view_github: "github_view",
   read_docs: "docs_start",
   explore_research: "research_open",
-  request_evaluation: "evaluation_request",
-  contact_threatfade: "evaluation_request",
+  request_evaluation: "cta_click",
+  contact_threatfade: "cta_click",
   view_pricing: "page_view",
-  request_assessment: "assessment_request",
-  request_pilot: "pilot_request",
-  request_enterprise: "enterprise_request",
-  request_managed: "enterprise_request",
-  request_custom_detection: "enterprise_request",
-  request_research: "enterprise_request",
+  request_assessment: "cta_click",
+  request_pilot: "cta_click",
+  request_enterprise: "cta_click",
+  request_managed: "cta_click",
+  request_custom_detection: "cta_click",
+  request_research: "cta_click",
 };
 
 function canonicalEvent(event: ConversionEvent): CanonicalConversionEvent {
@@ -61,12 +61,7 @@ export function ConversionLink({
   cta?: string;
 }) {
   function handleClick() {
-    const name = canonicalEvent(event);
-    trackConversion(name, { source, cta: cta ?? event });
-    const detail = { name, source, cta: cta ?? event, timestamp: Date.now() };
-    window.dispatchEvent(new CustomEvent("threatfade:conversion", { detail }));
-    const dataLayer = (window as Window & { dataLayer?: Array<Record<string, unknown>> }).dataLayer;
-    dataLayer?.push({ event: "threatfade_conversion", ...detail });
+    trackConversion(canonicalEvent(event), { source, cta: cta ?? event });
   }
 
   return (

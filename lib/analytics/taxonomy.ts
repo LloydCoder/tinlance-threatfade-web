@@ -2,10 +2,12 @@ import { z } from "zod";
 
 export const conversionEvents = [
   "page_view",
+  "cta_click",
   "research_open",
   "docs_start",
   "github_view",
   "playground_start",
+  "playground_complete",
   "detection_start",
   "detection_complete",
   "signup_start",
@@ -61,10 +63,12 @@ export type AnalyticsEvent = z.infer<typeof analyticsEventSchema>;
 
 export const eventStage: Record<ConversionEvent, string> = {
   page_view: "acquisition",
+  cta_click: "engagement",
   research_open: "engagement",
   docs_start: "engagement",
   github_view: "evaluation",
   playground_start: "activation",
+  playground_complete: "activation",
   detection_start: "activation",
   detection_complete: "activation",
   signup_start: "evaluation",

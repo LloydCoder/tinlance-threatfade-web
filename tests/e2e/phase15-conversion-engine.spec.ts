@@ -33,10 +33,10 @@ test.describe("Phase 15 conversion engine", () => {
       )
       .toBe(true);
 
-    await page.locator('[data-tf-event="assessment_request"]').first().dispatchEvent("click");
+    await page.locator('[data-tf-event="cta_click"]').first().dispatchEvent("click");
     await expect
       .poll(() =>
-        events.some((event) => event.name === "assessment_request" && event.path === "/assessment"),
+        events.some((event) => event.name === "cta_click" && event.path === "/assessment"),
       )
       .toBe(true);
   });

@@ -2,7 +2,7 @@ name: CI
 
 on:
   push:
-    branches: [main, "feat/**"]
+    branches: [main, "feat/**", "growth-system-reconciliation"]
   pull_request:
     branches: [main]
     types: [opened, synchronize, reopened, ready_for_review]
@@ -14,7 +14,7 @@ permissions:
   contents: read
 
 concurrency:
-  group: ci-${{ github.workflow }}
+  group: ci-${{ github.workflow }}-${{ github.event_name }}-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -36,11 +36,13 @@ jobs:
         with:
           node-version: 22
       - name: Install dependencies
-        run: npm install --no-audit --no-fund --progress=false --fetch-timeout=60000 --fetch-retries=2
+        run: npm ci --no-audit --no-fund --progress=false --fetch-timeout=60000 --fetch-retries=2
       - name: Format check
         run: npm run format:check
       - name: Documentation reconciliation
         run: npm run docs:check
+      - name: Growth system reconciliation
+        run: npm run growth:check
       - name: Lint
         run: npm run lint
       - name: Typecheck

@@ -33,6 +33,8 @@ function memberCount(payload: unknown) {
   return 0;
 }
 
+const unavailableMetric = "Not exposed by the current product API";
+
 export default function CustomerValuePage() {
   const { data: session, status } = useSession();
   const [snapshot, setSnapshot] = useState<CustomerSnapshot>({
@@ -40,9 +42,16 @@ export default function CustomerValuePage() {
     investigationCount: 0,
     dispositionCount: 0,
     activeMembers: 0,
-    environmentCount: 1,
+    environmentCount: 0,
     integrationRequestCount: 0,
     customDetectionRequestCount: 0,
+    known: {
+      investigationCount: false,
+      dispositionCount: false,
+      environmentCount: false,
+      integrationRequestCount: false,
+      customDetectionRequestCount: false,
+    },
   });
   const [organization, setOrganization] = useState<Organization | null>(null);
   const [loading, setLoading] = useState(true);
@@ -134,14 +143,22 @@ export default function CustomerValuePage() {
 
       <section className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {[
-          ["Detections", snapshot.detectionCount],
-          ["Investigations", snapshot.investigationCount],
-          ["Dispositions", snapshot.dispositionCount],
-          ["Team members", snapshot.activeMembers],
+          ["Detections", String(snapshot.detectionCount)],
+          [
+            "Investigations",
+            snapshot.known.investigationCount
+              ? String(snapshot.investigationCount)
+              : unavailableMetric,
+          ],
+          [
+            "Dispositions",
+            snapshot.known.dispositionCount ? String(snapshot.dispositionCount) : unavailableMetric,
+          ],
+          ["Team members", String(snapshot.activeMembers)],
         ].map(([label, value]) => (
           <div key={label} className="rounded-2xl border border-[var(--tf-border)] p-5">
             <p className="text-sm text-[var(--tf-text-muted)]">{label}</p>
-            <p className="mt-2 text-3xl font-semibold">{value}</p>
+            <p className="mt-2 text-xl font-semibold leading-7">{value}</p>
           </div>
         ))}
       </section>
@@ -157,11 +174,13 @@ export default function CustomerValuePage() {
               >
                 <span
                   aria-hidden
-                  className={`mt-0.5 h-3 w-3 shrink-0 rounded-full ${item.complete ? "bg-emerald-500" : "bg-slate-300"}`}
+                  className={`mt-0.5 h-3 w-3 shrink-0 rounded-full ${item.known ? (item.complete ? "bg-emerald-500" : "bg-slate-300") : "bg-amber-400"}`}
                 />
                 <div>
                   <p className="font-medium">{item.label}</p>
-                  <p className="mt-1 text-sm text-[var(--tf-text-muted)]">{item.description}</p>
+                  <p className="mt-1 text-sm text-[var(--tf-text-muted)]">
+                    {item.known ? item.description : `${item.description} ${unavailableMetric}.`}
+                  </p>
                 </div>
               </div>
             ))}
@@ -175,17 +194,17 @@ export default function CustomerValuePage() {
             fabricated from a point-in-time snapshot.
           </p>
           <div className="mt-6 grid gap-2 text-sm">
-            <div className="flex justify-between">
+            <div className="flex justify-between gap-4">
               <span>Retention</span>
-              <span>Longitudinal data required</span>
+              <span className="text-right">Longitudinal data required</span>
             </div>
-            <div className="flex justify-between">
+            <div className="flex justify-between gap-4">
               <span>Churn</span>
-              <span>Billing cohort required</span>
+              <span className="text-right">Billing cohort required</span>
             </div>
-            <div className="flex justify-between">
+            <div className="flex justify-between gap-4">
               <span>NRR</span>
-              <span>Revenue cohort required</span>
+              <span className="text-right">Revenue cohort required</span>
             </div>
           </div>
         </div>
@@ -194,8 +213,8 @@ export default function CustomerValuePage() {
       <section className="mt-8 rounded-2xl border border-[var(--tf-border)] p-6">
         <h2 className="text-xl font-semibold">Expansion signals</h2>
         <p className="mt-2 text-sm text-[var(--tf-text-muted)]">
-          No automatic upsell is triggered. Validate the underlying customer need before
-          recommending a plan change.
+          Only signals supported by available product data are shown. No automatic upsell is
+          triggered; validate the underlying customer need before recommending a plan change.
         </p>
         <div className="mt-5 grid gap-3 md:grid-cols-2">
           {expansionSignals.length ? (

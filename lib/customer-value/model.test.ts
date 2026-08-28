@@ -9,6 +9,13 @@ const empty = {
   environmentCount: 1,
   integrationRequestCount: 0,
   customDetectionRequestCount: 0,
+  known: {
+    investigationCount: false,
+    dispositionCount: false,
+    environmentCount: false,
+    integrationRequestCount: false,
+    customDetectionRequestCount: false,
+  },
 };
 
 describe("customer value lifecycle", () => {
@@ -26,6 +33,13 @@ describe("customer value lifecycle", () => {
       investigationCount: 1,
       dispositionCount: 1,
       activeMembers: 2,
+      known: {
+        investigationCount: true,
+        dispositionCount: true,
+        environmentCount: true,
+        integrationRequestCount: true,
+        customDetectionRequestCount: true,
+      },
     };
     expect(
       getMilestones(snapshot)
@@ -41,6 +55,10 @@ describe("customer value lifecycle", () => {
     expect(healthLabel(snapshot)).toBe("Healthy adoption");
   });
 
+  it("does not create expansion signals from unavailable counters", () => {
+    expect(getExpansionSignals({ ...empty, environmentCount: 2 })).toEqual([]);
+  });
+
   it("creates explainable expansion signals without automatic upgrades", () => {
     const signals = getExpansionSignals({
       ...empty,
@@ -49,6 +67,13 @@ describe("customer value lifecycle", () => {
       environmentCount: 2,
       integrationRequestCount: 1,
       customDetectionRequestCount: 1,
+      known: {
+        investigationCount: true,
+        dispositionCount: true,
+        environmentCount: true,
+        integrationRequestCount: true,
+        customDetectionRequestCount: true,
+      },
     });
     expect(signals.map((item) => item.id)).toEqual([
       "additional-users",
