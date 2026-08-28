@@ -10,6 +10,13 @@ export const metadata: Metadata = {
   description:
     "ThreatFade commercial packaging from open-core adoption through team operations, assessment, pilot, enterprise and managed detection.",
   alternates: { canonical: "/pricing" },
+  openGraph: {
+    type: "website",
+    title: "Pricing and commercial paths — ThreatFade",
+    description:
+      "ThreatFade commercial packaging from open-core adoption through team operations, assessment, pilot, enterprise and managed detection.",
+    url: "/pricing",
+  },
 };
 
 const plans = [
