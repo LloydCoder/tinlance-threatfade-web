@@ -6,6 +6,7 @@ export const siteConfig = {
   description:
     "An evidence-first detection and investigation platform for adversarial activity that becomes intentionally less observable.",
   url: "https://threatfade.com",
+  tinlanceUrl: "https://tinlance.com",
   github: "https://github.com/LloydCoder/tinlance-threatfade",
   webRepository: "https://github.com/LloydCoder/tinlance-threatfade-web",
   version: "0.9.0-dev",
