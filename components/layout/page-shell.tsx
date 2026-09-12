@@ -32,6 +32,7 @@ export function PageShell({
       <footer className="mx-auto flex max-w-7xl flex-col gap-4 border-t border-[var(--tf-line)] px-5 py-10 text-xs text-[var(--tf-text-subtle)] sm:flex-row sm:items-center sm:justify-between lg:px-8">
         <span className="font-mono">THREATFADE / TINLANCE LIMITED</span>
         <div className="flex flex-wrap items-center gap-5">
+          {/* ThreatFade remains a distinct product; this footer provides the public company relationship. */}
           <a href={siteConfig.tinlanceUrl} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 transition hover:text-[var(--tf-signal)]" aria-label="Tinlance company website">Tinlance <ArrowUpRight className="size-3" /></a>
           <a href={siteConfig.github} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 transition hover:text-[var(--tf-signal)]" aria-label="ThreatFade GitHub repository">Source on GitHub <ArrowUpRight className="size-3" /></a>
         </div>
