@@ -39,7 +39,7 @@
   },
   "devDependencies": {
     "@axe-core/playwright": "4.10.2",
-    "@playwright/test": "1.62.1",
+    "@playwright/test": "1.63.0",
     "@tailwindcss/postcss": "4.3.3",
     "@testing-library/jest-dom": "6.6.3",
     "@types/node": "26.2.0",
