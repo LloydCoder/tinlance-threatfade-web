@@ -4,30 +4,14 @@ import { docsSections } from "@/config/docs";
 import { researchArticles } from "@/content/research";
 import { seoTopics } from "@/config/seo-topics";
 
-const stableLastModified = new Date("2026-08-28T00:00:00.000Z");
+const stableLastModified = new Date("2026-09-13T00:00:00.000Z");
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const routes = [
-    "/",
-    "/product",
-    "/detection",
-    "/how-it-works",
-    "/integrations",
-    "/research",
-    "/research/challenge",
-    "/docs",
-    "/playground",
-    "/changelog",
-    "/pricing",
-    "/assessment",
-    "/pilot",
-    "/managed",
-    "/enterprise",
-    "/enterprise/security",
-    "/enterprise/procurement",
-    "/enterprise/assurance",
-    "/security",
-    "/contact",
+    "/", "/product", "/detection", "/how-it-works", "/integrations", "/research",
+    "/research/challenge", "/validation", "/docs", "/playground", "/changelog", "/pricing",
+    "/assessment", "/pilot", "/managed", "/enterprise", "/enterprise/security",
+    "/enterprise/procurement", "/enterprise/assurance", "/security", "/contact",
   ];
   const research = researchArticles.map((article) => ({
     url: `${siteConfig.url}/research/${article.slug}`,
@@ -47,16 +31,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     changeFrequency: "monthly" as const,
     priority: 0.75,
   }));
-
-  return [
-    ...routes.map((path) => ({
-      url: `${siteConfig.url}${path}`,
-      lastModified: stableLastModified,
-      changeFrequency: path === "/" ? ("weekly" as const) : ("monthly" as const),
-      priority: path === "/" ? 1 : 0.7,
-    })),
-    ...docs,
-    ...research,
-    ...topics,
-  ];
+  const entries = [...routes.map((path) => ({
+    url: `${siteConfig.url}${path}`,
+    lastModified: stableLastModified,
+    changeFrequency: path === "/" ? ("weekly" as const) : ("monthly" as const),
+    priority: path === "/" ? 1 : 0.7,
+  })), ...docs, ...research, ...topics];
+  const seen = new Set<string>();
+  return entries.filter((entry) => !seen.has(entry.url) && seen.add(entry.url));
 }
