@@ -43,7 +43,7 @@ export default function IntegrationsPage() {
           <TfBadge tone="neutral">v{truth.version}</TfBadge>
         </div>
         <p className="mt-4 max-w-3xl text-sm leading-7 text-[var(--tf-text-muted)]">
-          Native integration is deliberately not used as a blanket label. The current engine's
+          Native integration is deliberately not used as a blanket label. The current engine&apos;s
           enterprise integration layer is an adapter/export boundary with shared authentication,
           TLS, retry, idempotency, audit and dead-letter controls.
         </p>
