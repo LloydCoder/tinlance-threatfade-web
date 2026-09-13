@@ -1,0 +1,31 @@
+name: Sprint E format fix
+
+on:
+  push:
+    branches: [sprint-e-threatfade-sync]
+
+permissions:
+  contents: write
+
+jobs:
+  format:
+    if: github.actor == 'LloydCoder'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci --no-audit --no-fund
+      - run: npx prettier --write app/integrations/page.tsx app/security/page.tsx app/sitemap.ts app/validation/page.tsx content/engine-truth.json package.json playwright.config.ts scripts/check-threatfade-sync.mjs tests/e2e/performance.spec.ts tests/e2e/sprint-e.spec.ts
+      - name: Commit formatting fixes
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add app/integrations/page.tsx app/security/page.tsx app/sitemap.ts app/validation/page.tsx content/engine-truth.json package.json playwright.config.ts scripts/check-threatfade-sync.mjs tests/e2e/performance.spec.ts tests/e2e/sprint-e.spec.ts
+          git diff --cached --quiet && exit 0
+          git commit -m 'style: format Sprint E public surface'
+          git push origin HEAD:sprint-e-threatfade-sync
