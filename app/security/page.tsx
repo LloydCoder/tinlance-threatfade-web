@@ -155,7 +155,7 @@ export default function SecurityPage() {
       <TfPanel className="mt-8 p-6 sm:p-8">
         <h2 className="text-xl font-semibold">Responsible disclosure</h2>
         <p className="mt-3 max-w-3xl text-sm leading-7 text-[var(--tf-text-muted)]">
-          Security vulnerabilities should be reported through the repository's published security
+          Security vulnerabilities should be reported through the repository&apos;s published security
           contact and disclosure mechanism. Do not send secrets, credentials or sensitive customer
           data in public issues.
         </p>
