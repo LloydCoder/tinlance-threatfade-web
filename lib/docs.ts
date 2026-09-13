@@ -1,6 +1,7 @@
 import { readFile } from "node:fs/promises";
 import path from "node:path";
 import matter from "gray-matter";
+import { load } from "js-yaml";
 import { docsBySlug, docsSections, type DocSection } from "@/config/docs";
 
 export type DocFrontmatter = {
@@ -12,6 +13,8 @@ export type DocFrontmatter = {
   updated: string;
 };
 
+const parseYaml = (input: string): object => load(input) as object;
+
 function sourcePath(slug: string) {
   return path.join(process.cwd(), "content", "docs", `${slug}.mdx`);
 }
@@ -19,7 +22,7 @@ function sourcePath(slug: string) {
 export async function getDoc(slug: string) {
   if (!docsBySlug.has(slug)) return null;
   const source = await readFile(sourcePath(slug), "utf8");
-  const parsed = matter(source);
+  const parsed = matter(source, { engines: { yaml: parseYaml } });
   const frontmatter = parsed.data as DocFrontmatter;
   return { slug, source, frontmatter, section: docsBySlug.get(slug) as DocSection };
 }

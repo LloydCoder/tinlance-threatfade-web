@@ -9,7 +9,7 @@ export const siteConfig = {
   github: "https://github.com/LloydCoder/tinlance-threatfade",
   webRepository: "https://github.com/LloydCoder/tinlance-threatfade-web",
   version: "0.9.0-dev",
-  engineApiVersion: "0.7.0",
+  engineApiVersion: "0.9.0-dev",
   license: "Apache-2.0",
   navigation: [
     { label: "Product", href: "/product" },
@@ -17,7 +17,8 @@ export const siteConfig = {
     { label: "How it works", href: "/how-it-works" },
     { label: "Integrations", href: "/integrations" },
     { label: "Research", href: "/research" },
-    { label: "Security", href: "/security" },
+    { label: "Validation", href: "/validation" },
+    { label: "Security & Trust", href: "/security" },
     { label: "Docs", href: "/docs" },
     { label: "Playground", href: "/playground" },
     { label: "Pricing", href: "/pricing" },

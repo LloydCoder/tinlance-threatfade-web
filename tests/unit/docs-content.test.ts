@@ -2,7 +2,10 @@ import { describe, expect, it } from "vitest";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import matter from "gray-matter";
+import { load } from "js-yaml";
 import { docsSections, docsVersion } from "@/config/docs";
+
+const parseYaml = (input: string): object => load(input) as object;
 
 describe("documentation content", () => {
   it("has valid frontmatter for every published page", () => {
@@ -11,7 +14,7 @@ describe("documentation content", () => {
         join(process.cwd(), "content", "docs", `${section.slug}.mdx`),
         "utf8",
       );
-      const { data, content } = matter(source);
+      const { data, content } = matter(source, { engines: { yaml: parseYaml } });
       expect(data.title).toBeTruthy();
       expect(data.description).toBeTruthy();
       expect(data.category).toBeTruthy();
