@@ -24,11 +24,34 @@ const fields = [
   "integrations",
   "security",
 ];
-const comparable = (value) => JSON.stringify(value, Object.keys(value).sort());
-for (const field of fields) {
-  if (comparable(local[field]) !== comparable(canonical[field])) {
+
+const assertCompatible = (localValue, canonicalValue, field) => {
+  if (Array.isArray(localValue)) {
+    if (!Array.isArray(canonicalValue) || localValue.length !== canonicalValue.length) {
+      throw new Error(`ThreatFade synchronization drift detected in field: ${field}`);
+    }
+    localValue.forEach((value, index) => assertCompatible(value, canonicalValue[index], `${field}[${index}]`));
+    return;
+  }
+  if (localValue && typeof localValue === "object") {
+    if (!canonicalValue || typeof canonicalValue !== "object" || Array.isArray(canonicalValue)) {
+      throw new Error(`ThreatFade synchronization drift detected in field: ${field}`);
+    }
+    for (const key of Object.keys(localValue)) {
+      if (!(key in canonicalValue)) {
+        throw new Error(`ThreatFade synchronization drift detected in field: ${field}.${key}`);
+      }
+      assertCompatible(localValue[key], canonicalValue[key], `${field}.${key}`);
+    }
+    return;
+  }
+  if (localValue !== canonicalValue) {
     throw new Error(`ThreatFade synchronization drift detected in field: ${field}`);
   }
+};
+
+for (const field of fields) {
+  assertCompatible(local[field], canonical[field], field);
 }
 
 if (local.engineRepository !== "https://github.com/LloydCoder/tinlance-threatfade") {
