@@ -9,7 +9,9 @@ const canonicalUrl =
 const local = JSON.parse(await fs.readFile(localPath, "utf8"));
 const response = await fetch(canonicalUrl, { headers: { accept: "application/json" } });
 if (!response.ok) {
-  throw new Error(`Unable to fetch canonical ThreatFade truth manifest: HTTP ${response.status}`);
+  throw new Error(
+    `Unable to fetch canonical ThreatFade truth manifest: HTTP ${response.status}`,
+  );
 }
 const canonical = await response.json();
 
@@ -30,7 +32,9 @@ const assertCompatible = (localValue, canonicalValue, field) => {
     if (!Array.isArray(canonicalValue) || localValue.length !== canonicalValue.length) {
       throw new Error(`ThreatFade synchronization drift detected in field: ${field}`);
     }
-    localValue.forEach((value, index) => assertCompatible(value, canonicalValue[index], `${field}[${index}]`));
+    localValue.forEach((value, index) =>
+      assertCompatible(value, canonicalValue[index], `${field}[${index}]`),
+    );
     return;
   }
   if (localValue && typeof localValue === "object") {
