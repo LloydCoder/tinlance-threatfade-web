@@ -38,7 +38,11 @@ const assertCompatible = (localValue, canonicalValue, field) => {
     return;
   }
   if (localValue && typeof localValue === "object") {
-    if (!canonicalValue || typeof canonicalValue !== "object" || Array.isArray(canonicalValue)) {
+    if (
+      !canonicalValue ||
+      typeof canonicalValue !== "object" ||
+      Array.isArray(canonicalValue)
+    ) {
       throw new Error(`ThreatFade synchronization drift detected in field: ${field}`);
     }
     for (const key of Object.keys(localValue)) {
