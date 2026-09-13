@@ -12,9 +12,7 @@ const response = await fetch(canonicalUrl, {
 });
 
 if (!response.ok) {
-  throw new Error(
-    `Unable to fetch canonical ThreatFade truth manifest: HTTP ${response.status}`,
-  );
+  throw new Error(`Unable to fetch canonical ThreatFade truth manifest: HTTP ${response.status}`);
 }
 
 const canonical = await response.json();
@@ -37,25 +35,18 @@ const drift = (field) => {
 
 const assertCompatible = (localValue, canonicalValue, field) => {
   if (Array.isArray(localValue)) {
-    if (
-      !Array.isArray(canonicalValue) ||
-      localValue.length !== canonicalValue.length
-    ) {
+    if (!Array.isArray(canonicalValue) || localValue.length !== canonicalValue.length) {
       drift(field);
     }
 
-    localValue.forEach((value, index) => {
-      assertCompatible(value, canonicalValue[index], `${field}[${index}]`);
-    });
+    localValue.forEach((value, index) =>
+      assertCompatible(value, canonicalValue[index], `${field}[${index}]`),
+    );
     return;
   }
 
   if (localValue && typeof localValue === "object") {
-    if (
-      !canonicalValue ||
-      typeof canonicalValue !== "object" ||
-      Array.isArray(canonicalValue)
-    ) {
+    if (!canonicalValue || typeof canonicalValue !== "object" || Array.isArray(canonicalValue)) {
       drift(field);
     }
 
@@ -77,10 +68,7 @@ for (const field of fields) {
   assertCompatible(local[field], canonical[field], field);
 }
 
-if (
-  local.engineRepository !==
-  "https://github.com/LloydCoder/tinlance-threatfade"
-) {
+if (local.engineRepository !== "https://github.com/LloydCoder/tinlance-threatfade") {
   throw new Error("ThreatFade engine repository reference is invalid");
 }
 
