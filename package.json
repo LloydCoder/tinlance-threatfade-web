@@ -3,9 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "description": "Official ThreatFade product website, documentation, research hub, interactive demos, and enterprise platform.",
-  "engines": {
-    "node": ">=20.19.0"
-  },
+  "engines": {"node": ">=20.19.0"},
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -15,6 +13,7 @@
     "format": "prettier --write .",
     "format:check": "bash scripts/check-format.sh",
     "docs:check": "node scripts/validate-documentation.mjs",
+    "truth:check": "node scripts/check-threatfade-sync.mjs",
     "growth:check": "node scripts/validate-growth-system.mjs",
     "test": "vitest run",
     "test:watch": "vitest",
