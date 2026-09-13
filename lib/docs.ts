@@ -1,7 +1,7 @@
 import { readFile } from "node:fs/promises";
 import path from "node:path";
 import matter from "gray-matter";
-import { load as parseYaml } from "js-yaml";
+import { load } from "js-yaml";
 import { docsBySlug, docsSections, type DocSection } from "@/config/docs";
 
 export type DocFrontmatter = {
@@ -12,6 +12,8 @@ export type DocFrontmatter = {
   status: "implemented" | "experimental" | "reference";
   updated: string;
 };
+
+const parseYaml = (input: string): object => load(input) as object;
 
 function sourcePath(slug: string) {
   return path.join(process.cwd(), "content", "docs", `${slug}.mdx`);
