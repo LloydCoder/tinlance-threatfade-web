@@ -24,8 +24,10 @@ export const metadata: Metadata = {
 
 const typeDescription: Record<string, string> = {
   EXPORT: "ThreatFade produces data another system can consume.",
-  ADAPTER: "ThreatFade translates its canonical event into a bounded external-system interface; this is not a native vendor integration claim.",
-  COMPATIBLE: "ThreatFade uses an ecosystem format or mapping without claiming a native vendor connector.",
+  ADAPTER:
+    "ThreatFade translates its canonical event into a bounded external-system interface; this is not a native vendor integration claim.",
+  COMPATIBLE:
+    "ThreatFade uses an ecosystem format or mapping without claiming a native vendor connector.",
 };
 
 export default function IntegrationsPage() {
@@ -41,9 +43,9 @@ export default function IntegrationsPage() {
           <TfBadge tone="neutral">v{truth.version}</TfBadge>
         </div>
         <p className="mt-4 max-w-3xl text-sm leading-7 text-[var(--tf-text-muted)]">
-          Native integration is deliberately not used as a blanket label. The current engine's enterprise
-          integration layer is an adapter/export boundary with shared authentication, TLS, retry,
-          idempotency, audit and dead-letter controls.
+          Native integration is deliberately not used as a blanket label. The current engine's
+          enterprise integration layer is an adapter/export boundary with shared authentication,
+          TLS, retry, idempotency, audit and dead-letter controls.
         </p>
       </TfPanel>
 
@@ -57,21 +59,31 @@ export default function IntegrationsPage() {
               </div>
               <div className="flex gap-2">
                 <TfBadge tone="neutral">{item.type}</TfBadge>
-                <TfBadge tone={item.status === "TESTED" ? "signal" : "neutral"}>{item.status}</TfBadge>
+                <TfBadge tone={item.status === "TESTED" ? "signal" : "neutral"}>
+                  {item.status}
+                </TfBadge>
               </div>
             </div>
             <dl className="mt-5 grid gap-3 text-sm">
               <div>
-                <dt className="font-mono text-[10px] uppercase tracking-[0.12em] text-[var(--tf-text-subtle)]">Protocol / format</dt>
+                <dt className="font-mono text-[10px] uppercase tracking-[0.12em] text-[var(--tf-text-subtle)]">
+                  Protocol / format
+                </dt>
                 <dd className="mt-1 text-[var(--tf-text-muted)]">{item.protocol}</dd>
               </div>
               <div>
-                <dt className="font-mono text-[10px] uppercase tracking-[0.12em] text-[var(--tf-text-subtle)]">Meaning of status</dt>
-                <dd className="mt-1 leading-6 text-[var(--tf-text-muted)]">{typeDescription[item.type]}</dd>
+                <dt className="font-mono text-[10px] uppercase tracking-[0.12em] text-[var(--tf-text-subtle)]">
+                  Meaning of status
+                </dt>
+                <dd className="mt-1 leading-6 text-[var(--tf-text-muted)]">
+                  {typeDescription[item.type]}
+                </dd>
               </div>
               {"limitation" in item && item.limitation ? (
                 <div>
-                  <dt className="font-mono text-[10px] uppercase tracking-[0.12em] text-[var(--tf-text-subtle)]">Limitation</dt>
+                  <dt className="font-mono text-[10px] uppercase tracking-[0.12em] text-[var(--tf-text-subtle)]">
+                    Limitation
+                  </dt>
                   <dd className="mt-1 leading-6 text-[var(--tf-text-muted)]">{item.limitation}</dd>
                 </div>
               ) : null}
@@ -83,9 +95,10 @@ export default function IntegrationsPage() {
       <TfPanel className="mt-8 p-6 sm:p-8">
         <h2 className="text-xl font-semibold">Deployment boundary</h2>
         <p className="mt-3 max-w-3xl text-sm leading-7 text-[var(--tf-text-muted)]">
-          Destination authentication and receiver configuration remain deployment-specific. For example,
-          Sentinel requires the configured Azure Logs Ingestion boundary; QRadar receives CEF through the
-          deployment-selected transport; OpenCTI and TheHive mappings must match the target release.
+          Destination authentication and receiver configuration remain deployment-specific. For
+          example, Sentinel requires the configured Azure Logs Ingestion boundary; QRadar receives
+          CEF through the deployment-selected transport; OpenCTI and TheHive mappings must match the
+          target release.
         </p>
       </TfPanel>
     </PageShell>

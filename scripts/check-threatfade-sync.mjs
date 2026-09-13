@@ -3,7 +3,8 @@ import path from "node:path";
 
 const root = process.cwd();
 const localPath = path.join(root, "content", "engine-truth.json");
-const canonicalUrl = "https://raw.githubusercontent.com/LloydCoder/tinlance-threatfade/main/docs/public-truth.json";
+const canonicalUrl =
+  "https://raw.githubusercontent.com/LloydCoder/tinlance-threatfade/main/docs/public-truth.json";
 
 const local = JSON.parse(await fs.readFile(localPath, "utf8"));
 const response = await fetch(canonicalUrl, { headers: { accept: "application/json" } });
@@ -12,7 +13,17 @@ if (!response.ok) {
 }
 const canonical = await response.json();
 
-const fields = ["schemaVersion", "product", "version", "status", "evidenceTaxonomy", "capabilities", "validation", "integrations", "security"];
+const fields = [
+  "schemaVersion",
+  "product",
+  "version",
+  "status",
+  "evidenceTaxonomy",
+  "capabilities",
+  "validation",
+  "integrations",
+  "security",
+];
 const comparable = (value) => JSON.stringify(value, Object.keys(value).sort());
 for (const field of fields) {
   if (comparable(local[field]) !== comparable(canonical[field])) {

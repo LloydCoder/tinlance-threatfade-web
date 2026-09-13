@@ -20,7 +20,9 @@ test.describe("Sprint E public product surface", () => {
     for (const route of routes) {
       await page.goto(route);
       await expect(page.locator("body")).toBeVisible();
-      const overflow = await page.evaluate(() => document.documentElement.scrollWidth > window.innerWidth + 1);
+      const overflow = await page.evaluate(
+        () => document.documentElement.scrollWidth > window.innerWidth + 1,
+      );
       expect(overflow, `horizontal overflow on ${route}`).toBe(false);
     }
   });
@@ -28,9 +30,13 @@ test.describe("Sprint E public product surface", () => {
   test("validation and security expose evidence boundaries", async ({ page }) => {
     await page.goto("/validation");
     await expect(page.getByText("VALIDATED", { exact: true }).first()).toBeVisible();
-    await expect(page.getByText("No independent detection validation.", { exact: true })).toBeVisible();
+    await expect(
+      page.getByText("No independent detection validation.", { exact: true }),
+    ).toBeVisible();
     await page.goto("/security");
-    await expect(page.getByRole("heading", { name: /Security standards reference/i })).toBeVisible();
+    await expect(
+      page.getByRole("heading", { name: /Security standards reference/i }),
+    ).toBeVisible();
     await expect(page.getByText("Formal certification", { exact: true })).toBeVisible();
   });
 
