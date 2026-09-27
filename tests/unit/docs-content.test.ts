@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
-import matter from "gray-matter";
+import matter from "@11ty/gray-matter";
 import { docsSections, docsVersion } from "@/config/docs";
 
 describe("documentation content", () => {
