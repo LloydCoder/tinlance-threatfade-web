@@ -43,7 +43,7 @@ export async function allowRequest(request: NextRequest, config: LimitConfig): P
     const result = await limiter.limit(identifier);
     return result.success;
   }
-  if (process.env.NODE_ENV === "production")
+  if (process.env.NODE_ENV === "production" && process.env.THREATFADE_ALLOW_LOCAL_RATE_LIMIT !== "true")
     throw new Error("Distributed rate limiting is not configured");
   const now = Date.now();
   const key = `${config.namespace}:${identifier}`;
