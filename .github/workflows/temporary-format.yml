@@ -1,20 +1,22 @@
 name: Temporary format repair
 
 on:
-  push:
-    branches:
-      - hardening/zero-gap-2026-09
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, reopened]
 
 permissions:
   contents: write
+  pull-requests: read
 
 jobs:
   format:
-    if: github.ref == 'refs/heads/hardening/zero-gap-2026-09'
+    if: github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
+          ref: ${{ github.event.pull_request.head.ref }}
           persist-credentials: true
       - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
         with:
@@ -28,4 +30,4 @@ jobs:
           if git diff --quiet; then exit 0; fi
           git add app/api/analytics/event/route.ts app/api/customer-value/request/route.ts app/api/demand-intelligence/score/route.ts app/api/leads/route.ts lib/security/rate-limit.ts proxy.ts
           git commit -m "style(web): normalize security hardening formatting"
-          git push origin HEAD:hardening/zero-gap-2026-09
+          git push origin HEAD:${{ github.event.pull_request.head.ref }}
