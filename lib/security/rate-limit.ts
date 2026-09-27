@@ -48,7 +48,9 @@ export async function allowRequest(request: NextRequest, config: LimitConfig): P
   const now = Date.now();
   const key = `${config.namespace}:${identifier}`;
   const current = localBuckets.get(key);
-  const match = /^(\\d+) ([smh])$/.exec(config.window);\n  if (!match) throw new Error("invalid rate-limit window");\n  const windowMs = Number(match[1]) * ({ s: 1000, m: 60_000, h: 3_600_000 } as const)[match[2] as "s" | "m" | "h"];
+  const match = /^(\\d+) ([smh])$/.exec(config.window);
+  if (!match) throw new Error("invalid rate-limit window");
+  const windowMs = Number(match[1]) * ({ s: 1000, m: 60_000, h: 3_600_000 } as const)[match[2] as "s" | "m" | "h"];
   if (!current || current.resetAt <= now) {
     localBuckets.set(key, { count: 1, resetAt: now + windowMs });
     return true;
