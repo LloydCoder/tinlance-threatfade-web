@@ -9,8 +9,6 @@ const schema = z.object({
   message: z.string().trim().min(10).max(2000),
 });
 
-const WINDOW_MS = 10 * 60_000;
-const MAX_REQUESTS = 5;
 const buckets = new Map<string, { count: number; resetAt: number }>();
 
 function trustedOrigin(request: NextRequest) {
@@ -18,17 +16,6 @@ function trustedOrigin(request: NextRequest) {
   return Boolean(origin && origin === request.nextUrl.origin);
 }
 
-function allow(key: string) {
-  const now = Date.now();
-  const current = buckets.get(key);
-  if (!current || current.resetAt <= now) {
-    buckets.set(key, { count: 1, resetAt: now + WINDOW_MS });
-    return true;
-  }
-  if (current.count >= MAX_REQUESTS) return false;
-  current.count += 1;
-  return true;
-}
 
 function escapeHtml(value: string) {
   return value.replace(
