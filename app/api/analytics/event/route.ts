@@ -7,8 +7,6 @@ import { analyticsEventSchema } from "@/lib/analytics/taxonomy";
 
 const ANON_COOKIE = "tf_anon_id";
 const MAX_BODY_BYTES = 12_000;
-const WINDOW_MS = 60_000;
-const MAX_EVENTS_PER_WINDOW = 30;
 const rateBuckets = new Map<string, { count: number; resetAt: number }>();
 
 function requestOriginIsTrusted(request: NextRequest) {
@@ -21,25 +19,7 @@ function requestOriginIsTrusted(request: NextRequest) {
   }
 }
 
-function clientKey(request: NextRequest) {
-  return (
-    request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
-    request.headers.get("x-real-ip") ||
-    "unknown"
-  );
-}
 
-function allowRequest(key: string) {
-  const now = Date.now();
-  const current = rateBuckets.get(key);
-  if (!current || current.resetAt <= now) {
-    rateBuckets.set(key, { count: 1, resetAt: now + WINDOW_MS });
-    return true;
-  }
-  if (current.count >= MAX_EVENTS_PER_WINDOW) return false;
-  current.count += 1;
-  return true;
-}
 
 export async function POST(request: NextRequest) {
   if (!request.headers.get("content-type")?.includes("application/json"))
