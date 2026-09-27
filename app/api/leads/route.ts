@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import { trackServerEvent } from "@/lib/analytics/server";
+import { allowRequest } from "@/lib/security/rate-limit";
 
 const leadSchema = z.object({
   request_type: z.enum(["assessment", "pilot", "enterprise"]),
@@ -60,7 +61,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Unsupported content type" }, { status: 415 });
   if (!trustedOrigin(request))
     return NextResponse.json({ error: "Untrusted origin" }, { status: 403 });
-  if (!allowed(clientKey(request)))
+  if (!(await allowRequest(request, { namespace: "leads", requests: 5, window: "10 m" })))
     return NextResponse.json(
       { error: "Too many requests" },
       { status: 429, headers: { "Retry-After": "600", "Cache-Control": "no-store" } },
