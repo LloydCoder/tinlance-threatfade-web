@@ -1,6 +1,6 @@
 import { readFile } from "node:fs/promises";
 import path from "node:path";
-import matter from "gray-matter";
+import matter from "@11ty/gray-matter";
 import { docsBySlug, docsSections, type DocSection } from "@/config/docs";
 
 export type DocFrontmatter = {
