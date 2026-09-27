@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { cookies, headers } from "next/headers";
 import { randomUUID } from "node:crypto";
 import { analyticsProvider } from "@/lib/analytics/provider";
+import { allowRequest } from "@/lib/security/rate-limit";
 import { analyticsEventSchema } from "@/lib/analytics/taxonomy";
 
 const ANON_COOKIE = "tf_anon_id";
@@ -45,7 +46,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Unsupported content type" }, { status: 415 });
   if (!requestOriginIsTrusted(request))
     return NextResponse.json({ error: "Untrusted origin" }, { status: 403 });
-  if (!allowRequest(clientKey(request)))
+  if (!(await allowRequest(request, { namespace: "analytics", requests: 30, window: "1 m" })))
     return NextResponse.json(
       { error: "Too many analytics events" },
       { status: 429, headers: { "Retry-After": "60", "Cache-Control": "no-store" } },
