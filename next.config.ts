@@ -11,10 +11,11 @@ const contentSecurityPolicy = [
   "img-src 'self' data: blob:",
   "font-src 'self' data:",
   "style-src 'self' 'unsafe-inline'",
-  "script-src 'self'",
+  `script-src 'self' 'unsafe-inline'${isProduction ? "" : " 'unsafe-eval'"}`,
   "connect-src 'self'",
   "manifest-src 'self'",
   "worker-src 'self' blob:",
+  ...(isProduction ? ["upgrade-insecure-requests"] : []),
 ].join("; ");
 
 const securityHeaders = [
