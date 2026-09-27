@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { accountProfileSchema, scoreAccount } from "@/lib/demand-intelligence/model";
+import { allowRequest } from "@/lib/security/rate-limit";
 
 const MAX_BODY_BYTES = 24_000;
 const WINDOW_MS = 60_000;
@@ -43,7 +44,7 @@ export async function POST(request: NextRequest) {
   if (!trustedOrigin(request)) {
     return NextResponse.json({ error: "Untrusted origin" }, { status: 403 });
   }
-  if (!allowed(clientKey(request))) {
+  if (!(await allowRequest(request, { namespace: "demand-score", requests: 20, window: "1 m" }))) {
     return NextResponse.json(
       { error: "Too many requests" },
       {
