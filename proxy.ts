@@ -1,4 +1,3 @@
-import { randomUUID } from "node:crypto";
 import { NextRequest, NextResponse } from "next/server";
 import { getToken } from "next-auth/jwt";
 
@@ -24,7 +23,7 @@ function securityPolicy(nonce: string) {
 }
 
 export async function proxy(request: NextRequest) {
-  const nonce = randomUUID().replaceAll("-", "");
+  const nonce = crypto.randomUUID().replaceAll("-", "");
   const requestHeaders = new Headers(request.headers);
   requestHeaders.set("x-nonce", nonce);
 
