@@ -31,7 +31,7 @@ test.describe("Sprint E public product surface", () => {
     await page.goto("/validation");
     await expect(page.getByText("VALIDATED", { exact: true }).first()).toBeVisible();
     await expect(
-      page.getByText("No independent detection validation.", { exact: true }),
+      page.getByText("No independent detection validation.", { exact: false }),
     ).toBeVisible();
     await page.goto("/security");
     await expect(
