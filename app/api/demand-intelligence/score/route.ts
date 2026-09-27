@@ -1,30 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import { accountProfileSchema, scoreAccount } from "@/lib/demand-intelligence/model";
+import { allowRequest } from "@/lib/security/rate-limit";
 
 const MAX_BODY_BYTES = 24_000;
-const WINDOW_MS = 60_000;
-const MAX_REQUESTS = 20;
 const buckets = new Map<string, { count: number; resetAt: number }>();
-
-function clientKey(request: NextRequest) {
-  return (
-    request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
-    request.headers.get("x-real-ip") ||
-    "unknown"
-  );
-}
-
-function allowed(key: string) {
-  const now = Date.now();
-  const current = buckets.get(key);
-  if (!current || current.resetAt <= now) {
-    buckets.set(key, { count: 1, resetAt: now + WINDOW_MS });
-    return true;
-  }
-  if (current.count >= MAX_REQUESTS) return false;
-  current.count += 1;
-  return true;
-}
 
 function trustedOrigin(request: NextRequest) {
   const origin = request.headers.get("origin");
@@ -43,7 +22,7 @@ export async function POST(request: NextRequest) {
   if (!trustedOrigin(request)) {
     return NextResponse.json({ error: "Untrusted origin" }, { status: 403 });
   }
-  if (!allowed(clientKey(request))) {
+  if (!(await allowRequest(request, { namespace: "demand-score", requests: 20, window: "1 m" }))) {
     return NextResponse.json(
       { error: "Too many requests" },
       {

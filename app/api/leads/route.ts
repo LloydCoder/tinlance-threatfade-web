@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import { trackServerEvent } from "@/lib/analytics/server";
+import { allowRequest } from "@/lib/security/rate-limit";
 
 const leadSchema = z.object({
   request_type: z.enum(["assessment", "pilot", "enterprise"]),
@@ -11,30 +12,8 @@ const leadSchema = z.object({
   website: z.string().max(0).optional(),
 });
 
-const WINDOW_MS = 10 * 60_000;
-const MAX_REQUESTS = 5;
 const MAX_BODY_BYTES = 8_000;
 const buckets = new Map<string, { count: number; resetAt: number }>();
-
-function clientKey(request: NextRequest) {
-  return (
-    request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
-    request.headers.get("x-real-ip") ||
-    "unknown"
-  );
-}
-
-function allowed(key: string) {
-  const now = Date.now();
-  const current = buckets.get(key);
-  if (!current || current.resetAt <= now) {
-    buckets.set(key, { count: 1, resetAt: now + WINDOW_MS });
-    return true;
-  }
-  if (current.count >= MAX_REQUESTS) return false;
-  current.count += 1;
-  return true;
-}
 
 function trustedOrigin(request: NextRequest) {
   const origin = request.headers.get("origin");
@@ -60,7 +39,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Unsupported content type" }, { status: 415 });
   if (!trustedOrigin(request))
     return NextResponse.json({ error: "Untrusted origin" }, { status: 403 });
-  if (!allowed(clientKey(request)))
+  if (!(await allowRequest(request, { namespace: "leads", requests: 5, window: "10 m" })))
     return NextResponse.json(
       { error: "Too many requests" },
       { status: 429, headers: { "Retry-After": "600", "Cache-Control": "no-store" } },

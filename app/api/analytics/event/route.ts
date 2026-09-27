@@ -2,12 +2,11 @@ import { NextRequest, NextResponse } from "next/server";
 import { cookies, headers } from "next/headers";
 import { randomUUID } from "node:crypto";
 import { analyticsProvider } from "@/lib/analytics/provider";
+import { allowRequest } from "@/lib/security/rate-limit";
 import { analyticsEventSchema } from "@/lib/analytics/taxonomy";
 
 const ANON_COOKIE = "tf_anon_id";
 const MAX_BODY_BYTES = 12_000;
-const WINDOW_MS = 60_000;
-const MAX_EVENTS_PER_WINDOW = 30;
 const rateBuckets = new Map<string, { count: number; resetAt: number }>();
 
 function requestOriginIsTrusted(request: NextRequest) {
@@ -20,32 +19,12 @@ function requestOriginIsTrusted(request: NextRequest) {
   }
 }
 
-function clientKey(request: NextRequest) {
-  return (
-    request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
-    request.headers.get("x-real-ip") ||
-    "unknown"
-  );
-}
-
-function allowRequest(key: string) {
-  const now = Date.now();
-  const current = rateBuckets.get(key);
-  if (!current || current.resetAt <= now) {
-    rateBuckets.set(key, { count: 1, resetAt: now + WINDOW_MS });
-    return true;
-  }
-  if (current.count >= MAX_EVENTS_PER_WINDOW) return false;
-  current.count += 1;
-  return true;
-}
-
 export async function POST(request: NextRequest) {
   if (!request.headers.get("content-type")?.includes("application/json"))
     return NextResponse.json({ error: "Unsupported content type" }, { status: 415 });
   if (!requestOriginIsTrusted(request))
     return NextResponse.json({ error: "Untrusted origin" }, { status: 403 });
-  if (!allowRequest(clientKey(request)))
+  if (!(await allowRequest(request, { namespace: "analytics", requests: 30, window: "1 m" })))
     return NextResponse.json(
       { error: "Too many analytics events" },
       { status: 429, headers: { "Retry-After": "60", "Cache-Control": "no-store" } },

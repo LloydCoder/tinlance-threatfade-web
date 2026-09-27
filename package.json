@@ -22,20 +22,22 @@
     "test:e2e:ui": "playwright test --ui"
   },
   "dependencies": {
+    "@11ty/gray-matter": "3.0.0",
     "@mdx-js/mdx": "3.1.1",
     "@radix-ui/react-slot": "1.3.3",
     "class-variance-authority": "0.7.1",
     "clsx": "2.1.1",
-    "gray-matter": "4.0.3",
     "lucide-react": "1.39.0",
     "motion": "13.1.1",
-    "next": "16.3.4",
+    "next": "16.3.6",
     "next-auth": "4.24.15",
     "next-mdx-remote": "6.0.0",
     "react": "19.2.8",
     "react-dom": "19.2.8",
     "tailwind-merge": "3.3.1",
-    "zod": "4.4.3"
+    "zod": "4.4.3",
+    "@upstash/ratelimit": "2.1.0",
+    "@upstash/redis": "1.38.4"
   },
   "devDependencies": {
     "@axe-core/playwright": "4.10.2",
@@ -51,6 +53,9 @@
     "prettier": "3.9.6",
     "tailwindcss": "4.3.3",
     "typescript": "6.0.3",
-    "vitest": "3.2.7"
+    "vitest": "5.0.2"
+  },
+  "overrides": {
+    "js-yaml": "4.3.2"
   }
 }
