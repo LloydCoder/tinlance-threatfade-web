@@ -8,7 +8,7 @@ test.describe("Phase 16 research scale", () => {
         name: "Evidence, methodology and the limits of the evidence.",
       }),
     ).toBeVisible();
-    await expect(page.getByPlaceholder(/Search research/i)).toBeVisible();
+    await expect(page.getByRole("textbox", { name: "Search research" })).toBeVisible();
     await expect(page.getByText("Planned").first()).toBeVisible();
     await page.getByPlaceholder(/Search research/i).fill("reproducibility");
     await expect(
