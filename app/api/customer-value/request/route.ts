@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { getToken } from "next-auth/jwt";
 import { z } from "zod";
 import { trackServerEvent } from "@/lib/analytics/server";
+import { allowRequest } from "@/lib/security/rate-limit";
 
 const schema = z.object({
   type: z.enum(["reference", "case-study", "research", "feedback"]),
@@ -42,7 +43,7 @@ export async function POST(request: NextRequest) {
   if (!trustedOrigin(request)) {
     return NextResponse.json({ error: "Cross-origin request denied" }, { status: 403 });
   }
-  if (!allow(request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ?? "unknown")) {
+  if (!(await allowRequest(request, { namespace: "customer-value", requests: 5, window: "10 m" }))) {
     return NextResponse.json({ error: "Too many requests" }, { status: 429 });
   }
   const contentType = request.headers.get("content-type") ?? "";
