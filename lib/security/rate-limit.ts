@@ -33,7 +33,6 @@ function distributedLimiter(config: LimitConfig) {
     limiter: Ratelimit.slidingWindow(config.requests, config.window),
     analytics: true,
     prefix: `threatfade:${config.namespace}`,
-    enableProtectionUntil: "2026-10-01T00:00:00.000Z",
   });
 }
 
@@ -49,7 +48,7 @@ export async function allowRequest(request: NextRequest, config: LimitConfig): P
   const now = Date.now();
   const key = `${config.namespace}:${identifier}`;
   const current = localBuckets.get(key);
-  const windowMs = Number(config.window.replace(" s", "000").replace(" m", "0000").replace(" h", "00000"));
+  const match = /^(\\d+) ([smh])$/.exec(config.window);\n  if (!match) throw new Error("invalid rate-limit window");\n  const windowMs = Number(match[1]) * ({ s: 1000, m: 60_000, h: 3_600_000 } as const)[match[2] as "s" | "m" | "h"];
   if (!current || current.resetAt <= now) {
     localBuckets.set(key, { count: 1, resetAt: now + windowMs });
     return true;
