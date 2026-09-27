@@ -36,22 +36,32 @@ function distributedLimiter(config: LimitConfig) {
   });
 }
 
-export async function allowRequest(request: NextRequest, config: LimitConfig): Promise<boolean> {
+export async function allowRequest(
+  request: NextRequest,
+  config: LimitConfig,
+): Promise<boolean> {
   const identifier = trustedClientId(request);
   const limiter = distributedLimiter(config);
   if (limiter) {
     const result = await limiter.limit(identifier);
     return result.success;
   }
-  if (process.env.NODE_ENV === "production" && process.env.THREATFADE_ALLOW_LOCAL_RATE_LIMIT !== "true")
+  if (
+    process.env.NODE_ENV === "production" &&
+    process.env.THREATFADE_ALLOW_LOCAL_RATE_LIMIT !== "true"
+  ) {
     throw new Error("Distributed rate limiting is not configured");
+  }
   const now = Date.now();
   const key = `${config.namespace}:${identifier}`;
   const current = localBuckets.get(key);
   const match = /^(\\d+) ([smh])$/.exec(config.window);
   if (!match) throw new Error("invalid rate-limit window");
   const windowMs =
-    Number(match[1]) * ({ s: 1000, m: 60_000, h: 3_600_000 } as const)[match[2] as "s" | "m" | "h"];
+    Number(match[1]) *
+    ({ s: 1000, m: 60_000, h: 3_600_000 } as const)[
+      match[2] as "s" | "m" | "h"
+    ];
   if (!current || current.resetAt <= now) {
     localBuckets.set(key, { count: 1, resetAt: now + windowMs });
     return true;
