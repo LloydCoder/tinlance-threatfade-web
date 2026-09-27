@@ -1,0 +1,31 @@
+name: Temporary format repair
+
+on:
+  push:
+    branches:
+      - hardening/zero-gap-2026-09
+
+permissions:
+  contents: write
+
+jobs:
+  format:
+    if: github.ref == 'refs/heads/hardening/zero-gap-2026-09'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: true
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 22
+      - run: npm ci --no-audit --no-fund
+      - run: npx prettier --write app/api/analytics/event/route.ts app/api/customer-value/request/route.ts app/api/demand-intelligence/score/route.ts app/api/leads/route.ts lib/security/rate-limit.ts proxy.ts
+      - name: Commit formatted files
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if git diff --quiet; then exit 0; fi
+          git add app/api/analytics/event/route.ts app/api/customer-value/request/route.ts app/api/demand-intelligence/score/route.ts app/api/leads/route.ts lib/security/rate-limit.ts proxy.ts
+          git commit -m "style(web): normalize security hardening formatting"
+          git push origin HEAD:hardening/zero-gap-2026-09
