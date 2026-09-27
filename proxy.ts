@@ -30,8 +30,7 @@ export async function proxy(request: NextRequest) {
 
   const protectedRoute = protectedPrefixes.some(
     (prefix) =>
-      request.nextUrl.pathname === prefix ||
-      request.nextUrl.pathname.startsWith(`${prefix}/`),
+      request.nextUrl.pathname === prefix || request.nextUrl.pathname.startsWith(`${prefix}/`),
   );
 
   if (protectedRoute) {

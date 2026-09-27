@@ -16,7 +16,6 @@ function trustedOrigin(request: NextRequest) {
   return Boolean(origin && origin === request.nextUrl.origin);
 }
 
-
 function escapeHtml(value: string) {
   return value.replace(
     /[&<>"']/g,
@@ -30,7 +29,9 @@ export async function POST(request: NextRequest) {
   if (!trustedOrigin(request)) {
     return NextResponse.json({ error: "Cross-origin request denied" }, { status: 403 });
   }
-  if (!(await allowRequest(request, { namespace: "customer-value", requests: 5, window: "10 m" }))) {
+  if (
+    !(await allowRequest(request, { namespace: "customer-value", requests: 5, window: "10 m" }))
+  ) {
     return NextResponse.json({ error: "Too many requests" }, { status: 429 });
   }
   const contentType = request.headers.get("content-type") ?? "";

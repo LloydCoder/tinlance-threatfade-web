@@ -15,8 +15,6 @@ const leadSchema = z.object({
 const MAX_BODY_BYTES = 8_000;
 const buckets = new Map<string, { count: number; resetAt: number }>();
 
-
-
 function trustedOrigin(request: NextRequest) {
   const origin = request.headers.get("origin");
   if (!origin) return true;

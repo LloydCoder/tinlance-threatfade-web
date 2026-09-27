@@ -19,8 +19,6 @@ function requestOriginIsTrusted(request: NextRequest) {
   }
 }
 
-
-
 export async function POST(request: NextRequest) {
   if (!request.headers.get("content-type")?.includes("application/json"))
     return NextResponse.json({ error: "Unsupported content type" }, { status: 415 });
