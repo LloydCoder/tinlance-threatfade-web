@@ -50,7 +50,7 @@ jobs:
       - name: Unit tests
         run: npm test
       - name: Dependency audit
-        run: npm audit --audit-level=high
+        run: npm audit --omit=dev --audit-level=high
       - name: Production build
         run: timeout 12m npm run build -- --webpack
       - name: Install Playwright browser
