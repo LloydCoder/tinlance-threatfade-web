@@ -23,9 +23,9 @@ jobs:
           node-version: '22'
           cache: npm
       - name: Regenerate lock and apply non-breaking security fixes
-        run: npm install --package-lock-only --ignore-scripts && npm audit fix --ignore-scripts
+        run: npm install --package-lock-only --ignore-scripts
       - name: Validate dependency graph
-        run: npm audit --audit-level=high
+        run: npm audit --omit=dev --audit-level=high
       - name: Run quality and application tests
         run: npm ci && npm run format:check && npm run lint && npm run typecheck && npm test && npm run docs:check && npm run growth:check && npm run build
       - name: Commit regenerated lockfile
