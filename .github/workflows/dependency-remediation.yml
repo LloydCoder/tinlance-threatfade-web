@@ -1,0 +1,43 @@
+name: Dependency Remediation
+on:
+  push:
+    branches:
+      - security/patch-threatfade-web-dependencies
+permissions:
+  contents: write
+concurrency:
+  group: dependency-remediation-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  repair-and-verify:
+    if: ${{ !contains(github.event.head_commit.message, '[deps:bot]') }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: true
+          ref: ${{ github.ref_name }}
+      - name: Setup Node
+        uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38
+        with:
+          node-version: "22"
+          cache: npm
+      - name: Regenerate lockfile
+        run: npm install --package-lock-only --ignore-scripts
+      - name: Audit production dependencies
+        run: npm audit --omit=dev --audit-level=high
+      - name: Run quality and application tests
+        run: >-
+          npm ci && npm run format:check && npm run lint && npm run typecheck &&
+          npm test && npm run docs:check && npm run growth:check && npm run build
+      - name: Commit regenerated lockfile
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if ! git diff --quiet -- package.json package-lock.json; then
+            git add package.json package-lock.json
+            git commit -m "security: patch audited dependency tree [deps:bot]"
+            git push origin HEAD:${GITHUB_REF_NAME}
+          fi
