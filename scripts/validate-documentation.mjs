@@ -8,6 +8,7 @@ const requiredFiles = [
   "CONTRIBUTING.md",
   "docs/architecture.md",
   "docs/engine-api-integration.md",
+  "docs/ENGINE_WEB_COMPATIBILITY.md",
   "docs/PHASE-5-DOCUMENTATION.md",
   "docs/security/phase10-hardening.md",
   "docs/release/phase11-launch-gate.md",
@@ -34,6 +35,15 @@ const gate = exists("docs/release/phase11-launch-gate.md")
 const phase12 = exists("docs/release/phase12-soc-productization.md")
   ? read("docs/release/phase12-soc-productization.md")
   : "";
+const engineApiIntegration = exists("docs/engine-api-integration.md")
+  ? read("docs/engine-api-integration.md")
+  : "";
+const engineWebCompatibility = exists("docs/ENGINE_WEB_COMPATIBILITY.md")
+  ? read("docs/ENGINE_WEB_COMPATIBILITY.md")
+  : "";
+const engineTruth = exists("content/engine-truth.json")
+  ? JSON.parse(read("content/engine-truth.json"))
+  : null;
 
 const engineUrl = "https://github.com/LloydCoder/tinlance-threatfade";
 const webUrl = "https://github.com/LloydCoder/tinlance-threatfade-web";
@@ -49,6 +59,15 @@ for (const [name, content] of [
   }
   if (!content.includes(webUrl)) {
     errors.push(`${name} must identify the web repository boundary.`);
+  }
+}
+
+if (engineTruth?.version) {
+  if (!engineApiIntegration.includes(`**v${engineTruth.version}**`)) {
+    errors.push("docs/engine-api-integration.md must match the canonical engine version in content/engine-truth.json.");
+  }
+  if (!engineWebCompatibility.includes(`**${engineTruth.version}**`)) {
+    errors.push("docs/ENGINE_WEB_COMPATIBILITY.md must match the canonical engine version in content/engine-truth.json.");
   }
 }
 
