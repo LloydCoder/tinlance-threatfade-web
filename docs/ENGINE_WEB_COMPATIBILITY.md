@@ -1,7 +1,7 @@
 # ThreatFade Engine ↔ Web Compatibility
 
-**Web baseline:** `0.9.0-dev`  
-**Engine runtime/API baseline verified in `config.yaml`:** `0.7.0`
+**Web package version:** `0.1.0` (from `package.json`; independent of engine API compatibility)  
+**Engine runtime/API version:** `0.9.0-dev` (from engine `config.yaml` and `docs/public-truth.json`)
 
 This document is the compatibility boundary for the current ThreatFade web integration. It records the engine routes that the web application currently forwards and the authentication/tenant context required by those routes.
 
