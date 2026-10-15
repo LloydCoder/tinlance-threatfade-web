@@ -4,7 +4,7 @@ The web repository treats `LloydCoder/tinlance-threatfade` as the source of trut
 
 ## Verified engine baseline
 
-The current engine baseline used for this integration is **v0.4.0**. The engine documents `/health`, `/ready` and `/version`, plus authenticated detection operations including `/detect`, `/detect/pcap`, `/detect/scenario` and `/detections`.
+The current engine runtime/API baseline used for this integration is **v0.9.0-dev**, as declared in the engine repository's `config.yaml` and canonical `docs/public-truth.json`. The web package version is independent and must not be used as an engine API version. The engine documents `/health`, `/ready` and `/version`, plus authenticated detection operations including `/detect`, `/detect/pcap`, `/detect/scenario` and `/detections`.
 
 The documented detection model includes detection state, confidence, score, entropy, drop ratio, z-outlier, fade start, matched-rule count, ATT&CK identifier and structured evidence, with optional ML fields.
 
