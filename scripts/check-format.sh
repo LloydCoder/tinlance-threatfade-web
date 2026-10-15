@@ -16,6 +16,14 @@ if [[ -n "$event_path" && -f "$event_path" ]]; then
     if ! git cat-file -e "$base_sha^{commit}" 2>/dev/null; then
       git fetch --no-tags --depth=1 origin "$base_sha" >/dev/null 2>&1 || true
     fi
+    # Some shallow PR checkouts cannot fetch the event's base SHA directly.
+    # Fetch the base branch as a fallback so we check changed files, not unrelated legacy debt.
+    if ! git cat-file -e "$base_sha^{commit}" 2>/dev/null; then
+      git fetch --no-tags --depth=1 origin main >/dev/null 2>&1 || true
+      if git rev-parse --verify origin/main >/dev/null 2>&1; then
+        base_sha="$(git rev-parse origin/main)"
+      fi
+    fi
     if git cat-file -e "$base_sha^{commit}" 2>/dev/null; then
       mapfile -t files < <(git diff --name-only --diff-filter=ACMR "$base_sha" HEAD)
     fi
