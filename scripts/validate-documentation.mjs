@@ -64,10 +64,14 @@ for (const [name, content] of [
 
 if (engineTruth?.version) {
   if (!engineApiIntegration.includes(`v${engineTruth.version}`)) {
-    errors.push("docs/engine-api-integration.md must match the canonical engine version in content/engine-truth.json.");
+    errors.push(
+      "docs/engine-api-integration.md must match the canonical engine version in content/engine-truth.json.",
+    );
   }
   if (!engineWebCompatibility.includes(engineTruth.version)) {
-    errors.push("docs/ENGINE_WEB_COMPATIBILITY.md must match the canonical engine version in content/engine-truth.json.");
+    errors.push(
+      "docs/ENGINE_WEB_COMPATIBILITY.md must match the canonical engine version in content/engine-truth.json.",
+    );
   }
 }
 
