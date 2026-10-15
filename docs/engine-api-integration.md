@@ -4,7 +4,7 @@ The web repository treats `LloydCoder/tinlance-threatfade` as the source of trut
 
 ## Verified engine baseline
 
-The current engine baseline used for this integration is **v0.4.0**. The engine documents `/health`, `/ready` and `/version`, plus authenticated detection operations including `/detect`, `/detect/pcap`, `/detect/scenario` and `/detections`.
+The current engine runtime/API baseline used for this integration is **v0.9.0-dev**, as declared in the engine repository's `config.yaml` and canonical `docs/public-truth.json`. The web package version is independent and must not be used as an engine API version. The engine documents `/health`, `/ready` and `/version`, plus authenticated detection operations including `/detect`, `/detect/pcap`, `/detect/scenario` and `/detections`.
 
 The documented detection model includes detection state, confidence, score, entropy, drop ratio, z-outlier, fade start, matched-rule count, ATT&CK identifier and structured evidence, with optional ML fields.
 
@@ -47,7 +47,7 @@ The SOC proxy adds an exact path allowlist, numeric detection-ID validation, bou
 
 Production detection and analyst operations require the engine's documented identity and authorization controls. The website does **not** store or expose engine credentials in browser code.
 
-For SOC requests, the browser sends the authenticated consumer bearer token to the same-origin web server. The server forwards it to the engine. The web server never treats a browser-supplied tenant header as authoritative. The engine authenticates the principal, checks the required permission and derives tenant scope before reading or mutating resources.
+For SOC requests, the browser sends the authenticated consumer bearer token to the same-origin web server. The server forwards it to the engine. The web server never treats a browser-supplied tenant header as authoritative. The engine authenticates the principal, checks the required permission and derives tenant scope before reading or mutating resources. The web BFF forwards the opaque ThreatFade session token alongside the OIDC access token. At the current engine baseline, session revocation is enforced when the session header is supplied, but the analyst API still accepts OIDC bearer-only requests; production must not rely on the session token as a universal revocation control until the engine enforces that requirement server-side.
 
 Authenticated analyst reads require the engine's existing case-read permission; workflow, disposition and case mutations require the existing case-write permission. A detection ID alone is never proof of access.
 

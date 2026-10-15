@@ -1,7 +1,7 @@
 # ThreatFade Engine ↔ Web Compatibility
 
-**Web baseline:** `0.9.0-dev`  
-**Engine runtime/API baseline verified in `config.yaml`:** `0.7.0`
+**Web package version:** `0.1.0` (from `package.json`; independent of engine API compatibility)  
+**Engine runtime/API version:** `0.9.0-dev` (from engine `config.yaml` and `docs/public-truth.json`)
 
 This document is the compatibility boundary for the current ThreatFade web integration. It records the engine routes that the web application currently forwards and the authentication/tenant context required by those routes.
 
@@ -47,7 +47,7 @@ Verified operations:
 - `GET /detections/{detection_id}/entities`
 - `GET /detections/{detection_id}/sessions`
 
-The engine remains the authoritative tenant/RBAC boundary and requires `X-ThreatFade-Session` plus the authenticated bearer token.
+The web BFF forwards both the authenticated bearer token and `X-ThreatFade-Session`. The engine validates the opaque session when that header is supplied; at this baseline, analyst endpoints also accept a valid OIDC bearer token without the session header. Enforcing revocable ThreatFade sessions on every web-facing analyst request is therefore a separate engine security gate, not a guarantee of this contract document.
 
 ## Evidence boundary
 
