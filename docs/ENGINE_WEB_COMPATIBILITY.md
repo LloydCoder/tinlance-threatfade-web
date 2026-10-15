@@ -47,7 +47,7 @@ Verified operations:
 - `GET /detections/{detection_id}/entities`
 - `GET /detections/{detection_id}/sessions`
 
-The engine remains the authoritative tenant/RBAC boundary and requires `X-ThreatFade-Session` plus the authenticated bearer token.
+The web BFF forwards both the authenticated bearer token and `X-ThreatFade-Session`. The engine validates the opaque session when that header is supplied; at this baseline, analyst endpoints also accept a valid OIDC bearer token without the session header. Enforcing revocable ThreatFade sessions on every web-facing analyst request is therefore a separate engine security gate, not a guarantee of this contract document.
 
 ## Evidence boundary
 
