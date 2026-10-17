@@ -2,9 +2,9 @@
 title: "API"
 description: "Reference the documented ThreatFade service boundary and operational endpoints."
 category: "Developer"
-version: "v0.4.0"
+version: "v0.9.0-dev"
 status: "implemented"
-updated: "2026-08-23"
+updated: "2026-10-17"
 ---
 
 # API
@@ -33,7 +33,7 @@ Readiness exposes operational readiness information, including configured SLO ta
 curl http://localhost:8080/version
 ```
 
-Use this endpoint to identify the running application version.
+Use this endpoint to identify the actual running application version. Compare it with the source version documented in the repository; a successful health check does not prove the deployment is on the latest source revision.
 
 ## Authentication boundary
 
