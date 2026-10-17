@@ -72,4 +72,17 @@ if (local.engineRepository !== "https://github.com/LloydCoder/tinlance-threatfad
   throw new Error("ThreatFade engine repository reference is invalid");
 }
 
-console.log(`ThreatFade truth synchronized: v${canonical.version}`);
+const docsDir = path.join(root, "content", "docs");
+const docFiles = (await fs.readdir(docsDir)).filter((file) => file.endsWith(".mdx"));
+for (const file of docFiles) {
+  const document = await fs.readFile(path.join(docsDir, file), "utf8");
+  const match = document.match(/^version:\s*["']([^"']+)["']\s*$/m);
+  const expectedVersion = `v${canonical.version}`;
+  if (!match || match[1] !== expectedVersion) {
+    throw new Error(
+      `ThreatFade documentation version drift in content/docs/${file}: expected ${expectedVersion}`,
+    );
+  }
+}
+
+console.log(`ThreatFade truth and documentation synchronized: v${canonical.version}`);

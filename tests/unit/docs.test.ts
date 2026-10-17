@@ -1,9 +1,10 @@
 import { describe, expect, it } from "vitest";
 import { docsSections, docsVersion, getDocNavigation } from "@/config/docs";
+import engineTruth from "@/content/engine-truth.json";
 
 describe("documentation platform", () => {
   it("has the complete documented section set", () => {
-    expect(docsVersion).toBe("v0.4.0");
+    expect(docsVersion).toBe(`v${engineTruth.version}`);
     expect(docsSections.map((section) => section.slug)).toEqual([
       "getting-started",
       "installation",

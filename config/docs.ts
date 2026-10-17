@@ -1,4 +1,6 @@
-export const docsVersion = "v0.4.0";
+import engineTruth from "@/content/engine-truth.json";
+
+export const docsVersion = `v${engineTruth.version}`;
 
 export type DocSection = { slug: string; title: string; description: string };
 

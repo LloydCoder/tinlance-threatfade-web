@@ -2,9 +2,9 @@
 title: "Getting started"
 description: "Understand ThreatFade's evidence-first workflow and run the reference implementation locally."
 category: "Foundation"
-version: "v0.4.0"
+version: "v0.9.0-dev"
 status: "implemented"
-updated: "2026-08-23"
+updated: "2026-10-17"
 ---
 
 # Getting started
@@ -12,8 +12,10 @@ updated: "2026-08-23"
 ThreatFade is an evidence-first detection and investigation platform for situations where adversarial activity becomes less observable on purpose. The current engine documents C2 quieting, gradual living-off-the-land activity reduction and GNSS interference as supported fade scenarios.
 
 <Callout title="Documentation scope">
-  This documentation tracks the v0.4.0 engine repository. Repository validation is not represented
-  as independent assurance or a universal detection guarantee.
+  This documentation tracks the current engine source contract (`0.9.0-dev`); it does not guarantee
+  that a deployed API is running that revision. Check the running service's `/version` endpoint
+  before integrating. Repository validation is not independent assurance or a universal detection
+  guarantee.
 </Callout>
 
 ## The operational loop
