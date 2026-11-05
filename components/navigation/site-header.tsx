@@ -3,8 +3,63 @@ import { ArrowUpRight, Menu } from "lucide-react";
 import { siteConfig } from "@/config/site";
 
 export function SiteHeader() {
-  return <header className="sticky top-0 z-50 border-b border-[var(--tf-line)] bg-[color-mix(in_srgb,var(--tf-canvas)_88%,transparent)] backdrop-blur-xl"><div className="mx-auto flex min-h-16 max-w-7xl items-center justify-between gap-4 px-5 lg:px-8"><Link href="/" className="group flex shrink-0 items-center gap-3" aria-label="ThreatFade home"><span className="flex size-8 items-center justify-center rounded-md border border-[color-mix(in_srgb,var(--tf-signal)_35%,transparent)] bg-[var(--tf-signal-soft)] font-mono text-sm font-bold text-[var(--tf-signal)] transition group-hover:border-[var(--tf-signal)]">TF</span><span className="font-mono text-sm font-semibold tracking-tight">THREATFADE</span></Link>
-    <nav className="hidden items-center gap-5 xl:flex" aria-label="Primary navigation">{siteConfig.navigation.map((item) => <Link key={item.href} href={item.href} className="text-xs text-[var(--tf-text-muted)] transition hover:text-[var(--tf-text)]">{item.label}</Link>)}</nav>
-    <div className="flex items-center gap-2"><a href={siteConfig.github} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1.5 rounded-md border border-[var(--tf-line-strong)] px-3.5 py-2 text-xs font-medium transition hover:border-[color-mix(in_srgb,var(--tf-signal)_45%,transparent)] hover:text-[var(--tf-signal)]">GitHub <ArrowUpRight className="size-3.5" /></a><details className="relative xl:hidden"><summary className="flex size-9 cursor-pointer list-none items-center justify-center rounded-md border border-[var(--tf-line)] text-[var(--tf-text-muted)]" aria-label="Open navigation"><Menu className="size-4" /></summary><nav className="absolute right-0 top-12 z-50 grid w-64 gap-1 rounded-xl border border-[var(--tf-line)] bg-[var(--tf-panel-raised)] p-2 shadow-2xl" aria-label="Mobile navigation">{siteConfig.navigation.map((item) => <Link key={item.href} href={item.href} className="rounded-md px-3 py-2.5 text-sm text-[var(--tf-text-muted)] hover:bg-[var(--tf-panel)] hover:text-[var(--tf-text)]">{item.label}</Link>)}</nav></details></div>
-  </div></header>;
+  return (
+    <header className="sticky top-0 z-50 border-b border-[var(--tf-line)] bg-[color-mix(in_srgb,var(--tf-canvas)_88%,transparent)] backdrop-blur-xl">
+      <div className="mx-auto flex min-h-16 max-w-7xl items-center justify-between gap-4 px-5 lg:px-8">
+        <Link
+          href="/"
+          className="group flex shrink-0 items-center gap-3"
+          aria-label="ThreatFade home"
+        >
+          <span className="flex size-8 items-center justify-center rounded-md border border-[color-mix(in_srgb,var(--tf-signal)_35%,transparent)] bg-[var(--tf-signal-soft)] font-mono text-sm font-bold text-[var(--tf-signal)] transition group-hover:border-[var(--tf-signal)]">
+            TF
+          </span>
+          <span className="font-mono text-sm font-semibold tracking-tight">THREATFADE</span>
+        </Link>
+        <nav className="hidden items-center gap-5 xl:flex" aria-label="Primary navigation">
+          {siteConfig.navigation.map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              className="text-xs text-[var(--tf-text-muted)] transition hover:text-[var(--tf-text)]"
+            >
+              {item.label}
+            </Link>
+          ))}
+        </nav>
+        <div className="flex items-center gap-2">
+          <a
+            href={siteConfig.github}
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex items-center gap-1.5 rounded-md border border-[var(--tf-line-strong)] px-3.5 py-2 text-xs font-medium transition hover:border-[color-mix(in_srgb,var(--tf-signal)_45%,transparent)] hover:text-[var(--tf-signal)]"
+          >
+            GitHub <ArrowUpRight className="size-3.5" />
+          </a>
+          <details className="relative xl:hidden">
+            <summary
+              className="flex size-9 cursor-pointer list-none items-center justify-center rounded-md border border-[var(--tf-line)] text-[var(--tf-text-muted)]"
+              aria-label="Open navigation"
+            >
+              <Menu className="size-4" />
+            </summary>
+            <nav
+              className="absolute right-0 top-12 z-50 grid w-64 gap-1 rounded-xl border border-[var(--tf-line)] bg-[var(--tf-panel-raised)] p-2 shadow-2xl"
+              aria-label="Mobile navigation"
+            >
+              {siteConfig.navigation.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className="rounded-md px-3 py-2.5 text-sm text-[var(--tf-text-muted)] hover:bg-[var(--tf-panel)] hover:text-[var(--tf-text)]"
+                >
+                  {item.label}
+                </Link>
+              ))}
+            </nav>
+          </details>
+        </div>
+      </div>
+    </header>
+  );
 }

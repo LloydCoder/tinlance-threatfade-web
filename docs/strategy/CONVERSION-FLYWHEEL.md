@@ -46,14 +46,14 @@ Recommended activation sequence:
 
 ## 4. Persona conversion paths
 
-| Persona | Primary proof | Next action | Commercial direction |
-|---|---|---|---|
-| Developer | Runnable OSS + docs | GitHub / install | Pro / Team |
-| Threat hunter | Detection + evidence | Playground / engine | Pro / Team |
-| Researcher | Reproducible experiment | Research / GitHub | Research partnership |
-| SOC analyst | Investigation workflow | Assessment / pilot | Enterprise |
-| Security leader | Risk + evidence + deployment model | Assessment / contact | Enterprise / Managed |
-| MSSP / security consultancy | Detection capability + integration | Partner/evaluation | Team / Enterprise / OEM-style discussion |
+| Persona                     | Primary proof                      | Next action          | Commercial direction                     |
+| --------------------------- | ---------------------------------- | -------------------- | ---------------------------------------- |
+| Developer                   | Runnable OSS + docs                | GitHub / install     | Pro / Team                               |
+| Threat hunter               | Detection + evidence               | Playground / engine  | Pro / Team                               |
+| Researcher                  | Reproducible experiment            | Research / GitHub    | Research partnership                     |
+| SOC analyst                 | Investigation workflow             | Assessment / pilot   | Enterprise                               |
+| Security leader             | Risk + evidence + deployment model | Assessment / contact | Enterprise / Managed                     |
+| MSSP / security consultancy | Detection capability + integration | Partner/evaluation   | Team / Enterprise / OEM-style discussion |
 
 ## 5. Website conversion architecture
 

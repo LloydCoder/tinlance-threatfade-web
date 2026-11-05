@@ -2,7 +2,7 @@
 
 **Status:** Strategic baseline  
 **Date:** 2026-08-25  
-**Scope:** Open-core adoption, community feedback, detection packs, engineering, releases, and product improvement  
+**Scope:** Open-core adoption, community feedback, detection packs, engineering, releases, and product improvement
 
 ## Purpose
 

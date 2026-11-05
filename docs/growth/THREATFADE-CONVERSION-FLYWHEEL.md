@@ -130,15 +130,15 @@ Customer outcomes become anonymized evidence, benchmarks, research questions, de
 
 ## 6. Conversion paths by persona
 
-| Persona | First conversion | Deeper conversion |
-|---|---|---|
-| Security researcher | Research → Playground → GitHub | Research partnership |
-| Detection engineer | Detection → Docs → Install | Team / Enterprise |
-| SOC analyst | Evidence → Investigation workflow | Team / Enterprise |
-| Security leader | Problem → Evidence → Assessment | Pilot → Enterprise |
-| MSSP / consultancy | OSS → Detection pack → Evaluation | Enterprise / Managed |
-| Academic / lab | Research → Reproducibility | Research partnership |
-| Developer | GitHub → First detection | Pro / Team |
+| Persona             | First conversion                  | Deeper conversion    |
+| ------------------- | --------------------------------- | -------------------- |
+| Security researcher | Research → Playground → GitHub    | Research partnership |
+| Detection engineer  | Detection → Docs → Install        | Team / Enterprise    |
+| SOC analyst         | Evidence → Investigation workflow | Team / Enterprise    |
+| Security leader     | Problem → Evidence → Assessment   | Pilot → Enterprise   |
+| MSSP / consultancy  | OSS → Detection pack → Evaluation | Enterprise / Managed |
+| Academic / lab      | Research → Reproducibility        | Research partnership |
+| Developer           | GitHub → First detection          | Pro / Team           |
 
 ## 7. CTA architecture
 
