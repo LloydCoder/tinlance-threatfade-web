@@ -34,10 +34,7 @@ test.describe("Phase 15 conversion engine", () => {
       .toBe(true);
 
     const ctaEventRequest = page.waitForRequest((request) => {
-      if (
-        request.method() !== "POST" ||
-        !request.url().endsWith("/api/analytics/event")
-      ) {
+      if (request.method() !== "POST" || !request.url().endsWith("/api/analytics/event")) {
         return false;
       }
       try {
