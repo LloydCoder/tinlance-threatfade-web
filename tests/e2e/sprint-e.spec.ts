@@ -53,8 +53,10 @@ test.describe("Sprint E public product surface", () => {
 
   test("keyboard focus remains visible on primary navigation", async ({ page }) => {
     await page.goto("/");
+    await page.locator("body").click({ position: { x: 1, y: 1 } });
     await page.keyboard.press("Tab");
-    const focused = page.locator(":focus");
+    const focused = page.getByRole("link", { name: "ThreatFade home" });
+    await expect(focused).toBeFocused();
     await expect(focused).toBeVisible();
     const outline = await focused.evaluate((el) => getComputedStyle(el).outlineStyle);
     expect(outline).not.toBe("none");
