@@ -1,7 +1,11 @@
 import Link from "next/link";
 import { ArrowRight, GitBranch, ShieldCheck } from "lucide-react";
 import { BehavioralLab } from "@/components/marketing/behavioral-lab";
-import { AudienceCards, DetectionPipeline, TrustBoundary } from "@/components/marketing/core-experience";
+import {
+  AudienceCards,
+  DetectionPipeline,
+  TrustBoundary,
+} from "@/components/marketing/core-experience";
 import { SiteHeader } from "@/components/navigation/site-header";
 import { TfBadge, TfLabel } from "@/components/ui/tf-primitives";
 import { siteConfig } from "@/config/site";
@@ -134,8 +138,8 @@ export default function Home() {
                 Inspect it. Run it. Challenge it.
               </h2>
               <p className="mt-3 max-w-2xl text-sm leading-7 text-[var(--tf-text-muted)]">
-                The engine repository contains the detection engine, API, analyst console, validation
-                framework and interoperability layer.
+                The engine repository contains the detection engine, API, analyst console,
+                validation framework and interoperability layer.
               </p>
             </div>
             <a

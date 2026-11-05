@@ -1,13 +1,14 @@
 import { z } from "zod";
 
-export const engineBaseUrlSchema = z.string().url().refine((value) => {
-  const url = new URL(value);
-  return (
-    url.protocol === "https:" ||
-    url.hostname === "localhost" ||
-    url.hostname === "127.0.0.1"
-  );
-}, "ThreatFade API URL must use HTTPS outside local development");
+export const engineBaseUrlSchema = z
+  .string()
+  .url()
+  .refine((value) => {
+    const url = new URL(value);
+    return (
+      url.protocol === "https:" || url.hostname === "localhost" || url.hostname === "127.0.0.1"
+    );
+  }, "ThreatFade API URL must use HTTPS outside local development");
 
 export const scenarioSchema = z.enum([
   "c2_quieting",

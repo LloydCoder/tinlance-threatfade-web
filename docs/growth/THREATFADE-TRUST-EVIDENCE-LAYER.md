@@ -2,7 +2,7 @@
 
 **Status:** Strategic baseline  
 **Date:** 2026-08-25  
-**Scope:** Research claims, detection evidence, security posture, reproducibility, transparency, and enterprise trust  
+**Scope:** Research claims, detection evidence, security posture, reproducibility, transparency, and enterprise trust
 
 ## Purpose
 

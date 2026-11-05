@@ -185,16 +185,16 @@ The canonical asset should always lead users to a concrete next action: research
 
 ## 8. Content-to-conversion mapping
 
-| Content type | Primary CTA |
-|---|---|
-| Beginner explainer | Explore detection |
-| Technical research | Reproduce experiment |
-| Detection engineering | GitHub / detection pack |
-| Benchmark | Compare / reproduce |
-| SOC workflow | Run playground / assessment |
-| Security architecture | Enterprise evaluation |
-| Customer case study | Assessment / contact |
-| Release note | Upgrade / GitHub |
+| Content type          | Primary CTA                 |
+| --------------------- | --------------------------- |
+| Beginner explainer    | Explore detection           |
+| Technical research    | Reproduce experiment        |
+| Detection engineering | GitHub / detection pack     |
+| Benchmark             | Compare / reproduce         |
+| SOC workflow          | Run playground / assessment |
+| Security architecture | Enterprise evaluation       |
+| Customer case study   | Assessment / contact        |
+| Release note          | Upgrade / GitHub            |
 
 ## 9. Evidence rules
 

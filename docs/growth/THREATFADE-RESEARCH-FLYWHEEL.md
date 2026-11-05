@@ -2,7 +2,7 @@
 
 **Status:** Strategic baseline  
 **Date:** 2026-08-25  
-**Scope:** Detection science, experiments, benchmarks, publications, and research-to-product feedback  
+**Scope:** Detection science, experiments, benchmarks, publications, and research-to-product feedback
 
 ## Purpose
 

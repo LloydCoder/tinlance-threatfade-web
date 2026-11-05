@@ -2,7 +2,7 @@
 
 **Status:** Strategic baseline  
 **Date:** 2026-08-25  
-**Scope:** TADS/FadeReach, reverse job posting, account signals, ICP prioritization, and outbound demand generation  
+**Scope:** TADS/FadeReach, reverse job posting, account signals, ICP prioritization, and outbound demand generation
 
 ## Purpose
 
@@ -110,15 +110,15 @@ Use a composite score rather than one signal.
 
 Initial planning weights:
 
-| Signal | Weight |
-|---|---:|
-| Security leadership change | 20% |
-| Security hiring surge | 20% |
-| Relevant technology change | 15% |
-| Security/compliance initiative | 15% |
-| Credible threat/security signal | 15% |
-| Growth/funding/expansion | 10% |
-| Individual relevant job description | 5% |
+| Signal                              | Weight |
+| ----------------------------------- | -----: |
+| Security leadership change          |    20% |
+| Security hiring surge               |    20% |
+| Relevant technology change          |    15% |
+| Security/compliance initiative      |    15% |
+| Credible threat/security signal     |    15% |
+| Growth/funding/expansion            |    10% |
+| Individual relevant job description |     5% |
 
 These weights are hypotheses. Replace them with observed conversion data once sufficient history exists.
 

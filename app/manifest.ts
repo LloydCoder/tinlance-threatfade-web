@@ -4,7 +4,8 @@ export default function manifest(): MetadataRoute.Manifest {
   return {
     name: "ThreatFade",
     short_name: "ThreatFade",
-    description: "Evidence-first detection and investigation for adversarial activity that becomes less observable.",
+    description:
+      "Evidence-first detection and investigation for adversarial activity that becomes less observable.",
     start_url: "/",
     display: "standalone",
     background_color: "#050608",

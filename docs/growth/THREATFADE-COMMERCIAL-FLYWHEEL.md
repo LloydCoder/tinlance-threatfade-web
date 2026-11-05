@@ -29,17 +29,17 @@ These are reference points, not direct price equivalents. ThreatFade should pric
 
 ## 4. Recommended value ladder
 
-| Level | Offer | Recommended standard price | Primary buyer |
-|---|---|---:|---|
-| 0 | ThreatFade Community / Open Core | **$0** | Researchers, developers, hunters |
-| 1 | ThreatFade Pro | **$49/month** or **$490/year** | Individual practitioners |
-| 2 | ThreatFade Team | **$299/month** or **$2,990/year** | Small security teams |
-| 3 | Detection Gap Assessment | **$5,000+ one-time** | Security teams / leaders |
-| 4 | Paid Pilot | **$7,500–$15,000** | Qualified organizations |
-| 5 | ThreatFade Enterprise | **$25,000+/year** | Mid-market / enterprise |
-| 6 | ThreatFade Managed | **$3,500–$15,000+/month** | Organizations buying operation/expertise |
-| 7 | Custom Detection Engineering | **$5,000–$25,000+** | Enterprise / MSSP |
-| 8 | Research Partnership | **$25,000–$150,000+** | Enterprises, labs, institutions |
+| Level | Offer                            |        Recommended standard price | Primary buyer                            |
+| ----- | -------------------------------- | --------------------------------: | ---------------------------------------- |
+| 0     | ThreatFade Community / Open Core |                            **$0** | Researchers, developers, hunters         |
+| 1     | ThreatFade Pro                   |    **$49/month** or **$490/year** | Individual practitioners                 |
+| 2     | ThreatFade Team                  | **$299/month** or **$2,990/year** | Small security teams                     |
+| 3     | Detection Gap Assessment         |              **$5,000+ one-time** | Security teams / leaders                 |
+| 4     | Paid Pilot                       |                **$7,500–$15,000** | Qualified organizations                  |
+| 5     | ThreatFade Enterprise            |                 **$25,000+/year** | Mid-market / enterprise                  |
+| 6     | ThreatFade Managed               |         **$3,500–$15,000+/month** | Organizations buying operation/expertise |
+| 7     | Custom Detection Engineering     |               **$5,000–$25,000+** | Enterprise / MSSP                        |
+| 8     | Research Partnership             |             **$25,000–$150,000+** | Enterprises, labs, institutions          |
 
 Prices are planning standards, not contractual commitments. Final quotes should reflect scope, deployment, usage, support, integration complexity, and customer requirements.
 

@@ -27,17 +27,17 @@ The commercial flywheel then feeds customer evidence back into research and the 
 
 Pricing is a strategic starting point, not a permanent promise. Validate willingness-to-pay with real customer conversations and revise only from evidence.
 
-| Offer | Recommended starting price | Role |
-|---|---:|---|
-| ThreatFade Community | **$0** | OSS acquisition / trust |
-| ThreatFade Pro | **$49/month** or $490/year | Individual professional commitment |
-| ThreatFade Team | **$299/month** or $2,990/year | Small team / recurring SaaS |
-| Detection Gap Assessment | **$5,000+** | High-intent enterprise wedge |
-| Paid Pilot | **$7,500–$15,000** | Validated deployment |
-| ThreatFade Enterprise | **$25,000+/year** | Core enterprise ARR |
-| ThreatFade Managed | **$3,500/month+** | Managed operational capability |
-| Custom Detection Engineering | **$5,000–$25,000+** | High-margin expansion |
-| Research Partnership | **$25,000–$150,000+** | Strategic R&D |
+| Offer                        |    Recommended starting price | Role                               |
+| ---------------------------- | ----------------------------: | ---------------------------------- |
+| ThreatFade Community         |                        **$0** | OSS acquisition / trust            |
+| ThreatFade Pro               |    **$49/month** or $490/year | Individual professional commitment |
+| ThreatFade Team              | **$299/month** or $2,990/year | Small team / recurring SaaS        |
+| Detection Gap Assessment     |                   **$5,000+** | High-intent enterprise wedge       |
+| Paid Pilot                   |            **$7,500–$15,000** | Validated deployment               |
+| ThreatFade Enterprise        |             **$25,000+/year** | Core enterprise ARR                |
+| ThreatFade Managed           |             **$3,500/month+** | Managed operational capability     |
+| Custom Detection Engineering |           **$5,000–$25,000+** | High-margin expansion              |
+| Research Partnership         |         **$25,000–$150,000+** | Strategic R&D                      |
 
 These figures should be quoted in USD initially for global clarity. EUR equivalents can be supplied for European procurement without changing the underlying value metric.
 

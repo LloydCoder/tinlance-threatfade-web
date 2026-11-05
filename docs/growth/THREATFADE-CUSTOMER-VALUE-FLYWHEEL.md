@@ -2,7 +2,7 @@
 
 **Status:** Strategic baseline  
 **Date:** 2026-08-25  
-**Scope:** Customer onboarding, time-to-value, adoption, expansion, advocacy, and retention  
+**Scope:** Customer onboarding, time-to-value, adoption, expansion, advocacy, and retention
 
 ## Purpose
 
