@@ -33,12 +33,25 @@ test.describe("Phase 15 conversion engine", () => {
       )
       .toBe(true);
 
-    await page.locator('[data-tf-event="cta_click"]').first().dispatchEvent("click");
-    await expect
-      .poll(() =>
-        events.some((event) => event.name === "cta_click" && event.path === "/assessment"),
-      )
-      .toBe(true);
+    const ctaEventRequest = page.waitForRequest((request) => {
+      if (request.method() !== "POST" || !request.url().endsWith("/api/analytics/event")) {
+        return false;
+      }
+      try {
+        const body = request.postDataJSON() as { name?: string; path?: string };
+        return body.name === "cta_click" && body.path === "/assessment";
+      } catch {
+        return false;
+      }
+    });
+    await page.getByRole("link", { name: "Request an assessment" }).click({
+      noWaitAfter: true,
+    });
+    const request = await ctaEventRequest;
+    expect(request.postDataJSON()).toMatchObject({
+      name: "cta_click",
+      path: "/assessment",
+    });
   });
 
   test("rejects malformed analytics payloads at the server boundary", async ({
