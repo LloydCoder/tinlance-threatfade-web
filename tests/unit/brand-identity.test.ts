@@ -18,9 +18,8 @@ describe("official ThreatFade brand identity", () => {
 
   it("renders the official mark instead of a retyped TF logo tile", () => {
     const header = readFileSync("components/navigation/site-header.tsx", "utf8");
-    expect(header).toContain("/brand/threatfade-horizontal-on-dark.svg");
-    expect(header).toContain('alt="ThreatFade"');
-    expect(header).not.toContain("/brand/threatfade-mark-on-dark.svg");
+    expect(header).toContain("/brand/threatfade-mark-on-dark.svg");
+    expect(header).toContain("/brand/threatfade-wordmark-on-dark.svg");
     expect(header).not.toMatch(/>\s*TF\s*</);
     expect(header).not.toContain("THREATFADE</span>");
   });
