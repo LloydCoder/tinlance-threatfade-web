@@ -7,7 +7,7 @@ This reference separates web-application environment variables from engine confi
 The following server-side variables are documented by the web application. A variable marked optional is only needed when the corresponding integration is enabled.
 
 | Variable | Required | Default / behavior | Exposure |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | `THREATFADE_API_URL` | For engine integration | No public production endpoint is assumed; configure the intended engine API origin | Server only |
 | `THREATFADE_API_TIMEOUT_MS` | No | Client-defined default; inspect `lib/api/client.ts` before overriding | Server only |
 | `THREATFADE_API_MAX_RETRIES` | No | Client-defined default; retries are bounded by the API client | Server only |
@@ -21,7 +21,7 @@ Authentication, OIDC and analytics providers have additional optional variables.
 The engine runs separately. The following variables are documented by the engine's configuration guide and must be configured in the engine deployment, not exposed to the browser:
 
 | Variable | Purpose | Notes |
-|---|---|---|
+| --- | --- | --- |
 | `THREATFADE_OIDC_ISSUER` | OIDC issuer | Required for the documented production OIDC boundary |
 | `THREATFADE_OIDC_AUDIENCE` | Expected token audience | Must match the API resource registration |
 | `THREATFADE_OIDC_JWKS_URL` | Optional JWKS endpoint | Issuer discovery is used when omitted, per engine documentation |
