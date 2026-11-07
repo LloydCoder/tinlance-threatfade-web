@@ -1,9 +1,6 @@
 import NextAuth, { type NextAuthOptions, type Profile } from "next-auth";
 import type { OAuthConfig } from "next-auth/providers/oauth";
-import {
-  createEngineIdentitySession,
-  engineIdentityRequest,
-} from "@/lib/auth-engine";
+import { createEngineIdentitySession, engineIdentityRequest } from "@/lib/auth-engine";
 import { safeCallbackUrl } from "@/lib/auth-security";
 
 interface ThreatFadeProfile extends Profile {
