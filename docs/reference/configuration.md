@@ -43,5 +43,5 @@ Engine roles documented in the engine configuration guide include `viewer`, `ana
 - [Web example environment](../../.env.example)
 - [Web API client](../../lib/api/client.ts)
 - [Web site configuration](../../config/site.ts)
-- [Engine configuration guide](https://github.com/LloydCoder/tinlance-threatfade/blob/main/docs/CONFIGURATION.md)
+- [Engine configuration guide](https://github.com/LloydCoder/tinlance-threatfade/blob/main/docs/reference/configuration.md)
 - [Engine repository](https://github.com/LloydCoder/tinlance-threatfade)
