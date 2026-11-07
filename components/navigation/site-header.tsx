@@ -6,15 +6,14 @@ export function SiteHeader() {
   return (
     <header className="sticky top-0 z-50 border-b border-[var(--tf-line)] bg-[color-mix(in_srgb,var(--tf-canvas)_88%,transparent)] backdrop-blur-xl">
       <div className="mx-auto flex min-h-16 max-w-7xl items-center justify-between gap-4 px-5 lg:px-8">
-        <Link
-          href="/"
-          className="group flex shrink-0 items-center gap-3"
-          aria-label="ThreatFade home"
-        >
-          <span className="flex size-8 items-center justify-center rounded-md border border-[color-mix(in_srgb,var(--tf-signal)_35%,transparent)] bg-[var(--tf-signal-soft)] font-mono text-sm font-bold text-[var(--tf-signal)] transition group-hover:border-[var(--tf-signal)]">
-            TF
-          </span>
-          <span className="font-mono text-sm font-semibold tracking-tight">THREATFADE</span>
+        <Link href="/" className="group flex shrink-0 items-center" aria-label="ThreatFade home">
+          <img
+            src="/brand/threatfade-mark-on-dark.svg"
+            alt="ThreatFade Signal Trace"
+            width="48"
+            height="34"
+            className="h-[34px] w-[50px] object-contain"
+          />
         </Link>
         <nav className="hidden items-center gap-5 xl:flex" aria-label="Primary navigation">
           {siteConfig.navigation.map((item) => (
