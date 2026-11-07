@@ -1,0 +1,52 @@
+name: Feature request
+description: Propose a user-facing improvement to ThreatFade Web.
+title: "[Feature]: "
+labels: ["enhancement", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Feature requests should describe a user need and remain within the web repository's responsibility. Detection-engine capabilities belong in the engine repository.
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem to solve
+      description: What user problem or workflow limitation exists?
+    validations:
+      required: true
+  - type: textarea
+    id: users
+    attributes:
+      label: Intended users and context
+      description: Who experiences this problem, and in what context?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+      description: Describe the desired behavior without prescribing unnecessary implementation details.
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+    validations:
+      required: false
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance criteria
+      description: List observable outcomes that would demonstrate completion.
+    validations:
+      required: true
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Confirmations
+      options:
+        - label: This request concerns the web repository rather than an unimplemented engine capability.
+          required: true
+        - label: I searched existing issues and discussions for duplicates.
+          required: true
