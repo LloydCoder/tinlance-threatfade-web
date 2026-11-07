@@ -5,7 +5,7 @@ This directory contains engineering, architecture, governance and operational do
 ## Start with the user journey
 
 | Need | Start here |
-|---|---|
+| --- | --- |
 | Understand the product | [Getting started](../content/docs/getting-started.mdx) |
 | Install the engine locally | [Installation](../content/docs/installation.mdx) |
 | Configure identity and persistence | [Configuration](../content/docs/configuration.mdx) |
