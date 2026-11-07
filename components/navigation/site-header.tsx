@@ -7,13 +7,22 @@ export function SiteHeader() {
     <header className="sticky top-0 z-50 border-b border-[var(--tf-line)] bg-[color-mix(in_srgb,var(--tf-canvas)_88%,transparent)] backdrop-blur-xl">
       <div className="mx-auto flex min-h-16 max-w-7xl items-center justify-between gap-4 px-5 lg:px-8">
         <Link href="/" className="group flex shrink-0 items-center" aria-label="ThreatFade home">
-          <img
-            src="/brand/threatfade-horizontal-on-dark.svg"
-            alt="ThreatFade"
-            width="180"
-            height="36"
-            className="h-auto max-h-9 w-[clamp(112px,34vw,180px)] object-contain object-left"
-          />
+          <span className="flex shrink-0 items-center gap-2" aria-hidden="true">
+            <img
+              src="/brand/threatfade-mark-on-dark.svg"
+              alt=""
+              width="50"
+              height="34"
+              className="h-[34px] w-[clamp(38px,12vw,50px)] object-contain"
+            />
+            <img
+              src="/brand/threatfade-wordmark-on-dark.svg"
+              alt=""
+              width="126"
+              height="22"
+              className="h-auto w-[clamp(82px,25vw,126px)] object-contain"
+            />
+          </span>
         </Link>
         <nav className="hidden items-center gap-5 xl:flex" aria-label="Primary navigation">
           {siteConfig.navigation.map((item) => (
