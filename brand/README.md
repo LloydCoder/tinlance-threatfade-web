@@ -20,7 +20,7 @@ provided mark/wordmark variants on their approved surfaces and preserve clear sp
 ## Implementation
 
 - `public/brand/threatfade-mark-on-dark.svg`: exact supplied Signal Trace mark.
-- `public/favicon.svg` and `public/icon.svg`: exact supplied favicon artwork.
+- `public/favicon.svg`, `public/icon.svg` and `public/safari-pinned-tab.svg`: exact supplied browser icons.
 - `public/brand/brand.css` and `public/brand/colors.json`: canonical brand tokens.
 - `app/globals.css` and `config/design-system.ts`: site design-system integration.
 - `app/manifest.ts`: PWA theme and icon declarations.
