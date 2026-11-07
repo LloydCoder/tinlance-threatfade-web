@@ -4,8 +4,6 @@ import { docsSections } from "@/config/docs";
 import { researchArticles } from "@/content/research";
 import { seoTopics } from "@/config/seo-topics";
 
-const stableLastModified = new Date("2026-09-13T00:00:00.000Z");
-
 export default function sitemap(): MetadataRoute.Sitemap {
   const routes = [
     "/",
@@ -36,22 +34,21 @@ export default function sitemap(): MetadataRoute.Sitemap {
     changeFrequency: "monthly" as const,
     priority: 0.75,
   }));
+  // Do not emit a fabricated, repository-wide modification date for docs or
+  // taxonomy pages. Add lastModified only when content supplies real metadata.
   const docs = docsSections.map((doc) => ({
     url: `${siteConfig.url}/docs/${doc.slug}`,
-    lastModified: stableLastModified,
     changeFrequency: "monthly" as const,
     priority: 0.8,
   }));
   const topics = Object.keys(seoTopics).map((slug) => ({
     url: `${siteConfig.url}/detection/${slug}`,
-    lastModified: stableLastModified,
     changeFrequency: "monthly" as const,
     priority: 0.75,
   }));
   const entries = [
     ...routes.map((path) => ({
       url: `${siteConfig.url}${path}`,
-      lastModified: stableLastModified,
       changeFrequency: path === "/" ? ("weekly" as const) : ("monthly" as const),
       priority: path === "/" ? 1 : 0.7,
     })),

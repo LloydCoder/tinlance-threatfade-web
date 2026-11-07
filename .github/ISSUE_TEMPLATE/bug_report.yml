@@ -1,0 +1,85 @@
+name: Bug report
+description: Report a reproducible defect in the ThreatFade website or documentation.
+title: "[Bug]: "
+labels: ["bug", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Do not include credentials, tokens, customer data, packet captures or vulnerability exploit details. Report security issues privately using SECURITY.md.
+  - type: input
+    id: route
+    attributes:
+      label: Affected route or page
+      placeholder: /docs/getting-started
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Deployment or commit
+      description: Include the deployment URL or Git commit when known.
+    validations:
+      required: false
+  - type: dropdown
+    id: area
+    attributes:
+      label: Affected area
+      options:
+        - Marketing website
+        - Documentation
+        - Research
+        - Playground
+        - Authentication or account
+        - SOC workspace
+        - API integration
+        - Accessibility
+        - SEO or metadata
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Open ...
+        2. Select ...
+        3. Observe ...
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Browser and operating system
+      placeholder: Firefox 132 / Ubuntu 24.04
+    validations:
+      required: false
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Redacted screenshots, logs or additional context
+      description: Remove secrets and personal or customer information.
+    validations:
+      required: false
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Confirmations
+      options:
+        - label: I searched existing issues for duplicates.
+          required: true
+        - label: I removed secrets and sensitive information from this report.
+          required: true

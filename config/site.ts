@@ -10,7 +10,7 @@ export const siteConfig = {
   webRepository: "https://github.com/LloydCoder/tinlance-threatfade-web",
   version: "0.9.0-dev",
   engineApiVersion: "0.9.0-dev",
-  license: "Apache-2.0",
+  license: "MIT",
   navigation: [
     { label: "Product", href: "/product" },
     { label: "Detection", href: "/detection" },

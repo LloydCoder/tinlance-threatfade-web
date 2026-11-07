@@ -1,0 +1,62 @@
+# ThreatFade Web
+
+> Official ThreatFade website, documentation, research hub, interactive demonstrations and enterprise evaluation interface.
+
+ThreatFade Web is the Next.js companion to the ThreatFade detection engine. It presents product information, evidence-governed research, documentation, evaluation workflows and authenticated analyst interfaces. It is not the detection engine itself.
+
+## Project boundaries
+
+- Web repository: https://github.com/LloydCoder/tinlance-threatfade-web
+- Engine repository: https://github.com/LloydCoder/tinlance-threatfade
+- Canonical website: https://threatfade.com
+- Web source license: MIT
+- Engine source license: Apache-2.0, governed by the engine repository's LICENSE.
+
+The engine repository is authoritative for detection behavior, API contracts, validation evidence, integrations and security controls. Do not infer engine capabilities from marketing copy or this index.
+
+## Start here
+
+- [Web README](README.md): stack, architecture, development and repository boundaries.
+- [Getting started](content/docs/getting-started.mdx): product workflow and local engine entry point.
+- [Installation](content/docs/installation.mdx): local engine installation.
+- [Configuration](content/docs/configuration.mdx): identity, tenancy and persistence.
+- [Deployment](content/docs/deployment.mdx): production deployment boundaries.
+- [Documentation index](docs/README.md): public documentation map.
+- [Configuration reference](docs/reference/configuration.md): web and engine configuration boundaries.
+- [Architecture](docs/architecture.md): web application architecture.
+- [Engine/web compatibility](docs/ENGINE_WEB_COMPATIBILITY.md): integration contract and source-of-truth boundary.
+
+## Tutorials
+
+- [Getting started](content/docs/getting-started.mdx)
+- [Installation](content/docs/installation.mdx)
+
+## How-to guides
+
+- [Configuration](content/docs/configuration.mdx)
+- [Deployment](content/docs/deployment.mdx)
+- [Contributing](CONTRIBUTING.md)
+- [Support](SUPPORT.md)
+
+## Explanation
+
+- [Architecture](docs/architecture.md)
+- [Engine/web compatibility](docs/ENGINE_WEB_COMPATIBILITY.md)
+- [Brand identity](brand/README.md)
+- [Research and editorial governance](docs/research/editorial-governance.md)
+
+## Reference
+
+- [Web configuration reference](docs/reference/configuration.md)
+- [Security policy](SECURITY.md)
+- [Changelog](CHANGELOG.md)
+- [Repository settings](docs/REPOSITORY_SETTINGS.md)
+- [Engine source of truth](content/engine-truth.json)
+
+## Build and verification
+
+Use Node.js 20.19 or later and npm. Run `npm ci`, then `npm run dev`. The repository's CI commands are listed in [CONTRIBUTING.md](CONTRIBUTING.md) and the package scripts in [package.json](package.json).
+
+## Evidence and limitations
+
+The site distinguishes implemented, tested, adapter, planned and not-claimed states in its engine truth manifest. Synthetic regression results are not independent real-world validation. Automated CI is not certification or a substitute for independent security assessment.
