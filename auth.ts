@@ -1,6 +1,6 @@
 import NextAuth, { type NextAuthOptions, type Profile } from "next-auth";
 import type { OAuthConfig } from "next-auth/providers/oauth";
-import { engineIdentityRequest } from "@/lib/auth-engine";
+import { createEngineIdentitySession, engineIdentityRequest } from "@/lib/auth-engine";
 import { safeCallbackUrl } from "@/lib/auth-security";
 
 interface ThreatFadeProfile extends Profile {
@@ -114,13 +114,7 @@ export const authOptions: NextAuthOptions = {
           (account.expires_at ?? Math.floor(Date.now() / 1000) + 3600) * 1000 - 60_000;
         token.provider = account.provider;
         if (!token.tf_session) {
-          token.tf_session = (
-            await engineIdentityRequest<{ session_token: string }>(
-              "/enterprise/identity/sessions",
-              account.access_token,
-              { method: "POST" },
-            )
-          ).session_token;
+          token.tf_session = (await createEngineIdentitySession(account.access_token)).session_token;
         }
       } else if (
         typeof token.access_token === "string" &&
