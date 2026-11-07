@@ -7,6 +7,7 @@ describe("official ThreatFade brand identity", () => {
     expect(designSystem.brand.mark).toBe("Signal Trace");
     expect(designSystem.color.navy).toBe("#0B1220");
     expect(designSystem.color.navyRaised).toBe("#16233B");
+    expect(designSystem.color.panel).toBe("#16233B");
     expect(designSystem.color.mist).toBe("#E6EDF3");
     expect(designSystem.color.paper).toBe("#F4F6F8");
     expect(designSystem.color.signal).toBe("#F5A524");
