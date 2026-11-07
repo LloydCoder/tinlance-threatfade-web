@@ -33,13 +33,5 @@ jobs:
           node-version: 22
       - name: Install dependencies
         run: npm ci --no-audit --no-fund
-      - name: Format documentation for inspection
-        run: |
-          npx prettier --write CHANGELOG.md README.md SUPPORT.md docs/README.md docs/REPOSITORY_SETTINGS.md docs/reference/configuration.md
-          for file in CHANGELOG.md README.md SUPPORT.md docs/README.md docs/REPOSITORY_SETTINGS.md docs/reference/configuration.md; do
-            echo "===== BEGIN $file ====="
-            cat "$file"
-            echo "===== END $file ====="
-          done
       - name: Check formatting
         run: npm run format:check
