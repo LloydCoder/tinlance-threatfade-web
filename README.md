@@ -17,7 +17,7 @@
 
 ## Why ThreatFade Web
 
-ThreatFade Web is the public product and evaluation surface for the separate ThreatFade detection engine. It brings product information, technical documentation, evidence-governed research, interactive demonstrations and authenticated analyst workflows into one application.
+ThreatFade Web is an evidence-first public product and evaluation surface for the separate ThreatFade detection engine. It brings product information, technical documentation, evidence-governed research, interactive demonstrations and authenticated analyst workflows into one application.
 
 | Concern              | ThreatFade Web approach                                                                                                                     |
 | -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
