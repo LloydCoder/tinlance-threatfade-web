@@ -1,5 +1,11 @@
 # ThreatFade Web
 
+![ThreatFade Signal Trace](public/brand/threatfade-mark-on-dark.svg)
+
+**Official brand identity:** Signal Trace mark · Navy `#0B1220` · Mist `#E6EDF3` · Signal Amber `#F5A524` · Inter / JetBrains Mono.
+
+Brand source files and usage restrictions are documented in [brand/README.md](./brand/README.md). The supplied ThreatFade logo kit v1.0 is authoritative; do not redraw or retype the outlined wordmark.
+
 The official ThreatFade web platform: product discovery, documentation, security research, interactive demonstrations and enterprise evaluation.
 
 > ThreatFade is an evidence-first detection and investigation platform for adversarial activity that becomes intentionally less observable.

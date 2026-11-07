@@ -7,9 +7,10 @@ export default function manifest(): MetadataRoute.Manifest {
     description:
       "Evidence-first detection and investigation for adversarial activity that becomes less observable.",
     start_url: "/",
+    scope: "/",
     display: "standalone",
-    background_color: "#050608",
-    theme_color: "#050608",
-    icons: [{ src: "/icon.svg", sizes: "any", type: "image/svg+xml" }],
+    background_color: "#0B1220",
+    theme_color: "#0B1220",
+    icons: [{ src: "/favicon.svg", sizes: "any", type: "image/svg+xml", purpose: "any" }],
   };
 }

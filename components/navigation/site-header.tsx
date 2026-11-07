@@ -6,15 +6,23 @@ export function SiteHeader() {
   return (
     <header className="sticky top-0 z-50 border-b border-[var(--tf-line)] bg-[color-mix(in_srgb,var(--tf-canvas)_88%,transparent)] backdrop-blur-xl">
       <div className="mx-auto flex min-h-16 max-w-7xl items-center justify-between gap-4 px-5 lg:px-8">
-        <Link
-          href="/"
-          className="group flex shrink-0 items-center gap-3"
-          aria-label="ThreatFade home"
-        >
-          <span className="flex size-8 items-center justify-center rounded-md border border-[color-mix(in_srgb,var(--tf-signal)_35%,transparent)] bg-[var(--tf-signal-soft)] font-mono text-sm font-bold text-[var(--tf-signal)] transition group-hover:border-[var(--tf-signal)]">
-            TF
+        <Link href="/" className="group flex shrink-0 items-center" aria-label="ThreatFade home">
+          <span className="flex shrink-0 items-center gap-2" aria-hidden="true">
+            <img
+              src="/brand/threatfade-mark-on-dark.svg"
+              alt=""
+              width="50"
+              height="34"
+              className="h-[34px] w-[clamp(38px,12vw,50px)] object-contain"
+            />
+            <img
+              src="/brand/threatfade-wordmark-on-dark.svg"
+              alt=""
+              width="126"
+              height="22"
+              className="h-auto w-[clamp(82px,25vw,126px)] object-contain"
+            />
           </span>
-          <span className="font-mono text-sm font-semibold tracking-tight">THREATFADE</span>
         </Link>
         <nav className="hidden items-center gap-5 xl:flex" aria-label="Primary navigation">
           {siteConfig.navigation.map((item) => (
