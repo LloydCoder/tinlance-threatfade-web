@@ -19,13 +19,13 @@
 
 ThreatFade Web is the public product and evaluation surface for the separate ThreatFade detection engine. It brings product information, technical documentation, evidence-governed research, interactive demonstrations and authenticated analyst workflows into one application.
 
-| Concern | ThreatFade Web approach |
-|---|---|
-| Product truth | Engine capability and validation status are synchronized from the engine repository; the website must not invent detection claims. |
-| Evidence | Research content identifies its evidence class and limitations. Synthetic regression is not presented as independent real-world validation. |
-| Security boundary | Server-side API clients and analyst proxies preserve engine-side authentication, authorization and tenant decisions. |
-| User experience | Product, docs, research, evaluation and analyst workflows share a Next.js application. |
-| Open source boundary | This repository contains the website. Detection logic and engine contracts live in the separate engine repository. |
+| Concern              | ThreatFade Web approach                                                                                                                     |
+| -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| Product truth        | Engine capability and validation status are synchronized from the engine repository; the website must not invent detection claims.          |
+| Evidence             | Research content identifies its evidence class and limitations. Synthetic regression is not presented as independent real-world validation. |
+| Security boundary    | Server-side API clients and analyst proxies preserve engine-side authentication, authorization and tenant decisions.                        |
+| User experience      | Product, docs, research, evaluation and analyst workflows share a Next.js application.                                                      |
+| Open source boundary | This repository contains the website. Detection logic and engine contracts live in the separate engine repository.                          |
 
 ## Quick start
 
@@ -76,11 +76,11 @@ The CI workflow is authoritative for required checks. Playwright may require bro
 
 The website's server-side engine integration reads:
 
-| Variable | Purpose | Exposure |
-|---|---|---|
-| `THREATFADE_API_URL` | Engine API origin | Server only |
-| `THREATFADE_API_TIMEOUT_MS` | Request timeout override | Server only |
-| `THREATFADE_API_MAX_RETRIES` | Bounded retry override | Server only |
+| Variable                     | Purpose                  | Exposure    |
+| ---------------------------- | ------------------------ | ----------- |
+| `THREATFADE_API_URL`         | Engine API origin        | Server only |
+| `THREATFADE_API_TIMEOUT_MS`  | Request timeout override | Server only |
+| `THREATFADE_API_MAX_RETRIES` | Bounded retry override   | Server only |
 
 The implementation defaults are defined in `lib/api/client.ts`; consult [the configuration reference](docs/reference/configuration.md) before overriding them. Production engine URLs must use HTTPS.
 
@@ -88,16 +88,16 @@ Authenticated analyst requests forward the authenticated consumer bearer token t
 
 ## Features
 
-| Area | What the web application provides |
-|---|---|
-| Product | Product information, integrations, evaluation and enterprise pathways |
-| Documentation | Version-aware engine documentation and installation guidance |
-| Research | Searchable research library with evidence classes and editorial governance |
-| Playground | Curated demonstrations with untrusted-input boundaries |
-| SOC workspace | Engine-backed analyst workflows, evidence and case context where configured |
-| Commercial evaluation | Assessment, pilot, enterprise and managed-service information |
-| Conversion analytics | Privacy-conscious website event taxonomy and server-side event boundary |
-| SEO and discovery | Canonical metadata, sitemap, structured content and internal linking |
+| Area                  | What the web application provides                                           |
+| --------------------- | --------------------------------------------------------------------------- |
+| Product               | Product information, integrations, evaluation and enterprise pathways       |
+| Documentation         | Version-aware engine documentation and installation guidance                |
+| Research              | Searchable research library with evidence classes and editorial governance  |
+| Playground            | Curated demonstrations with untrusted-input boundaries                      |
+| SOC workspace         | Engine-backed analyst workflows, evidence and case context where configured |
+| Commercial evaluation | Assessment, pilot, enterprise and managed-service information               |
+| Conversion analytics  | Privacy-conscious website event taxonomy and server-side event boundary     |
+| SEO and discovery     | Canonical metadata, sitemap, structured content and internal linking        |
 
 Availability of authenticated or engine-backed features depends on deployment configuration and a compatible engine service. The website does not imply that every integration, commercial entitlement or payment workflow is enabled in every deployment.
 
@@ -128,18 +128,18 @@ The web application uses Next.js App Router, TypeScript, Tailwind CSS, MDX, Vite
 
 ## Documentation
 
-| Resource | Description |
-|---|---|
-| [Documentation index](docs/README.md) | Navigation by tutorials, how-to guides, explanation and reference |
-| [Getting started](content/docs/getting-started.mdx) | Product workflow and engine entry point |
-| [Installation](content/docs/installation.mdx) | Local engine installation |
-| [Configuration](content/docs/configuration.mdx) | Engine identity, tenancy and persistence |
-| [Deployment](content/docs/deployment.mdx) | Production deployment boundaries |
-| [Configuration reference](docs/reference/configuration.md) | Web/engine environment boundary |
-| [Architecture](docs/architecture.md) | Web application architecture |
-| [Engine/web compatibility](docs/ENGINE_WEB_COMPATIBILITY.md) | Integration contract and source-of-truth rules |
-| [Research editorial governance](docs/research/editorial-governance.md) | Evidence and publication standards |
-| [LLM project index](llms.txt) | Curated documentation entry points |
+| Resource                                                               | Description                                                       |
+| ---------------------------------------------------------------------- | ----------------------------------------------------------------- |
+| [Documentation index](docs/README.md)                                  | Navigation by tutorials, how-to guides, explanation and reference |
+| [Getting started](content/docs/getting-started.mdx)                    | Product workflow and engine entry point                           |
+| [Installation](content/docs/installation.mdx)                          | Local engine installation                                         |
+| [Configuration](content/docs/configuration.mdx)                        | Engine identity, tenancy and persistence                          |
+| [Deployment](content/docs/deployment.mdx)                              | Production deployment boundaries                                  |
+| [Configuration reference](docs/reference/configuration.md)             | Web/engine environment boundary                                   |
+| [Architecture](docs/architecture.md)                                   | Web application architecture                                      |
+| [Engine/web compatibility](docs/ENGINE_WEB_COMPATIBILITY.md)           | Integration contract and source-of-truth rules                    |
+| [Research editorial governance](docs/research/editorial-governance.md) | Evidence and publication standards                                |
+| [LLM project index](llms.txt)                                          | Curated documentation entry points                                |
 
 ## Repository boundaries and product truth
 
