@@ -62,3 +62,19 @@ export async function engineIdentityRequest<T>(
     clearTimeout(timer);
   }
 }
+
+/**
+ * Create the engine-owned opaque session after OIDC has authenticated the user.
+ * The engine's SessionCreate Pydantic model requires a JSON request body even
+ * though every field is optional, so send an explicit empty object when no
+ * organization has been selected yet.
+ */
+export function createEngineIdentitySession(
+  accessToken: string,
+): Promise<{ session_token: string }> {
+  return engineIdentityRequest<{ session_token: string }>(
+    "/enterprise/identity/sessions",
+    accessToken,
+    { method: "POST", body: {} },
+  );
+}
