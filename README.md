@@ -1,4 +1,4 @@
- <p align="center">
+<p align="center">
   <img src="public/brand/threatfade-wordmark-on-dark.svg" alt="ThreatFade — Network threat detection" width="420" />
 </p>
 
