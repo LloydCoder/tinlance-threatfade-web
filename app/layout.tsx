@@ -39,7 +39,10 @@ export const metadata: Metadata = {
     description: siteConfig.description,
   },
   robots: { index: true, follow: true },
-  icons: { icon: [{ url: "/favicon.svg", type: "image/svg+xml" }] },
+  icons: {
+    icon: [{ url: "/favicon.svg", type: "image/svg+xml" }],
+    other: [{ rel: "mask-icon", url: "/safari-pinned-tab.svg", color: "#0B1220" }],
+  },
 };
 
 const jsonLd = [organizationJsonLd(), softwareApplicationJsonLd(), websiteJsonLd()];
