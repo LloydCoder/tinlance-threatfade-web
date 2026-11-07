@@ -4,14 +4,14 @@ ThreatFade Web is the public website, documentation, research and evaluation int
 
 ## Where to get help
 
-| Need | Best channel |
-| --- | --- |
-| Installation or usage question | [Engine repository discussions](https://github.com/LloydCoder/tinlance-threatfade/discussions), when enabled |
-| Website defect | [Open a bug report](https://github.com/LloydCoder/tinlance-threatfade-web/issues/new?template=bug_report.yml) |
-| Documentation correction | [Open an issue](https://github.com/LloydCoder/tinlance-threatfade-web/issues) |
-| Feature proposal | [Open a feature request](https://github.com/LloydCoder/tinlance-threatfade-web/issues/new?template=feature_request.yml) |
-| Commercial or enterprise evaluation | [ThreatFade contact page](https://threatfade.com/contact) |
-| Security vulnerability | Follow [SECURITY.md](SECURITY.md) and email security@tinlance.com |
+| Need                                | Best channel                                                                                                            |
+| ----------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
+| Installation or usage question      | [Engine repository discussions](https://github.com/LloydCoder/tinlance-threatfade/discussions), when enabled            |
+| Website defect                      | [Open a bug report](https://github.com/LloydCoder/tinlance-threatfade-web/issues/new?template=bug_report.yml)           |
+| Documentation correction            | [Open an issue](https://github.com/LloydCoder/tinlance-threatfade-web/issues)                                           |
+| Feature proposal                    | [Open a feature request](https://github.com/LloydCoder/tinlance-threatfade-web/issues/new?template=feature_request.yml) |
+| Commercial or enterprise evaluation | [ThreatFade contact page](https://threatfade.com/contact)                                                               |
+| Security vulnerability              | Follow [SECURITY.md](SECURITY.md) and email security@tinlance.com                                                       |
 
 ## Before asking
 
