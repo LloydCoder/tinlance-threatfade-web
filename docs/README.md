@@ -4,37 +4,41 @@ This directory contains engineering, architecture, governance and operational do
 
 ## Start with the user journey
 
-| Need | Start here |
-| --- | --- |
-| Understand the product | [Getting started](../content/docs/getting-started.mdx) |
-| Install the engine locally | [Installation](../content/docs/installation.mdx) |
-| Configure identity and persistence | [Configuration](../content/docs/configuration.mdx) |
-| Deploy the engine | [Deployment](../content/docs/deployment.mdx) |
-| Understand web/engine boundaries | [Engine/web compatibility](ENGINE_WEB_COMPATIBILITY.md) |
-| Understand the web architecture | [Architecture](architecture.md) |
-| Review web and engine settings | [Configuration reference](reference/configuration.md) |
-| Report a vulnerability | [Security policy](../SECURITY.md) |
-| Contribute | [Contributing](../CONTRIBUTING.md) |
+| Need                               | Start here                                              |
+| ---------------------------------- | ------------------------------------------------------- |
+| Understand the product             | [Getting started](../content/docs/getting-started.mdx)  |
+| Install the engine locally         | [Installation](../content/docs/installation.mdx)        |
+| Configure identity and persistence | [Configuration](../content/docs/configuration.mdx)      |
+| Deploy the engine                  | [Deployment](../content/docs/deployment.mdx)            |
+| Understand web/engine boundaries   | [Engine/web compatibility](ENGINE_WEB_COMPATIBILITY.md) |
+| Understand the web architecture    | [Architecture](architecture.md)                         |
+| Review web and engine settings     | [Configuration reference](reference/configuration.md)   |
+| Report a vulnerability             | [Security policy](../SECURITY.md)                       |
+| Contribute                         | [Contributing](../CONTRIBUTING.md)                      |
 
 ## Diátaxis map
 
 ### Tutorials
+
 - [Getting started](../content/docs/getting-started.mdx)
 - [Installation](../content/docs/installation.mdx)
 
 ### How-to guides
+
 - [Configuration](../content/docs/configuration.mdx)
 - [Deployment](../content/docs/deployment.mdx)
 - [Contributing](../CONTRIBUTING.md)
 - [Repository settings](REPOSITORY_SETTINGS.md)
 
 ### Explanation
+
 - [Architecture](architecture.md)
 - [Engine/web compatibility](ENGINE_WEB_COMPATIBILITY.md)
 - [Research editorial governance](research/editorial-governance.md)
 - [Brand identity](../brand/README.md)
 
 ### Reference
+
 - [Configuration reference](reference/configuration.md)
 - [Engine truth manifest](../content/engine-truth.json)
 - [Public API integration](engine-api-integration.md)
