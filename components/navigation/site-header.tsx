@@ -8,11 +8,11 @@ export function SiteHeader() {
       <div className="mx-auto flex min-h-16 max-w-7xl items-center justify-between gap-4 px-5 lg:px-8">
         <Link href="/" className="group flex shrink-0 items-center" aria-label="ThreatFade home">
           <img
-            src="/brand/threatfade-mark-on-dark.svg"
-            alt="ThreatFade Signal Trace"
-            width="48"
-            height="34"
-            className="h-[34px] w-[50px] object-contain"
+            src="/brand/threatfade-horizontal-on-dark.svg"
+            alt="ThreatFade"
+            width="180"
+            height="36"
+            className="h-auto max-h-9 w-[clamp(112px,34vw,180px)] object-contain object-left"
           />
         </Link>
         <nav className="hidden items-center gap-5 xl:flex" aria-label="Primary navigation">
