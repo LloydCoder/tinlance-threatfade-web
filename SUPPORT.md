@@ -5,7 +5,7 @@ ThreatFade Web is the public website, documentation, research and evaluation int
 ## Where to get help
 
 | Need | Best channel |
-|---|---|
+| --- | --- |
 | Installation or usage question | [Engine repository discussions](https://github.com/LloydCoder/tinlance-threatfade/discussions), when enabled |
 | Website defect | [Open a bug report](https://github.com/LloydCoder/tinlance-threatfade-web/issues/new?template=bug_report.yml) |
 | Documentation correction | [Open an issue](https://github.com/LloydCoder/tinlance-threatfade-web/issues) |
