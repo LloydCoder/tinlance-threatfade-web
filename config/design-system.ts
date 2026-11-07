@@ -17,7 +17,7 @@ export const designSystem = {
     slateOnDark: "#94A3B8",
     ink: "#0B1220",
     canvas: "#0B1220",
-    panel: "#101B2D",
+    panel: "#16233B",
     panelRaised: "#16233B",
     line: "#26364F",
     lineStrong: "#40516B",
