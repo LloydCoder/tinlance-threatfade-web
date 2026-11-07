@@ -58,6 +58,7 @@ The audit found no published GitHub release for this web repository. Keep web re
 No official live Scorecard result was obtained during this audit. Run the official OpenSSF Scorecard action or CLI and review Branch-Protection, Code-Review, Pinned-Dependencies, Token-Permissions, Dangerous-Workflow, Security-Policy, CI-Tests, SAST and Vulnerabilities individually.
 
 References:
+
 - [OpenSSF Scorecard](https://scorecard.dev/)
 - [Scorecard checks](https://github.com/ossf/scorecard)
 - [GitHub community profile](https://docs.github.com/en/communities/setting-up-your-project-for-healthy-contributions/about-community-profiles-for-public-repositories)
